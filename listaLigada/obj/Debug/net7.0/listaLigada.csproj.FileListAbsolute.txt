@@ -1,0 +1,14 @@
+C:\Users\pc\Desktop\estruturas\listaLigada\bin\Debug\net7.0\listaLigada.exe
+C:\Users\pc\Desktop\estruturas\listaLigada\bin\Debug\net7.0\listaLigada.deps.json
+C:\Users\pc\Desktop\estruturas\listaLigada\bin\Debug\net7.0\listaLigada.runtimeconfig.json
+C:\Users\pc\Desktop\estruturas\listaLigada\bin\Debug\net7.0\listaLigada.dll
+C:\Users\pc\Desktop\estruturas\listaLigada\bin\Debug\net7.0\listaLigada.pdb
+C:\Users\pc\Desktop\estruturas\listaLigada\obj\Debug\net7.0\listaLigada.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc\Desktop\estruturas\listaLigada\obj\Debug\net7.0\listaLigada.AssemblyInfoInputs.cache
+C:\Users\pc\Desktop\estruturas\listaLigada\obj\Debug\net7.0\listaLigada.AssemblyInfo.cs
+C:\Users\pc\Desktop\estruturas\listaLigada\obj\Debug\net7.0\listaLigada.csproj.CoreCompileInputs.cache
+C:\Users\pc\Desktop\estruturas\listaLigada\obj\Debug\net7.0\listaLigada.dll
+C:\Users\pc\Desktop\estruturas\listaLigada\obj\Debug\net7.0\refint\listaLigada.dll
+C:\Users\pc\Desktop\estruturas\listaLigada\obj\Debug\net7.0\listaLigada.pdb
+C:\Users\pc\Desktop\estruturas\listaLigada\obj\Debug\net7.0\listaLigada.genruntimeconfig.cache
+C:\Users\pc\Desktop\estruturas\listaLigada\obj\Debug\net7.0\ref\listaLigada.dll
