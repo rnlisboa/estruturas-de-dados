@@ -1,0 +1,14 @@
+C:\Users\pc\Desktop\estruturas\PilhaRubroNegra\obj\Debug\net7.0\PilhaRubroNegra.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc\Desktop\estruturas\PilhaRubroNegra\obj\Debug\net7.0\PilhaRubroNegra.AssemblyInfoInputs.cache
+C:\Users\pc\Desktop\estruturas\PilhaRubroNegra\obj\Debug\net7.0\PilhaRubroNegra.AssemblyInfo.cs
+C:\Users\pc\Desktop\estruturas\PilhaRubroNegra\obj\Debug\net7.0\PilhaRubroNegra.csproj.CoreCompileInputs.cache
+C:\Users\pc\Desktop\estruturas\PilhaRubroNegra\bin\Debug\net7.0\PilhaRubroNegra.exe
+C:\Users\pc\Desktop\estruturas\PilhaRubroNegra\bin\Debug\net7.0\PilhaRubroNegra.deps.json
+C:\Users\pc\Desktop\estruturas\PilhaRubroNegra\bin\Debug\net7.0\PilhaRubroNegra.runtimeconfig.json
+C:\Users\pc\Desktop\estruturas\PilhaRubroNegra\bin\Debug\net7.0\PilhaRubroNegra.dll
+C:\Users\pc\Desktop\estruturas\PilhaRubroNegra\bin\Debug\net7.0\PilhaRubroNegra.pdb
+C:\Users\pc\Desktop\estruturas\PilhaRubroNegra\obj\Debug\net7.0\PilhaRubroNegra.dll
+C:\Users\pc\Desktop\estruturas\PilhaRubroNegra\obj\Debug\net7.0\refint\PilhaRubroNegra.dll
+C:\Users\pc\Desktop\estruturas\PilhaRubroNegra\obj\Debug\net7.0\PilhaRubroNegra.pdb
+C:\Users\pc\Desktop\estruturas\PilhaRubroNegra\obj\Debug\net7.0\PilhaRubroNegra.genruntimeconfig.cache
+C:\Users\pc\Desktop\estruturas\PilhaRubroNegra\obj\Debug\net7.0\ref\PilhaRubroNegra.dll
