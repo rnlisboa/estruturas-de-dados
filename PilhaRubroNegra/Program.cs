@@ -15,119 +15,114 @@ class Program{
         
         PilhaRubroNegra prb = new PilhaRubroNegra();
         
-        prb.PushVermelha(10);
-        prb.PushVermelha(20);
-        prb.PushVermelha(30);
-        prb.PushVermelha(40);
+        while(true){
+            Console.Write("Método: ");
+            int ic = int.Parse(Console.ReadLine()); 
+            Console.Write("Valor: ");
+            int v = int.Parse(Console.ReadLine());
+            if (ic == 1){
+                prb.PushRed(v);
+            }
 
-
-        prb.PushPreta(40);
-        prb.PushPreta(30);
-        prb.PushPreta(20);
-        prb.PushPreta(10);
-        prb.PushPreta(40);
-        Console.WriteLine(prb);
+            if(ic == 2){
+                prb.PushBlack(v);
+            }
+            prb.PrintRedBlackStack();
+            if(ic == 0) break;
+            
+        }
+        
     }
 
     class PilhaRubroNegra {
-        private int capacity = 20;
-        private int[] lista = new int[20];
-        PilhaPreta pp = new PilhaPreta();
-        PilhaVermelha pv = new PilhaVermelha();
+        private int capacity = 2;
+        private int[] list = new int[2];
+        BlackStack pp = new BlackStack();
+        RedStack pv = new RedStack();
 
         public void IncreaseSizeList(){
             int newCapacity = this.capacity*=2;
-            int[] newList = new int[capacity];
-            int[] auxList = lista;
-            bool sameSize = pp.GetSize() == pv.GetSize();
-            if(sameSize){
-                int topVermelha = pv.GetTop();
-                for (int i = 0; i <= topVermelha; i++){
-                    newList[i] = lista[i];
-                }
-
-                int topPreta = pp.GetTop();
-                for (int i = capacity - 1; i >= capacity - topPreta - 1; i--){
-                    newList[i] = lista[i];
-                }
+            int[] newList = new int[newCapacity];
+            
+            
+            int topRed = pv.GetTop();
+            for (int i = 0; i <= topRed; i++){
+                newList[i] = list[i];
             }
+
+            int topBlack = pp.GetTop();
+            int lastBlack = this.capacity;
+            for(int i = this.capacity - 1; i >= topBlack; i--){
+                newList[lastBlack] = list[i];
+                lastBlack--;
+            }
+
+            this.capacity = newCapacity;
+            list = newList;
         }
         
-        public void PushVermelha(int v){
-            IncreaseSizeList();
-            pv.IncrementTop();
-            pv.IncrementSize();
-            int top = pv.GetTop();
-            int size = pv.GetSize();
-            lista[top] = v;
+        public void PushRed(int v){
+            if(pp.GetSize() + pv.GetSize() == this.capacity){
+                //IncreaseSizeList();
+                Console.WriteLine("Sem espaço");
+            }
+            else{
+                pv.IncrementTop();
+                pv.IncrementSize();
+                int top = pv.GetTop();
+                list[top] = v;
+            }
+            
         }
 
-        public void PushPreta(int v){
-            IncreaseSizeList();
-            pp.IncrementTop();
-            pp.IncrementSize();
-            int top = pp.GetTop();
-            int size = pp.GetSize();
-            lista[this.capacity - top - 1] = v;
+        public void PushBlack(int v){
+            if(pp.GetSize() + pv.GetSize() == this.capacity){
+                //IncreaseSizeList();
+                Console.WriteLine("Sem espaço");
+            } else {
+                pp.IncrementTop();
+                pp.IncrementSize();
+                int top = pp.GetTop();
+            
+                list[this.capacity - top - 1] = v;
+            }
         }
 
-        public override string ToString(){
-            string elementos = "";
-            int topVermelha = pv.GetTop();
-            for (int i = 0; i <= topVermelha; i++)
-                elementos += lista[i] + " ";
-            int topPreta = pp.GetTop();
-            for (int i = capacity - 1; i >= capacity - topPreta - 1; i--)
-                elementos += lista[i] + " ";
-            return elementos;
+        public void PrintRedBlackStack(){
+            for(int i = 0; i < capacity; i++)
+                Console.Write($"{list[i]}, ");
+            Console.WriteLine();
         }
+
     }
 
-    class PilhaVermelha {
-        private int top = -1;
-        private int size = 0;
+    class RedStack : BaseStack {
 
-        public int GetTop() {
-            return top;
-        }
+    }
 
-        public void IncrementTop() {
-            this.top++;
-        }
+    class BlackStack : BaseStack {
 
-        public int GetSize() {
-            return size;
-        }
-
-        public void IncrementSize() {
-            this.size++;
-        }
+    }
 
 }
 
-class PilhaPreta {
-    private int top = -1;
-    private int size = 0;
-   
+class BaseStack {
+    protected int top = -1;
+    protected int size = 0;
 
-    public int GetTop() {
+    public int GetTop(){
         return top;
     }
 
-    public void IncrementTop() {
+    public void IncrementTop(){
         this.top++;
     }
 
-    public int GetSize() {
+    public int GetSize(){
         return size;
     }
 
-    public void IncrementSize() {
+    public void IncrementSize(){
         this.size++;
     }
-
-}
-
-
-    
 }
