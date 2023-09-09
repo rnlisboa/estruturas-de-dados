@@ -1,128 +1,118 @@
 ﻿using System;
-// Projete uma classe que contenha duas pilhas, 
-// uma “vermelha” e outra “preta” e suas operações são adaptações “coloridas” 
-// das operações habituais sobre pilhas. Por exemplo, esta classe deve prover 
-// uma operação de push vermelha e uma operação de push preta. Usando um ÚNICO 
-// ARRAY cuja a capacidade é limitada por um tamanho N que é sempre maior do que 
-// os tamanhos somados das duas pilhas. A pilha “vermelha” pode começar no início do 
-// array e a pilha “preta” pode começar no final do array. Sempre que o array (que contém as duas pilhas) 
-// estiver cheio utilizar a estratégia de duplicação do tamanho do array.
 
-// OBS.: Submeter individualmente um arquivo PDF com a solução. O seu código deve estar identado, 
-// colorido (cores das principais IDES) e monoespaçado.
 class Program{
     public static void Main(){
         
         PilhaRubroNegra prb = new PilhaRubroNegra();
         
-        while(true){
-            Console.Write("Método: ");
-            int ic = int.Parse(Console.ReadLine()); 
-            Console.Write("Valor: ");
-            int v = int.Parse(Console.ReadLine());
-            if (ic == 1){
-                prb.PushRed(v);
-            }
+        prb.PushRed(10);
+        prb.PushBlack(80);
+        prb.PushRed(20);
+        prb.PushBlack(70);
+        prb.PushRed(30);
+        prb.PushBlack(60);
+        prb.PushBlack(50);
+        prb.PushRed(40);
+        prb.PushRed(50);
 
-            if(ic == 2){
-                prb.PushBlack(v);
-            }
-            prb.PrintRedBlackStack();
-            if(ic == 0) break;
-            
-        }
-        
+        prb.PrintRedBlackStack();
     }
 
     class PilhaRubroNegra {
         private int capacity = 2;
         private int[] list = new int[2];
-        BlackStack pp = new BlackStack();
-        RedStack pv = new RedStack();
+        private int redTop = -1;
+        private int redSize=0;
+        private int blackTop = 2;
+        private int blackSize=0;
+        
 
         public void IncreaseSizeList(){
-            int newCapacity = this.capacity*=2;
+            int newCapacity = this.capacity*2;
             int[] newList = new int[newCapacity];
-            
-            
-            int topRed = pv.GetTop();
-            for (int i = 0; i <= topRed; i++){
-                newList[i] = list[i];
+            int redTop = this.redTop;
+            for (int i = 0; i <= redTop; i++){ 
+                newList[i] = list[i]; 
+            } 
+            int j = newCapacity - 1;
+  
+            for(int i = this.capacity - 1; i >= this.blackTop; i--){
+                newList[j--] = list[i];
             }
-
-            int topBlack = pp.GetTop();
-            int lastBlack = this.capacity;
-            for(int i = this.capacity - 1; i >= topBlack; i--){
-                newList[lastBlack] = list[i];
-                lastBlack--;
-            }
-
             this.capacity = newCapacity;
-            list = newList;
+            this.blackTop = j + 1;
+            this.list = newList;
         }
         
-        public void PushRed(int v){
-            if(pp.GetSize() + pv.GetSize() == this.capacity){
-                //IncreaseSizeList();
-                Console.WriteLine("Sem espaço");
-            }
-            else{
-                pv.IncrementTop();
-                pv.IncrementSize();
-                int top = pv.GetTop();
-                list[top] = v;
-            }
-            
+        public void PushRed(int v){   
+            if(IsListFull()) 
+                IncreaseSizeList();
+            this.redTop++;
+            this.redSize++;
+            list[this.redTop] = v;      
         }
 
-        public void PushBlack(int v){
-            if(pp.GetSize() + pv.GetSize() == this.capacity){
-                //IncreaseSizeList();
-                Console.WriteLine("Sem espaço");
-            } else {
-                pp.IncrementTop();
-                pp.IncrementSize();
-                int top = pp.GetTop();
-            
-                list[this.capacity - top - 1] = v;
-            }
+
+        public void PushBlack(int v){       
+            if(IsListFull()) 
+                IncreaseSizeList(); 
+            this.blackSize++;
+            this.blackTop--;
+            list[this.blackTop] = v;            
+        }
+
+        public void PopRed(){
+            if(IsRedStackEmpty()) throw new EPilhaVazia("Operação inválida: pilha vazia");
+            this.redTop--;
+        }
+
+        public void PopBlack(){
+            if(IsBlackStackEmpty()) throw new EPilhaVazia("Operação inválida: pilha vazia");
+            this.blackTop++;
+        }
+
+        public int SizeRed(){
+            return this.blackSize;
+        } 
+
+        public int SizeBlack(){
+            return this.blackSize;
+        }
+
+        public bool IsRedStackEmpty(){
+            return this.redTop == -1;
+        }
+
+        public bool IsBlackStackEmpty(){
+            return this.blackTop == list.Length - 1;
+        }
+
+        public int TopRed(){
+            if(IsRedStackEmpty()) throw new EPilhaVazia("Operação inválida: pilha vazia");
+            return this.redTop;
+        }
+
+        public int TopBlack(){
+            if(IsBlackStackEmpty()) throw new EPilhaVazia("Operação inválida: pilha vazia");
+            return this.blackTop;
+        }
+
+        public bool IsListFull(){
+            return this.blackSize + this.redSize == list.Length;
         }
 
         public void PrintRedBlackStack(){
-            for(int i = 0; i < capacity; i++)
+            for(int i = 0; i < list.Length; i++)
                 Console.Write($"{list[i]}, ");
             Console.WriteLine();
         }
-
     }
-
-    class RedStack : BaseStack {
-
-    }
-
-    class BlackStack : BaseStack {
-
-    }
-
 }
 
-class BaseStack {
-    protected int top = -1;
-    protected int size = 0;
-
-    public int GetTop(){
-        return top;
-    }
-
-    public void IncrementTop(){
-        this.top++;
-    }
-
-    public int GetSize(){
-        return size;
-    }
-
-    public void IncrementSize(){
-        this.size++;
-    }
+class EPilhaVazia : Exception {
+ 
+  public EPilhaVazia(string message) : base(message) {
+   
+  }
+  public EPilhaVazia(string message, Exception innerException) : base(message, innerException) { }
 }
