@@ -1,0 +1,16 @@
+C:\Users\20231014040028\Desktop\estruturas-de-dados\pilhaEncadeada\bin\Debug\net5.0\pilhaEncadeada.exe
+C:\Users\20231014040028\Desktop\estruturas-de-dados\pilhaEncadeada\bin\Debug\net5.0\pilhaEncadeada.deps.json
+C:\Users\20231014040028\Desktop\estruturas-de-dados\pilhaEncadeada\bin\Debug\net5.0\pilhaEncadeada.runtimeconfig.json
+C:\Users\20231014040028\Desktop\estruturas-de-dados\pilhaEncadeada\bin\Debug\net5.0\pilhaEncadeada.runtimeconfig.dev.json
+C:\Users\20231014040028\Desktop\estruturas-de-dados\pilhaEncadeada\bin\Debug\net5.0\pilhaEncadeada.dll
+C:\Users\20231014040028\Desktop\estruturas-de-dados\pilhaEncadeada\bin\Debug\net5.0\ref\pilhaEncadeada.dll
+C:\Users\20231014040028\Desktop\estruturas-de-dados\pilhaEncadeada\bin\Debug\net5.0\pilhaEncadeada.pdb
+C:\Users\20231014040028\Desktop\estruturas-de-dados\pilhaEncadeada\obj\Debug\net5.0\pilhaEncadeada.csproj.AssemblyReference.cache
+C:\Users\20231014040028\Desktop\estruturas-de-dados\pilhaEncadeada\obj\Debug\net5.0\pilhaEncadeada.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\20231014040028\Desktop\estruturas-de-dados\pilhaEncadeada\obj\Debug\net5.0\pilhaEncadeada.AssemblyInfoInputs.cache
+C:\Users\20231014040028\Desktop\estruturas-de-dados\pilhaEncadeada\obj\Debug\net5.0\pilhaEncadeada.AssemblyInfo.cs
+C:\Users\20231014040028\Desktop\estruturas-de-dados\pilhaEncadeada\obj\Debug\net5.0\pilhaEncadeada.csproj.CoreCompileInputs.cache
+C:\Users\20231014040028\Desktop\estruturas-de-dados\pilhaEncadeada\obj\Debug\net5.0\pilhaEncadeada.dll
+C:\Users\20231014040028\Desktop\estruturas-de-dados\pilhaEncadeada\obj\Debug\net5.0\ref\pilhaEncadeada.dll
+C:\Users\20231014040028\Desktop\estruturas-de-dados\pilhaEncadeada\obj\Debug\net5.0\pilhaEncadeada.pdb
+C:\Users\20231014040028\Desktop\estruturas-de-dados\pilhaEncadeada\obj\Debug\net5.0\pilhaEncadeada.genruntimeconfig.cache
