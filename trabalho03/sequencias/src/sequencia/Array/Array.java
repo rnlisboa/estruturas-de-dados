@@ -11,7 +11,7 @@ public class Array implements IArray {
         for(int i = 0; i < arraySize; i++){
             newList[i] = lista[i];
         }
-
+        capacity = newCapacity;
         lista = newList;
     }
     @Override
@@ -30,27 +30,58 @@ public class Array implements IArray {
     public void insertAtRank(int r, Object o) {
         
         int size = size();
-        System.out.println(size == lista.length);
         if(size == lista.length - 1) increaseList();
-
+        System.out.println(arraySize);
         for (int i = arraySize; i >= r; i--) {
             lista[i + 1] = lista[i];
+        }
+        
+        lista[r] = o;
+        arraySize++;
+    }
+
+    @Override
+    public Object removeAtRank(int r) {
+        Object lastInRank = lista[r];
+        for (int i = r; i <= lista.length - 2; i++) {
+            lista[i] = lista[i + 1];
+        }
+        arraySize--;
+        return lastInRank;
+    }
+
+    public int size() {
+        return arraySize;
+    }
+
+    @Override
+    public void insertBefore(int r, Object o) {
+        
+    }
+
+    @Override
+    public void insertAfter(int r, Object o) {
+        for (int i = lista.length - 2; i < r; i++) {
+            lista[i] = lista[i + 1];
+        }
+        lista[r + 1] = o;
+        arraySize++;
+    }
+
+    @Override
+    public void insertFirst(Object o) {
+        int r = 0;
+        for(int i = r; i <= lista.length - 2; i++){
+            lista[i] = lista[i + 1];
         }
         arraySize++;
         lista[r] = o;
     }
 
     @Override
-    public Object removeAtRank(int r) {
-        Object lastInRank = lista[r];
-        for (int i = lista.length - 1; i >= r; i--) {
-            lista[i] = lista[i - 1];
-        }
-        return lastInRank;
-    }
-
-    public int size() {
-        return arraySize;
+    public void insertLast(Object o) {
+        lista[arraySize + 1] = o;
+        arraySize++;
     }
 
     public void printList() {
@@ -67,5 +98,6 @@ public class Array implements IArray {
         System.out.print("}");
         System.out.println();
     }
+    
 
 }
