@@ -1,5 +1,4 @@
 package sequencia.Array;
-
 public class Array implements IArray {
     private int capacity = 2;
     private int arraySize;
@@ -56,13 +55,21 @@ public class Array implements IArray {
 
     @Override
     public void insertBefore(int r, Object o) {
-        
+        int size = size();
+        if(size == lista.length - 1) increaseList();
+        for (int i = lista.length - 2; i >= r; i--) {
+            lista[i + 1] = lista[i];
+        }
+        lista[r] = o;
+        arraySize++;
     }
 
     @Override
     public void insertAfter(int r, Object o) {
-        for (int i = lista.length - 2; i < r; i++) {
-            lista[i] = lista[i + 1];
+        int size = size();
+        if(size == lista.length - 1) increaseList();
+        for (int i = lista.length - 2; i > r; i--) {
+            lista[i + 1] = lista[i];
         }
         lista[r + 1] = o;
         arraySize++;
@@ -70,17 +77,24 @@ public class Array implements IArray {
 
     @Override
     public void insertFirst(Object o) {
-        int r = 0;
-        for(int i = r; i <= lista.length - 2; i++){
-            lista[i] = lista[i + 1];
+        int size = size();
+        if(size == lista.length - 1) increaseList();
+        for(int i = lista.length - 2; i >= 0; i--){
+            lista[i + 1] = lista[i];
         }
         arraySize++;
-        lista[r] = o;
+        lista[0] = o;
+    }
+
+    public void retornaSize(){
+        System.out.println(arraySize);
     }
 
     @Override
     public void insertLast(Object o) {
-        lista[arraySize + 1] = o;
+        int size = size();
+        if(size == lista.length - 1) increaseList();
+        lista[arraySize] = o;
         arraySize++;
     }
 

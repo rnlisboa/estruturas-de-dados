@@ -1,0 +1,14 @@
+C:\Users\pc\Desktop\estruturas\pilhaEncadeada\obj\Debug\net7.0\pilhaEncadeada.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc\Desktop\estruturas\pilhaEncadeada\obj\Debug\net7.0\pilhaEncadeada.AssemblyInfoInputs.cache
+C:\Users\pc\Desktop\estruturas\pilhaEncadeada\obj\Debug\net7.0\pilhaEncadeada.AssemblyInfo.cs
+C:\Users\pc\Desktop\estruturas\pilhaEncadeada\obj\Debug\net7.0\pilhaEncadeada.csproj.CoreCompileInputs.cache
+C:\Users\pc\Desktop\estruturas\pilhaEncadeada\bin\Debug\net7.0\pilhaEncadeada.exe
+C:\Users\pc\Desktop\estruturas\pilhaEncadeada\bin\Debug\net7.0\pilhaEncadeada.deps.json
+C:\Users\pc\Desktop\estruturas\pilhaEncadeada\bin\Debug\net7.0\pilhaEncadeada.runtimeconfig.json
+C:\Users\pc\Desktop\estruturas\pilhaEncadeada\bin\Debug\net7.0\pilhaEncadeada.dll
+C:\Users\pc\Desktop\estruturas\pilhaEncadeada\bin\Debug\net7.0\pilhaEncadeada.pdb
+C:\Users\pc\Desktop\estruturas\pilhaEncadeada\obj\Debug\net7.0\pilhaEncadeada.dll
+C:\Users\pc\Desktop\estruturas\pilhaEncadeada\obj\Debug\net7.0\refint\pilhaEncadeada.dll
+C:\Users\pc\Desktop\estruturas\pilhaEncadeada\obj\Debug\net7.0\pilhaEncadeada.pdb
+C:\Users\pc\Desktop\estruturas\pilhaEncadeada\obj\Debug\net7.0\pilhaEncadeada.genruntimeconfig.cache
+C:\Users\pc\Desktop\estruturas\pilhaEncadeada\obj\Debug\net7.0\ref\pilhaEncadeada.dll

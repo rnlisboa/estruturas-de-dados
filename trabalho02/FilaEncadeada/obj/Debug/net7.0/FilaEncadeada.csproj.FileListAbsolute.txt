@@ -1,0 +1,14 @@
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaEncadeada\obj\Debug\net7.0\FilaEncadeada.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaEncadeada\obj\Debug\net7.0\FilaEncadeada.AssemblyInfoInputs.cache
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaEncadeada\obj\Debug\net7.0\FilaEncadeada.AssemblyInfo.cs
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaEncadeada\obj\Debug\net7.0\FilaEncadeada.csproj.CoreCompileInputs.cache
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaEncadeada\bin\Debug\net7.0\FilaEncadeada.exe
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaEncadeada\bin\Debug\net7.0\FilaEncadeada.deps.json
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaEncadeada\bin\Debug\net7.0\FilaEncadeada.runtimeconfig.json
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaEncadeada\bin\Debug\net7.0\FilaEncadeada.dll
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaEncadeada\bin\Debug\net7.0\FilaEncadeada.pdb
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaEncadeada\obj\Debug\net7.0\FilaEncadeada.dll
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaEncadeada\obj\Debug\net7.0\refint\FilaEncadeada.dll
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaEncadeada\obj\Debug\net7.0\FilaEncadeada.pdb
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaEncadeada\obj\Debug\net7.0\FilaEncadeada.genruntimeconfig.cache
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaEncadeada\obj\Debug\net7.0\ref\FilaEncadeada.dll

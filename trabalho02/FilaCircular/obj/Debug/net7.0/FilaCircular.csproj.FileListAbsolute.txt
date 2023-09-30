@@ -1,0 +1,14 @@
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaCircular\obj\Debug\net7.0\FilaCircular.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaCircular\obj\Debug\net7.0\FilaCircular.AssemblyInfoInputs.cache
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaCircular\obj\Debug\net7.0\FilaCircular.AssemblyInfo.cs
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaCircular\obj\Debug\net7.0\FilaCircular.csproj.CoreCompileInputs.cache
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaCircular\bin\Debug\net7.0\FilaCircular.exe
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaCircular\bin\Debug\net7.0\FilaCircular.deps.json
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaCircular\bin\Debug\net7.0\FilaCircular.runtimeconfig.json
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaCircular\bin\Debug\net7.0\FilaCircular.dll
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaCircular\bin\Debug\net7.0\FilaCircular.pdb
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaCircular\obj\Debug\net7.0\FilaCircular.dll
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaCircular\obj\Debug\net7.0\refint\FilaCircular.dll
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaCircular\obj\Debug\net7.0\FilaCircular.pdb
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaCircular\obj\Debug\net7.0\FilaCircular.genruntimeconfig.cache
+C:\Users\pc\Desktop\estruturas\trabalho02\FilaCircular\obj\Debug\net7.0\ref\FilaCircular.dll
