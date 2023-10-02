@@ -1,5 +1,7 @@
-package sequencia.Array;
-public class Array implements IArray {
+package sequencia.Vetor;
+import sequencia.EListaVazia.EListaVazia;
+
+public class Vetor implements IVetor {
     private int capacity = 2;
     private int arraySize;
     private Object[] lista = new Object[2];
@@ -41,6 +43,8 @@ public class Array implements IArray {
 
     @Override
     public Object removeAtRank(int r) {
+        int size = size();
+        if(size == 0) throw new EListaVazia("Operação inválida. Lista vazia");
         Object lastInRank = lista[r];
         for (int i = r; i <= lista.length - 2; i++) {
             lista[i] = lista[i + 1];
@@ -86,9 +90,6 @@ public class Array implements IArray {
         lista[0] = o;
     }
 
-    public void retornaSize(){
-        System.out.println(arraySize);
-    }
 
     @Override
     public void insertLast(Object o) {

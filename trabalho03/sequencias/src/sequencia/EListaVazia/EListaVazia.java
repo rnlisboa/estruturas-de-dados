@@ -1,6 +1,6 @@
 package sequencia.EListaVazia;
 
-public class EListaVazia extends Exception {
+public class EListaVazia extends RuntimeException {
     public EListaVazia(String mensagem) {
         super(mensagem);
     }

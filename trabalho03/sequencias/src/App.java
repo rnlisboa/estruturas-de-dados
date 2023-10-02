@@ -1,35 +1,18 @@
-import sequencia.Array.Array;
+import sequencia.VetorEncadeado.VetorEncadeado;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        Array array = new Array();
-        array.removeAtRank(30);
-        for(int i = 0; i < 10; i++){
-            array.insertAtRank(i, i+5);
-        }
-        System.out.println(array.elementAtRank(2));
-        array.printList();
-        Object elementoRemovido = array.replaceAtRank(3, 21);
-        System.out.println("Elemento removido por replace: " + elementoRemovido);
-        array.printList();
-        System.out.println("Operação de insertAtRank");
-        array.insertAtRank(4, 78);
-        array.printList();
-        System.out.println("Operação de insertAfter");
-        array.insertAfter(3, 88);
-        array.printList();
-        System.out.println("Operação de insertBefore");
-        array.insertBefore(10, 101);
-        array.printList();
-        System.out.println("Operação de insertFirst");
-        array.insertFirst(10010);
-        array.printList();
-        array.retornaSize();
-        System.out.println("Operação de insertLast");
-        array.insertLast(8080);
-        array.printList();
-        System.out.println("Operação de insertLast");
-        array.insertLast(8080);
-        array.printList();
+        VetorEncadeado vetorEncadeado = new VetorEncadeado();
+        vetorEncadeado.setInitialState();
+        for(int i = 1; i <= 100; i+=10)
+            vetorEncadeado.insertLast(i);
+        vetorEncadeado.print();
+        vetorEncadeado.insertAtRank(0, 171);
+        vetorEncadeado.insertAfter(5, 555);
+        vetorEncadeado.insertBefore(7, 777);
+        vetorEncadeado.replaceAtRank(10, 1111);
+        vetorEncadeado.removeAtRank(3);
+        vetorEncadeado.insertFirst(29);
+        vetorEncadeado.print();
     }
 }

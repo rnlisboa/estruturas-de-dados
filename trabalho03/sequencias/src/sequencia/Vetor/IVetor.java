@@ -1,6 +1,6 @@
-package sequencia.Array;
+package sequencia.Vetor;
 
-public interface IArray {
+public interface IVetor {
     public Object elementAtRank(int r);
     public Object replaceAtRank(int r, Object o);
     public void insertAtRank(int r, Object o);
