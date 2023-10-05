@@ -33,8 +33,7 @@ public class VetorEncadeado implements IVetor {
         int index = 0;
         while(atual != fim){
             if(index == r){ 
-                return atual;
-                
+                return atual;               
             }
             atual = atual.getNext();
             index++;
