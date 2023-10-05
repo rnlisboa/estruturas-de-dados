@@ -17,16 +17,20 @@ public class Lista implements ILista {
 
     @Override
     public Object first() {
+        if(arraySize == 0) throw new EListaVazia("Lista vazia");
         return lista[0];
     }
     
     @Override
     public Object last() {
-        return lista[arraySize];
+        if(arraySize == 0) throw new EListaVazia("Lista vazia");
+        return lista[arraySize-1];
     }
     
     @Override
     public Object before(Object p) {
+        int indexp = indexOf(p);
+        if(indexp == -1) throw new ENotFoundInList("Elemento não consta na lista");
         Object elemento = 0;
         Object i = lista[0];
         int index = 0;
@@ -39,6 +43,8 @@ public class Lista implements ILista {
     
     @Override
     public Object after(Object p) {
+        int indexp = indexOf(p);
+        if(indexp == -1) throw new ENotFoundInList("Elemento não consta na lista");
         Object elemento = 0;
         Object i = lista[0];
         int index = 0;
@@ -51,36 +57,48 @@ public class Lista implements ILista {
     
     @Override
     public void replaceElement(Object n, Object o) {
-        int i = 0;
-        while(true){
-            Object atual = lista[i];
-            if(atual == n) lista[i] = o;
-            i++;
-        }
-    }
-    
-    @Override
-    public void swapElements(Object n, Object q) {
-        for(int i = 0; i <= arraySize; i++){
-            Object atual = lista[i];
-            
-            if(atual == n){
-                System.out.println(atual);
-                for(int j = 0; j <= arraySize; j++){
-                    Object trocaPor = lista[j];
-                    if(trocaPor == q) {
-                        System.out.println(trocaPor);
-                        lista[i] = q;
-                        lista[j] = n;
-                        break;
-                    }
-                }
+        int index = indexOf(n);
+        if(index == -1) throw new ENotFoundInList("Elemento não consta na lista");
+        int indexA = indexOf(o);
+        if(indexA == -1) throw new ENotFoundInList("Elemento não consta na lista");
+        for(int i = 0; i < arraySize; i++){
+            if(lista[i] == n){
+                lista[i] = o;
+                break;
             }
         }
     }
     
     @Override
+    public void swapElements(Object n, Object q) {
+        int index = indexOf(n);
+        if(index == -1) throw new ENotFoundInList("Elemento não consta na lista");
+        int indexA = indexOf(q);
+        if(indexA == -1) throw new ENotFoundInList("Elemento não consta na lista");
+        
+        int indexN = 0;       
+        for(int i = 0; i < arraySize; i++){
+            if(lista[i].equals(n)){
+                indexN = i;
+                break;
+            }
+        }
+        int indexQ = 0;
+        for(int i = 0; i < arraySize; i++){
+            if(lista[i].equals(q)){
+                indexQ = i;
+                break;
+            }
+        }
+
+        lista[indexN] = q;
+        lista[indexQ] = n;
+    }
+    
+    @Override
     public void insertBefore(Object n, Object o) {
+        int index = indexOf(n);
+        if(index == -1) throw new ENotFoundInList("Elemento não consta na lista");
         int size = size();
         if(size == lista.length - 1) increaseList();
         for(int i = 0; i < arraySize; i++){
@@ -97,6 +115,8 @@ public class Lista implements ILista {
     
     @Override
     public void insertAfter(Object n, Object o) {
+        int index = indexOf(n);
+        if(index == -1) throw new ENotFoundInList("Elemento não consta na lista");
         int size = size();
         if(size == lista.length - 1) increaseList();
         for(int i = 0; i < arraySize; i++){
@@ -113,7 +133,11 @@ public class Lista implements ILista {
     
     @Override
     public void insertFirst(Object o) {
-        
+        for(int i = arraySize - 1; i >=0 ; i--){
+            lista[i + 1] = lista[i];
+        }
+        lista[0] = o;
+        arraySize++;
     }
     
     @Override
@@ -123,10 +147,25 @@ public class Lista implements ILista {
         lista[arraySize] = o;
         arraySize++;
     }
+
+    public int indexOf(Object n){
+        for(int i = 0; i < arraySize; i++){
+            if(lista[i] == n) return i;
+        }
+        return -1;
+    }
     
     @Override
     public Object remove(Object n) {
-        return 0;
+        int index = indexOf(n);
+        if(index == -1) throw new ENotFoundInList("Elemento não consta na lista");
+        for(int i = 0; i < arraySize; i++){
+            if(i >= index){
+                lista[i] = lista[i + 1];
+            }
+        }
+        arraySize--;
+        return n;
     }
 
     public int size(){
