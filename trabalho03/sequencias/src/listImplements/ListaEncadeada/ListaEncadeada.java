@@ -1,17 +1,27 @@
 package listImplements.ListaEncadeada;
 
+import Node.Node;
 import interfaces.ILista;
 
 public class ListaEncadeada implements ILista{
+    Node inicio = new Node();
+    Node fim = new Node();
 
-    @Override
-    public Object first() {
-        return 0;
+    public void setInitialState() {
+        inicio.setNext(fim);
+        fim.setPrev(inicio);
     }
 
     @Override
-    public Object last() {
-        return 0;
+    public Object first() {
+        Node first = inicio.getNext();
+        return first.getValue();
+    }
+
+    @Override
+    public Object last(){
+        Node last = fim.getPrev();
+        return last.getValue();
     }
 
     @Override
