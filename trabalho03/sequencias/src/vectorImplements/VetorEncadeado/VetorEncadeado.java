@@ -1,6 +1,7 @@
-package sequencia.VetorEncadeado;
+package vectorImplements.VetorEncadeado;
 
-import sequencia.Vetor.IVetor;
+import Node.Node;
+import interfaces.IVetor;
 
 public class VetorEncadeado implements IVetor {
     private Node inicio = new Node();

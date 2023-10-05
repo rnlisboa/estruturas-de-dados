@@ -1,4 +1,4 @@
-package sequencia.Vetor;
+package interfaces;
 
 public interface IVetor {
     public Object elementAtRank(int r);

@@ -1,4 +1,4 @@
-package sequencia.VetorEncadeado;
+package Node;
 
 public class Node {
     private Object value;

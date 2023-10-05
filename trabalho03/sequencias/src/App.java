@@ -1,4 +1,4 @@
-import sequencia.Lista.Lista;
+import implementsList.Lista.Lista;
 
 public class App {
     public static void main(String[] args) throws Exception {

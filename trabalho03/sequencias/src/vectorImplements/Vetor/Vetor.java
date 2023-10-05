@@ -1,5 +1,6 @@
-package sequencia.Vetor;
-import sequencia.EListaVazia.EListaVazia;
+package vectorImplements.Vetor;
+import Exceptions.EListaVazia;
+import interfaces.IVetor;
 
 public class Vetor implements IVetor {
     private int capacity = 2;

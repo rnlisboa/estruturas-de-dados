@@ -1,4 +1,4 @@
-package sequencia.Lista;
+package interfaces;
 
 public interface ILista {
     public Object first();

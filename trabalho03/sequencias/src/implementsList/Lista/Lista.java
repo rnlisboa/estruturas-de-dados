@@ -1,4 +1,8 @@
-package sequencia.Lista;
+package implementsList.Lista;
+
+import Exceptions.EListaVazia;
+import Exceptions.ENotFoundInList;
+import interfaces.ILista;
 
 public class Lista implements ILista {
     private int capacity = 2;
