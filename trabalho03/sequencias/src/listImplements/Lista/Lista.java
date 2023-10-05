@@ -1,4 +1,4 @@
-package implementsList.Lista;
+package listImplements.Lista;
 
 import Exceptions.EListaVazia;
 import Exceptions.ENotFoundInList;
