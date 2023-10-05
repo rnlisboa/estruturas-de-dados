@@ -35,13 +35,8 @@ public class Lista implements ILista {
     public Object before(Object p) {
         int indexp = indexOf(p);
         if(indexp == -1) throw new ENotFoundInList("Elemento não consta na lista");
-        Object elemento = 0;
-        Object i = lista[0];
-        int index = 0;
-        while(i != p){
-            elemento = lista[index];
-            index++;
-        }
+        if(indexp == 0) return "Sem anterior";
+        Object elemento = lista[indexp - 1];
         return elemento;
     }
     
@@ -49,13 +44,8 @@ public class Lista implements ILista {
     public Object after(Object p) {
         int indexp = indexOf(p);
         if(indexp == -1) throw new ENotFoundInList("Elemento não consta na lista");
-        Object elemento = 0;
-        Object i = lista[0];
-        int index = 0;
-        while(i != p){
-            elemento = lista[index + 1];
-            index++;
-        }
+        if(indexp == arraySize - 1) return "Sem posterior";
+        Object elemento = lista[indexp + 1];
         return elemento;
     }
     
@@ -63,8 +53,7 @@ public class Lista implements ILista {
     public void replaceElement(Object n, Object o) {
         int index = indexOf(n);
         if(index == -1) throw new ENotFoundInList("Elemento não consta na lista");
-        int indexA = indexOf(o);
-        if(indexA == -1) throw new ENotFoundInList("Elemento não consta na lista");
+        
         for(int i = 0; i < arraySize; i++){
             if(lista[i] == n){
                 lista[i] = o;

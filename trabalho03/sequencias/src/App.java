@@ -35,5 +35,12 @@ public class App {
         System.out.println("Chamando o método insertFirst(554):");
         lista.insertFirst(554);
         lista.printList();
+
+        System.out.println("Chamando o método before(40):");
+        System.out.println(lista.before(40));
+
+        System.out.println("Chamando o método after(70):");
+        lista.after(70);
+        System.out.println(lista.after(70));
     }
 }
