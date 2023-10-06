@@ -1,8 +1,8 @@
-import listImplements.Lista.Lista;
+import listImplements.ListaEncadeada.ListaEncadeada;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        Lista lista = new Lista();
+        ListaEncadeada lista = new ListaEncadeada();
         
         // Inserir alguns elementos na lista
         for (int i = 0; i <= 100; i += 10) {
@@ -36,8 +36,8 @@ public class App {
         lista.insertFirst(554);
         lista.printList();
 
-        System.out.println("Chamando o método before(40):");
-        System.out.println(lista.before(40));
+        System.out.println("Chamando o método before(70):");
+        System.out.println(lista.before(70));
 
         System.out.println("Chamando o método after(70):");
         lista.after(70);

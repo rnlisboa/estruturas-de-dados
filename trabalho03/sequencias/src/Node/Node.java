@@ -28,6 +28,4 @@ public class Node {
     public Node getPrev(){
         return prev;
     }
-
-
 }
