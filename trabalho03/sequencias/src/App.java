@@ -43,4 +43,4 @@ public class App {
         lista.after(70);
         System.out.println(lista.after(70));
     }
-}
+} 

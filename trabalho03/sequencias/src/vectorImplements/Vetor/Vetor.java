@@ -58,47 +58,47 @@ public class Vetor implements IVetor {
         return arraySize;
     }
 
-    @Override
-    public void insertBefore(int r, Object o) {
-        int size = size();
-        if(size == lista.length - 1) increaseList();
-        for (int i = lista.length - 2; i >= r; i--) {
-            lista[i + 1] = lista[i];
-        }
-        lista[r] = o;
-        arraySize++;
-    }
+    // @Override
+    // public void insertBefore(int r, Object o) {
+    //     int size = size();
+    //     if(size == lista.length - 1) increaseList();
+    //     for (int i = lista.length - 2; i >= r; i--) {
+    //         lista[i + 1] = lista[i];
+    //     }
+    //     lista[r] = o;
+    //     arraySize++;
+    // }
 
-    @Override
-    public void insertAfter(int r, Object o) {
-        int size = size();
-        if(size == lista.length - 1) increaseList();
-        for (int i = lista.length - 2; i > r; i--) {
-            lista[i + 1] = lista[i];
-        }
-        lista[r + 1] = o;
-        arraySize++;
-    }
+    // @Override
+    // public void insertAfter(int r, Object o) {
+    //     int size = size();
+    //     if(size == lista.length - 1) increaseList();
+    //     for (int i = lista.length - 2; i > r; i--) {
+    //         lista[i + 1] = lista[i];
+    //     }
+    //     lista[r + 1] = o;
+    //     arraySize++;
+    // }
 
-    @Override
-    public void insertFirst(Object o) {
-        int size = size();
-        if(size == lista.length - 1) increaseList();
-        for(int i = lista.length - 2; i >= 0; i--){
-            lista[i + 1] = lista[i];
-        }
-        arraySize++;
-        lista[0] = o;
-    }
+    // @Override
+    // public void insertFirst(Object o) {
+    //     int size = size();
+    //     if(size == lista.length - 1) increaseList();
+    //     for(int i = lista.length - 2; i >= 0; i--){
+    //         lista[i + 1] = lista[i];
+    //     }
+    //     arraySize++;
+    //     lista[0] = o;
+    // }
 
 
-    @Override
-    public void insertLast(Object o) {
-        int size = size();
-        if(size == lista.length - 1) increaseList();
-        lista[arraySize] = o;
-        arraySize++;
-    }
+    // @Override
+    // public void insertLast(Object o) {
+    //     int size = size();
+    //     if(size == lista.length - 1) increaseList();
+    //     lista[arraySize] = o;
+    //     arraySize++;
+    // }
 
     public void printList() {
         System.out.print("{");
