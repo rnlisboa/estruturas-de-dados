@@ -133,7 +133,7 @@ public class ListaEncadeada implements IListaEncadeada {
     public Node findNode(Object n) {
         if(isEmpty()) throw new EListaVazia("Lista vazia");
         Node atual = inicio.getNext();
-        while (atual.equals(fim)) {
+        while (!atual.equals(fim)) {
             if (atual.getValue().equals(n)) {
                 return atual;
             }

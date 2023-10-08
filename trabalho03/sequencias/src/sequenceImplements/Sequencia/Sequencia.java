@@ -254,8 +254,10 @@ public class Sequencia implements ISequencia{
     }
     public Node findNode(Object n) {
         if(isEmpty()) throw new EListaVazia("Lista vazia");
+        System.out.println(n);
         Node atual = inicio.getNext();
-        while (atual.equals(fim)) {
+        while (!atual.equals(fim)) {
+            
             if (atual.getValue().equals(n)) {
                 return atual;
             }
