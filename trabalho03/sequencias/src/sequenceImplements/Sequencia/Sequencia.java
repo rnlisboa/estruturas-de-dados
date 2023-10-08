@@ -132,7 +132,6 @@ public class Sequencia implements ISequencia{
             fim.setPrev(node);
         } else {
             Node prevFim = fim.getPrev();
-            System.out.println(prevFim.getValue());
             node.setNext(fim);
             node.setPrev(prevFim);
             prevFim.setNext(node);
@@ -254,7 +253,6 @@ public class Sequencia implements ISequencia{
     }
     public Node findNode(Object n) {
         if(isEmpty()) throw new EListaVazia("Lista vazia");
-        System.out.println(n);
         Node atual = inicio.getNext();
         while (!atual.equals(fim)) {
             

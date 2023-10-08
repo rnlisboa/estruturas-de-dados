@@ -12,20 +12,18 @@ public class SequenceTest {
         sequencia.insertAfter(0, 15);
         sequencia.printList();
 
-        // System.out.println("Size: " + sequencia.size());
-        // System.out.println("isEmpty: " + sequencia.isEmpty());
-        // System.out.println("first: " + sequencia.first());
-        // System.out.println("last: " + sequencia.last());
-        // System.out.println("before(80): " + sequencia.before(75));
-        // System.out.println("after(75): " + sequencia.after(75));
+        System.out.println("Size: " + sequencia.size());
+        System.out.println("isEmpty: " + sequencia.isEmpty());
+        System.out.println("first: " + sequencia.first());
+        System.out.println("last: " + sequencia.last());
+        System.out.println("before(80): " + sequencia.before(80));
+        System.out.println("after(80): " + sequencia.after(80));
 
-        // sequencia.replaceElement(75, 99);
-        // sequencia.swapElements(80, 99);
 
-        // sequencia.printList();
+        sequencia.printList();
 
-        // System.out.println("Remove(99): " + sequencia.remove(99));
+        System.out.println("Remove(90): " + sequencia.remove(90));
 
-        // sequencia.printList();
+        sequencia.printList();
     }
 }
