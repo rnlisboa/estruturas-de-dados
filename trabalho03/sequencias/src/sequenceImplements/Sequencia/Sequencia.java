@@ -30,7 +30,7 @@ public class Sequencia implements ISequencia{
         Node node; 
         if(r <= size()/2){
             node = inicio.getNext();
-            for(int i = 0; i <= r; i++){
+            for(int i = 0; i < r; i++){
                 node = node.getNext();
             }
         }else{
@@ -139,7 +139,7 @@ public class Sequencia implements ISequencia{
         }
         size++;
     }
-
+    
     @Override
     public void insertAfter(Object n, Object o) {
         Node foundedNode = findNode(n);
@@ -174,7 +174,7 @@ public class Sequencia implements ISequencia{
 
     @Override
     public Object replaceAtRank(int r, Object o) {
-        Node actualAtRank = elementAtRank(r);
+        Node actualAtRank = atRank(r);
         actualAtRank.setValue(o);
         return actualAtRank;
     }
@@ -189,7 +189,7 @@ public class Sequencia implements ISequencia{
             node.setPrev(inicio);
             node.setNext(fim);
         } else {
-            Node actualAtRank = elementAtRank(r);
+            Node actualAtRank = atRank(r);
             node.setPrev(actualAtRank.getPrev());
             node.setNext(actualAtRank);
             actualAtRank.getPrev().setNext(node);
@@ -200,7 +200,7 @@ public class Sequencia implements ISequencia{
 
     @Override
     public Object removeAtRank(int r) {
-        Node actualAtRank = elementAtRank(r);
+        Node actualAtRank = atRank(r);
         actualAtRank.getNext().setPrev(actualAtRank.getPrev());
         actualAtRank.getPrev().setNext(actualAtRank.getNext());
         size--;

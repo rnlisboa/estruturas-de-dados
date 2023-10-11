@@ -25,5 +25,8 @@ public class SequenceTest {
         System.out.println("Remove(90): " + sequencia.remove(90));
 
         sequencia.printList();
+
+        sequencia.insertAtRank(3, 4545);
+        sequencia.printList();
     }
 }
