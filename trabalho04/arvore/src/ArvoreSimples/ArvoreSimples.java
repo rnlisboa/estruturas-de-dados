@@ -6,7 +6,7 @@ import Exceptions.InvalidNoException;
 import Interfaces.IArvoreSimples;
 import No.No;
 
-public class ArvoreSimples implements IArvoreSimples{
+public class ArvoreSimples implements IArvoreSimples {
 	No raiz;
 	int tamanho;
 	private int altura = 0;
@@ -16,36 +16,44 @@ public class ArvoreSimples implements IArvoreSimples{
 		tamanho = 1;
 	}
 
+	@Override
 	public No root() {
 		return raiz;
 	}
 
+	@Override
 	public No parent(No node) {
 		return node.parent();
 	}
 
+	@Override
 	public Iterator<No> children(No node) {
 		return node.children();
 	}
 
+	@Override
 	public boolean isInternal(No node) {
 		return node.childrenNumber() > 0;
 	}
 
+	@Override
 	public boolean isExternal(No node) {
 		return node.childrenNumber() == 0;
 	}
 
+	@Override
 	public boolean isRoot(No node) {
 		return node.equals(raiz);
 	}
 
+	@Override
 	public void addChild(No parent, Object o) {
 		No newNode = new No(parent, o);
 		parent.addChild(newNode);
 		tamanho++;
 	}
 
+	@Override
 	public Object remove(No node) throws InvalidNoException {
 		No parent = node.parent(); // retorna o pai do nó
 		if (parent != null || isExternal(node))
@@ -57,6 +65,7 @@ public class ArvoreSimples implements IArvoreSimples{
 		return o;
 	}
 
+	@Override
 	public void swapElements(No v, No w) {
 		Object elementoNo1 = v.element();
 		Object elementoNo2 = w.element();
@@ -64,31 +73,29 @@ public class ArvoreSimples implements IArvoreSimples{
 		w.setElement(elementoNo1);
 	}
 
+	@Override
 	public int depth(No node) {
 		int profundidade = profundidade(node);
 		return profundidade;
 	}
 
 	private int profundidade(No node) {
-		if (node.equals(raiz)) return 0;
-		else return 1 + profundidade(node.parent());
+		if (node.equals(raiz))
+			return 0;
+		else
+			return 1 + profundidade(node.parent());
 	}
-
-	
 
 	@Override
 	public int height() {
-
 		getHeigthOf(root().children());
 		return altura;
 	}
 
-	
-
 	@Override
 	public Iterator<Object> elements() {
 		ArrayList<Object> lista = new ArrayList<>();
-		addElementInList(raiz, lista); 
+		addElementInList(raiz, lista);
 		return lista.iterator();
 	}
 
@@ -115,37 +122,32 @@ public class ArvoreSimples implements IArvoreSimples{
 		v.setElement(o);
 		return elementoNo1;
 	}
-	
+
 	private Iterator<No> getHeigthOf(Iterator<No> childrens) {
 		while (childrens.hasNext()) {
 			No filho = childrens.next();
-			
 			int profundidade = profundidade(filho);
-			if(profundidade > this.altura) this.altura = profundidade;
-			return getHeigthOf(filho.children()); 
-				
-			}
+			if (profundidade > this.altura)
+				this.altura = profundidade;
+			return getHeigthOf(filho.children());
+		}
 		return null;
 	}
 
-	private void addElementInList(No node, ArrayList<Object> list){
-		if (node == null) {
+	private void addElementInList(No node, ArrayList<Object> list) {
+		if (node == null)
 			return;
-		}
-		list.add(node.element()); 
+		list.add(node.element());
 		Iterator<No> filhos = node.children();
 		while (filhos.hasNext()) {
 			No filho = filhos.next();
 			preOrdem(filho);
 		}
-
-		
 	}
 
-	private void addNodeInList(No node, ArrayList<No> list){
-		if (node == null) {
+	private void addNodeInList(No node, ArrayList<No> list) {
+		if (node == null)
 			return;
-		}
 		list.add(node);
 		Iterator<No> filhos = node.children();
 		while (filhos.hasNext()) {
@@ -153,19 +155,16 @@ public class ArvoreSimples implements IArvoreSimples{
 			preOrdem(filho);
 		}
 	}
-	
 
 	public void preOrdem(No node) {
-		if (node == null) {
+		if (node == null)
 			return;
-		}
-		System.out.println(node.element()); 
-	
+		System.out.println(node.element());
 		Iterator<No> filhos = node.children();
 		while (filhos.hasNext()) {
 			No filho = filhos.next();
 			preOrdem(filho);
 		}
 	}
-	
+
 }
