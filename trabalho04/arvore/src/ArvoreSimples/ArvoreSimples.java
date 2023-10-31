@@ -2,11 +2,13 @@ package ArvoreSimples;
 
 import java.util.Iterator;
 import Exceptions.InvalidNoException;
+import Interfaces.IArvoreSimples;
 import No.No;
 
-public class ArvoreSimples {
+public class ArvoreSimples implements IArvoreSimples{
 	No raiz;
 	int tamanho;
+	private int altura = 0;
 
 	public ArvoreSimples(Object o) {
 		raiz = new No(null, o);
@@ -43,7 +45,7 @@ public class ArvoreSimples {
 		tamanho++;
 	}
 
-	public Object remote(No node) throws InvalidNoException {
+	public Object remove(No node) throws InvalidNoException {
 		No parent = node.parent(); // retorna o pai do nó
 		if (parent != null || isExternal(node))
 			parent.removeChild(node);
@@ -55,7 +57,10 @@ public class ArvoreSimples {
 	}
 
 	public void swapElements(No v, No w) {
-
+		Object elementoNo1 = v.element();
+		Object elementoNo2 = w.element();
+		v.setElement(elementoNo2);
+		w.setElement(elementoNo1);
 	}
 
 	public int depth(No node) {
@@ -64,34 +69,82 @@ public class ArvoreSimples {
 	}
 
 	private int profundidade(No node) {
-		if (node.equals(raiz))
-			return 0;
-		else
-			return 1 + profundidade(node.parent());
+		if (node.equals(raiz)) return 0;
+		else return 1 + profundidade(node.parent());
 	}
 
-	public int altura() {
-		No node = root();
-		while (this.isInternal(node)) {
+	
 
-		}
-		int altura = 0;
-		return altura;
+	@Override
+	public int height() {
+		/*
+		 * recebe filhos do raiz
+		 * se raiz.children().length == 0 return 0;
+		 * acha o primeiro filho
+		 * se filho é externo, vai pro segundo filho
+		 * recebe filhos do primeiro filho
+		 * acha o primeiro filho
+		 */
+
+		this.getHeigthOf(root().children());
+		return this.altura;
 	}
 
-	public No findNode(No node) {
-		if (node.parent().equals(root())) {
-			No root = root();
-			Iterator<No> rootChildrens = root.children();
-			while (rootChildrens.hasNext()) {
-				No filho = rootChildrens.next();
-				if (filho.equals(node))
-					return node;
-			}
-		} else {
+	
+
+	@Override
+	public Iterator<No> elements() {
+		
+		return null;
+	}
+
+	@Override
+	public Iterator<No> Nos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int size() {
+		return tamanho;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return root().element() == null;
+	}
+
+	@Override
+	public Object replace(No v, Object o) {
+		Object elementoNo1 = v.element();
+		v.setElement(o);
+		return elementoNo1;
+	}
+	
+	private Iterator<No> getHeigthOf(Iterator<No> childrens) {
+		while (childrens.hasNext()) {
+			No filho = childrens.next();
 			
-		}
-
-		return findNode(node.parent());
+			int profundidade = profundidade(filho);
+			if(profundidade > this.altura) this.altura = profundidade;
+			return getHeigthOf(filho.children()); 
+				
+			}
+		
+		return null;
 	}
+
+	public void preOrdem(No node) {
+		if (node == null) {
+			return;
+		}
+		System.out.println(node.element()); 
+	
+		Iterator<No> filhos = node.children();
+		while (filhos.hasNext()) {
+			No filho = filhos.next();
+			preOrdem(filho);
+		}
+	}
+	
 }
