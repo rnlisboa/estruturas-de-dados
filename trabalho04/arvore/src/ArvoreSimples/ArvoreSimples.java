@@ -1,5 +1,6 @@
 package ArvoreSimples;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import Exceptions.InvalidNoException;
 import Interfaces.IArvoreSimples;
@@ -77,31 +78,25 @@ public class ArvoreSimples implements IArvoreSimples{
 
 	@Override
 	public int height() {
-		/*
-		 * recebe filhos do raiz
-		 * se raiz.children().length == 0 return 0;
-		 * acha o primeiro filho
-		 * se filho é externo, vai pro segundo filho
-		 * recebe filhos do primeiro filho
-		 * acha o primeiro filho
-		 */
 
-		this.getHeigthOf(root().children());
-		return this.altura;
+		getHeigthOf(root().children());
+		return altura;
 	}
 
 	
 
 	@Override
-	public Iterator<No> elements() {
-		
-		return null;
+	public Iterator<Object> elements() {
+		ArrayList<Object> lista = new ArrayList<>();
+		addElementInList(raiz, lista); 
+		return lista.iterator();
 	}
 
 	@Override
 	public Iterator<No> Nos() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<No> lista = new ArrayList<>();
+		addNodeInList(raiz, lista);
+		return lista.iterator();
 	}
 
 	@Override
@@ -130,9 +125,35 @@ public class ArvoreSimples implements IArvoreSimples{
 			return getHeigthOf(filho.children()); 
 				
 			}
-		
 		return null;
 	}
+
+	private void addElementInList(No node, ArrayList<Object> list){
+		if (node == null) {
+			return;
+		}
+		list.add(node.element()); 
+		Iterator<No> filhos = node.children();
+		while (filhos.hasNext()) {
+			No filho = filhos.next();
+			preOrdem(filho);
+		}
+
+		
+	}
+
+	private void addNodeInList(No node, ArrayList<No> list){
+		if (node == null) {
+			return;
+		}
+		list.add(node);
+		Iterator<No> filhos = node.children();
+		while (filhos.hasNext()) {
+			No filho = filhos.next();
+			preOrdem(filho);
+		}
+	}
+	
 
 	public void preOrdem(No node) {
 		if (node == null) {

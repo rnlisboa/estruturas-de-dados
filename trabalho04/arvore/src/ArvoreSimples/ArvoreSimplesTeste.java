@@ -7,15 +7,18 @@ import No.No;
 public class ArvoreSimplesTeste {
     public static void main(String[] args) {
         ArvoreSimples vSimples = new ArvoreSimples(10);
+        
         No raiz = vSimples.root();
         vSimples.addChild(raiz, 15);
         vSimples.addChild(raiz, 16);
         vSimples.addChild(raiz, 17);
+        
         Iterator<No> childrensRaiz = vSimples.root().children();
         while(childrensRaiz.hasNext()){
             No filho = childrensRaiz.next();
             add(filho);
         }
+        
         Iterator<No> childrensRaiz2 = vSimples.root().children();
         while(childrensRaiz2.hasNext()){
             No filho = childrensRaiz2.next();

@@ -15,7 +15,7 @@ public interface IArvoreSimples {
     void swapElements(No v, No w);
     int depth(No v);
     int height();
-    Iterator<No> elements();
+    Iterator<Object> elements();
     Iterator<No> Nos();
     int size();
     boolean isEmpty();
