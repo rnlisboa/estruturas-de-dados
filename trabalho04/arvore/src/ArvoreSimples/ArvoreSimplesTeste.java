@@ -20,7 +20,6 @@ public class ArvoreSimplesTeste {
         }
         
         Iterator<No> childrensRaiz2 = vSimples.root().children();
-        
         while(childrensRaiz2.hasNext()){
             No filho = childrensRaiz2.next();
             if(vSimples.isInternal(filho)){
@@ -31,9 +30,8 @@ public class ArvoreSimplesTeste {
                 }
             }
         }
-        
         //vSimples.preOrdem(raiz);
-        
+
         
     }
 
