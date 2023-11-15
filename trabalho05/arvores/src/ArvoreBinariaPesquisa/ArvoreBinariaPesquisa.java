@@ -43,8 +43,40 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
 
     @Override
     public No incluir(int key) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'incluir'");
+       
+        No no = includeAtPlace(key, getRaiz());
+        return no;
+    }
+
+    private No includeAtPlace(int key, No node) {
+        No newNode = new No(key);
+
+        if (node.isInternal()) {
+            if (key < node.element()) {
+                if (node.hasLeftChild())
+                    return includeAtPlace(key, node.leftChild());
+                else {
+                    node.setLeftChild(newNode);
+                    return newNode;
+                }
+            } else if (key > node.element()) {
+                if (node.hasRightChild()) {
+                    return includeAtPlace(key, node.righChild());
+                } else {
+                    node.setRightChild(newNode);
+                    return newNode;
+                }
+            } else {
+                return newNode;
+            }
+        } else {
+            if (key < node.element()) {
+                node.setLeftChild(newNode);
+                return newNode;
+            } else if (key > node.element())
+                node.setRightChild(newNode);
+            return newNode;
+        }
     }
 
     @Override
