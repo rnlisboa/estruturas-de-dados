@@ -149,14 +149,12 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'size'");
+        return this.size;
     }
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
+        return this.size == 0;
     }
     
 }
