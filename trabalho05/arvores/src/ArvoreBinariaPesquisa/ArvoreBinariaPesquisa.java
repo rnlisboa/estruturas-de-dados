@@ -7,23 +7,38 @@ import Interfaces.IArvoreBinariaPesquisa;
 import Node.No;
 
 public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
+    private No root;
+    private int hight = 0;
+    private int size = 0;
+    private Comparador comparador;
 
+    public ArvoreBinariaPesquisa(int key) {
+        No raiz = new No(key);
+        this.setRaiz(raiz);
+        this.hight = 0;
+        this.size = 0;
+    }
+    
     @Override
     public void setComparator(Comparador c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setComparator'");
+        this.comparador = c;
     }
 
     @Override
     public Comparador getComparador() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getComparador'");
+        return this.comparador;
     }
 
     @Override
-    public No pesquisar(int key, No no) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pesquisar'");
+    public No pesquisar(int key, No node) {
+        if (node.isExternal())
+            return node;
+        if (key < node.element()) {
+            return pesquisar(key, node.leftChild());
+        } else if (key == node.element())
+            return node;
+        else
+            return pesquisar(key, node.leftChild());
     }
 
     @Override
