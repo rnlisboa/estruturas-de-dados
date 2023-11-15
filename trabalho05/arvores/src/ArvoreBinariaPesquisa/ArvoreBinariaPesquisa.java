@@ -97,8 +97,12 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
 
     @Override
     public void emOrdem(No no) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'emOrdem'");
+        if (no.isInternal())
+            emOrdem(no.leftChild());
+        System.out.println(no.element());
+        if (no.isInternal()) {
+            emOrdem(no.righChild());
+        }
     }
 
     @Override
