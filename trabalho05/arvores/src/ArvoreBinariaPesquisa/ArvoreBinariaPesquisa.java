@@ -87,14 +87,12 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
 
     @Override
     public No getRaiz() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRaiz'");
+        return this.root;
     }
 
     @Override
     public void setRaiz(No p) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setRaiz'");
+        this.root = p;
     }
 
     @Override
