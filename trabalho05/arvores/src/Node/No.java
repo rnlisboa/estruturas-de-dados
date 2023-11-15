@@ -3,7 +3,7 @@ package Node;
 public class No {
     private No parent;
     private No leftChild;
-    private No righChild;
+    private No rightChild;
     private int element;
 
     public No(int element){
@@ -18,8 +18,8 @@ public class No {
         return this.leftChild;
     }
 
-    public No righChild(){
-        return this.righChild;
+    public No rightChild(){
+        return this.rightChild;
     }
 
     public int element(){
@@ -31,7 +31,7 @@ public class No {
     }
 
     public void setRightChild(No no){
-        this.righChild = no;
+        this.rightChild = no;
     }
 
     public boolean hasLeftChild(){
@@ -39,7 +39,7 @@ public class No {
     }
 
     public boolean hasRightChild(){
-        return this.righChild != null;
+        return this.rightChild != null;
     }
 
     public boolean isInternal(){

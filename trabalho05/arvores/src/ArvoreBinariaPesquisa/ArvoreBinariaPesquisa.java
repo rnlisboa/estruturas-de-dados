@@ -43,7 +43,6 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
 
     @Override
     public No incluir(int key) {
-       
         No no = includeAtPlace(key, getRaiz());
         return no;
     }
@@ -57,13 +56,15 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
                     return includeAtPlace(key, node.leftChild());
                 else {
                     node.setLeftChild(newNode);
+                    this.size++;
                     return newNode;
                 }
             } else if (key > node.element()) {
                 if (node.hasRightChild()) {
-                    return includeAtPlace(key, node.righChild());
+                    return includeAtPlace(key, node.rightChild());
                 } else {
                     node.setRightChild(newNode);
+                    this.size++;
                     return newNode;
                 }
             } else {
@@ -72,9 +73,12 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
         } else {
             if (key < node.element()) {
                 node.setLeftChild(newNode);
+                this.size++;
                 return newNode;
-            } else if (key > node.element())
+            } else if (key > node.element()){
                 node.setRightChild(newNode);
+                this.size++;
+            }
             return newNode;
         }
     }
@@ -101,38 +105,49 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
             emOrdem(no.leftChild());
         System.out.println(no.element());
         if (no.isInternal()) {
-            emOrdem(no.righChild());
+            emOrdem(no.rightChild());
         }
     }
 
     @Override
     public void preOrdem(No no) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'preOrdem'");
+        
     }
 
     @Override
     public void posOrdem(No no) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'posOrdem'");
+        
     }
 
     @Override
     public int altura(No no) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'altura'");
+        while(no.isInternal()){
+            
+        }
+        return 0;
     }
 
     @Override
     public int profundidade(No no) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'profundidade'");
+        if(no.equals(getRaiz())) return 0;
+        return 1 + profundidade(no.parent());
     }
 
     @Override
     public void mostrar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mostrar'");
+        System.out.println(scrollToShow(getRaiz()));
+    }
+
+    private No scrollToShow(No node){
+        System.out.println(node.element());
+        if(node.isInternal()){
+            if(node.hasLeftChild()) return scrollToShow(node.leftChild());
+            else if(node.hasRightChild()) return scrollToShow(node.rightChild());
+            else return null;
+        } else {
+            return null;
+        }
+
     }
 
     @Override
