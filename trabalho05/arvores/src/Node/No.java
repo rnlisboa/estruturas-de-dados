@@ -14,6 +14,10 @@ public class No {
         return this.parent;
     }
 
+    public void setParent(No no){
+        this.parent = no;
+    }
+
     public No leftChild(){
         return this.leftChild;
     }
@@ -42,10 +46,14 @@ public class No {
         return this.rightChild != null;
     }
 
+    public boolean hasParent(){
+        return this.parent != null;
+    }
+
     public boolean isInternal(){
-        if(this.hasLeftChild() == false || this.hasRightChild() == false)
-            return false;
-        else return true;
+        if(this.hasLeftChild() == true || this.hasRightChild() == true)
+            return true;
+        return false;
     }
 
     public boolean isExternal(){

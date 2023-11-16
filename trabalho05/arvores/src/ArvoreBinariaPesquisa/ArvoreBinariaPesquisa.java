@@ -1,12 +1,13 @@
 package ArvoreBinariaPesquisa;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import Comparador.Comparador;
 import Interfaces.IArvoreBinariaPesquisa;
 import Node.No;
 
-public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
+public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
     private No root;
     private int hight = 0;
     private int size = 0;
@@ -18,7 +19,7 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
         this.hight = 0;
         this.size = 0;
     }
-    
+
     @Override
     public void setComparator(Comparador c) {
         this.comparador = c;
@@ -56,6 +57,7 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
                     return includeAtPlace(key, node.leftChild());
                 else {
                     node.setLeftChild(newNode);
+                    newNode.setParent(node);
                     this.size++;
                     return newNode;
                 }
@@ -64,6 +66,7 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
                     return includeAtPlace(key, node.rightChild());
                 } else {
                     node.setRightChild(newNode);
+                    newNode.setParent(node);
                     this.size++;
                     return newNode;
                 }
@@ -73,13 +76,17 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
         } else {
             if (key < node.element()) {
                 node.setLeftChild(newNode);
+                newNode.setParent(node);
                 this.size++;
                 return newNode;
-            } else if (key > node.element()){
+            } else if (key > node.element()) {
                 node.setRightChild(newNode);
+                newNode.setParent(node);
                 this.size++;
+                return newNode;
+            } else {
+                return newNode;
             }
-            return newNode;
         }
     }
 
@@ -111,25 +118,26 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
 
     @Override
     public void preOrdem(No no) {
-        
+
     }
 
     @Override
     public void posOrdem(No no) {
-        
+
     }
 
     @Override
     public int altura(No no) {
-        while(no.isInternal()){
-            
+        while (no.isInternal()) {
+
         }
         return 0;
     }
 
     @Override
     public int profundidade(No no) {
-        if(no.equals(getRaiz())) return 0;
+        if (no.equals(getRaiz()))
+            return 0;
         return 1 + profundidade(no.parent());
     }
 
@@ -138,12 +146,15 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
         System.out.println(scrollToShow(getRaiz()));
     }
 
-    private No scrollToShow(No node){
+    private No scrollToShow(No node) {
         System.out.println(node.element());
-        if(node.isInternal()){
-            if(node.hasLeftChild()) return scrollToShow(node.leftChild());
-            else if(node.hasRightChild()) return scrollToShow(node.rightChild());
-            else return null;
+        if (node.isInternal()) {
+            if (node.hasLeftChild())
+                return scrollToShow(node.leftChild());
+            else if (node.hasRightChild())
+                return scrollToShow(node.rightChild());
+            else
+                return null;
         } else {
             return null;
         }
@@ -151,15 +162,25 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
     }
 
     @Override
-    public Iterator Nos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Nos'");
+    public Iterator<No> Nos() {
+        ArrayList<No> nos = new ArrayList<>();
+        return nos.iterator();
+    }
+
+    private void createNosList(No node){
+        ArrayList<No> nos = new ArrayList<>();
+        if (node.isInternal())
+            emOrdem(node.leftChild());
+        nos.add(node);
+        if (node.isInternal()) {
+            emOrdem(node.rightChild());
+        }
     }
 
     @Override
-    public Iterator elements() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'elements'");
+    public Iterator<Object> elements() {
+        ArrayList<Object> elements = new ArrayList<>();
+        return elements.iterator();
     }
 
     @Override
@@ -171,5 +192,5 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa{
     public boolean isEmpty() {
         return this.size == 0;
     }
-    
+
 }
