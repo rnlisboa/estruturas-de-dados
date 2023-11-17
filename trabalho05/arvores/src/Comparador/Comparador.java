@@ -1,15 +1,15 @@
 package Comparador;
 
 public class Comparador {
-    private int a;
-    private int b;
+    private Object a;
+    private Object b;
     
-    public Comparador(int a, int b){
+    public Comparador(Object a, Object b){
         this.a = a;
         this.b = b;
     }
 
     public int comparer(){
-        return a - b;
+        return (int)a - (int)b;
     }
 }

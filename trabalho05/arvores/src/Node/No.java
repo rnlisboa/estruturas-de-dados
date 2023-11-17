@@ -1,9 +1,9 @@
-package No;
+package Node;
 
 public class No {
     private No parent;
     private No leftChild;
-    private No righChild;
+    private No rightChild;
     private Object element;
 
     public No(Object element){
@@ -14,12 +14,16 @@ public class No {
         return this.parent;
     }
 
+    public void setParent(No no){
+        this.parent = no;
+    }
+
     public No leftChild(){
         return this.leftChild;
     }
 
-    public No righChild(){
-        return this.righChild;
+    public No rightChild(){
+        return this.rightChild;
     }
 
     public Object element(){
@@ -31,21 +35,25 @@ public class No {
     }
 
     public void setRightChild(No no){
-        this.righChild = no;
+        this.rightChild = no;
     }
 
     public boolean hasLeftChild(){
-        return this.leftChild == null;
+        return this.leftChild != null;
     }
 
     public boolean hasRightChild(){
-        return this.righChild == null;
+        return this.rightChild != null;
+    }
+
+    public boolean hasParent(){
+        return this.parent != null;
     }
 
     public boolean isInternal(){
-        if(this.hasLeftChild() == false || this.hasRightChild() == false)
-            return false;
-        else return true;
+        if(this.hasLeftChild() == true || this.hasRightChild() == true)
+            return true;
+        return false;
     }
 
     public boolean isExternal(){
