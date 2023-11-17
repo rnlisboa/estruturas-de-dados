@@ -9,14 +9,14 @@ import Node.No;
 
 public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
     private No root;
-    private int altura;
+    private int maxDepth;
     private int size;
     private Comparador comparador;
 
     public ArvoreBinariaPesquisa(int key) {
         No raiz = new No(key);
         this.setRaiz(raiz);
-        this.altura = 0;
+        this.maxDepth = 0;
         this.size = 1;
     }
 
