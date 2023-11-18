@@ -16,6 +16,7 @@ public class TesteABP {
         No raiz = abp.getRaiz();
         abp.emOrdem(raiz);
 
-        System.out.println(abp.size());
+        System.out.println(abp.remover(5));
+        abp.emOrdem(raiz);
     }
 }

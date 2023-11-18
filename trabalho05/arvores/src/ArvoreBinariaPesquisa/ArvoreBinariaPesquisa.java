@@ -39,7 +39,7 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
         } else if (key == node.element())
             return node;
         else
-            return pesquisar(node.leftChild(), key);
+            return pesquisar(node.rightChild(), key);
     }
 
     @Override
@@ -92,8 +92,28 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public Object remover(Object key) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remover'");
+        No toRemove = pesquisar(getRaiz(), key);
+        Object toRemoveElement = toRemove.element();
+
+        if(toRemove.isExternal()) {
+            toRemove = null;
+            return toRemoveElement;
+        }
+
+        if(toRemove.rightChild().isExternal()){
+            toRemove.setElement(toRemove.rightChild().element());
+            toRemove.setRightChild(null);
+            return toRemoveElement;
+        }
+
+        No rightChild = toRemove.rightChild();
+        No node = toRemove;
+        while (rightChild.leftChild() != null) {
+            node = toRemove.leftChild();
+        }
+        toRemove.setElement(node.element());
+        node = null;
+        return toRemoveElement;
     }
 
     @Override

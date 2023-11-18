@@ -30,6 +30,10 @@ public class No {
         return this.element;
     }
 
+    public void setElement(Object key){
+        this.element = key;
+    }
+
     public void setLeftChild(No no){
         this.leftChild = no;
     }
@@ -57,6 +61,6 @@ public class No {
     }
 
     public boolean isExternal(){
-        return !isExternal();
+        return !isInternal();
     }
 }
