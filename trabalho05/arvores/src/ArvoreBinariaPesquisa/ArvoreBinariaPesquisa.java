@@ -206,15 +206,24 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public Iterator<No> Nos() {
-        ArrayList<No> nos = new ArrayList<>();
-        return nos.iterator();
+        ArrayList<No> arrayNode = new ArrayList();
+        createNosList(root, arrayNode);
+        return arrayNode.iterator();
     }
 
-    private void createNosList(No node) {
-        ArrayList<No> nos = new ArrayList<>();
+    private void createNosList(No node, ArrayList<No> arrayNode) {
         if (node.isInternal())
             emOrdem(node.leftChild());
-        nos.add(node);
+        arrayNode.add(node);
+        if (node.isInternal()) {
+            emOrdem(node.rightChild());
+        }
+    }
+
+    private void createElementsList(No node, ArrayList<Object> arrayElement) {
+        if (node.isInternal())
+            emOrdem(node.leftChild());
+        arrayElement.add(node);
         if (node.isInternal()) {
             emOrdem(node.rightChild());
         }
@@ -222,8 +231,8 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public Iterator<Object> elements() {
-        ArrayList<Object> elements = new ArrayList<>();
-        return elements.iterator();
+        ArrayList<Object> arrayElement = new ArrayList();
+        return arrayElement.iterator();
     }
 
     @Override
