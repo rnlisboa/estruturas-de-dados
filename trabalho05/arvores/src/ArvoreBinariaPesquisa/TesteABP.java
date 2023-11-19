@@ -11,14 +11,18 @@ public class TesteABP {
         abp.incluir(15);
         abp.incluir(2);
         abp.incluir(8);
+        abp.incluir(9);
         abp.incluir(15);
         abp.incluir(22);
         abp.incluir(25);
+        abp.incluir(7);
+        abp.incluir(6);
+        abp.incluir(1);
         No raiz = abp.getRaiz();
         abp.emOrdem(raiz);
         System.out.println();
         System.out.println();
-        abp.remover(15);
-        abp.emOrdem(raiz);
+      
+
     }
 }

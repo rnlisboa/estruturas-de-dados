@@ -9,16 +9,16 @@ import Node.No;
 
 public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
     private No root;
-    private int altura;
     private int size;
+    private int maxDepth;
     private Comparador comparador;
 
     public ArvoreBinariaPesquisa(int key) {
         No raiz = new No(key);
         this.setRaiz(raiz);
-        this.altura = 0;
         this.size = 1;
     }
+
 
     @Override
     public void setComparator(Comparador c) {
@@ -95,34 +95,38 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
         No toRemove = pesquisar(getRaiz(), key);
         No toRemoveParent = toRemove.parent();
         Object toRemoveElement = toRemove.element();
-        
+
         // para nó folha
-        if(toRemove.isExternal()) {
-            if(toRemoveParent.hasLeftChild() && toRemoveParent.leftChild().element() == key) toRemoveParent.setLeftChild(null);
-            else toRemoveParent.setRightChild(null);
+        if (toRemove.isExternal()) {
+            if (toRemoveParent.hasLeftChild() && toRemoveParent.leftChild().element() == key)
+                toRemoveParent.setLeftChild(null);
+            else
+                toRemoveParent.setRightChild(null);
             return toRemoveElement;
         }
 
-        if(toRemove.rightChild().isExternal()){
+        if (toRemove.rightChild().isExternal()) {
             toRemove.setElement(toRemove.rightChild().element());
             toRemove.setRightChild(null);
             return toRemoveElement;
         }
 
-        //encontrar o menor filho da subarvore à direita (sucessor)
+        // encontrar o menor filho da subarvore à direita (sucessor)
         No sucessor = findMinRightSubtree(toRemove.rightChild());
         toRemove.setElement(sucessor.element());
         toRemove.setRightChild(sucessor.rightChild());
         return toRemoveElement;
     }
 
-    private No findMinRightSubtree(No node){
-        // se o filho esquerda for null, então node já é o menor filho da subarvore direita
-        while(node.leftChild() != null){
+    private No findMinRightSubtree(No node) {
+        // se o filho esquerda for null, então node já é o menor filho da subarvore
+        // direita
+        while (node.leftChild() != null) {
             node = node.leftChild();
         }
         return node;
     }
+
 
     @Override
     public No getRaiz() {
@@ -136,31 +140,11 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public void emOrdem(No no) {
-        if (no == null) {
-            return;
-        }
-
         if (no.isInternal()) {
             emOrdem(no.leftChild());
         }
 
-        System.out.print(no.element() + " pai de ");
-
-        if (no.hasLeftChild()) {
-            System.out.print(no.leftChild().element() + " ");
-        } else {
-            System.out.print("null ");
-        }
-
-        System.out.print("e ");
-
-        if (no.hasRightChild()) {
-            System.out.print(no.rightChild().element());
-        } else {
-            System.out.print("null");
-        }
-
-        System.out.println();
+        if(profundidade(no) > this.maxDepth) this.maxDepth = profundidade(no);
 
         if (no.isInternal()) {
             emOrdem(no.rightChild());
@@ -179,9 +163,13 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public int altura(No no) {
-        while (no.isInternal()) {
+        int altura = this.maxDepth - profundidade(no);
+        return altura;
+    }
 
-        }
+    private int alturaRec(No node){
+        if(node.isExternal()) return 0;
+        
         return 0;
     }
 
@@ -194,10 +182,13 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public void mostrar() {
-        
-    }
+        // passo o raiz
+        // mostro filho esquerdo e filho direito
+        // vou pro esquerdo e mostro o esquerdo e o direito e depois vou pro direito e
+        // faço o mesmo
+        // se o esquerdo do raiz for interno,
 
-    
+    }
 
     @Override
     public Iterator<No> Nos() {
@@ -238,6 +229,11 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
     @Override
     public boolean isEmpty() {
         return this.size == 0;
+    }
+
+    public int getMaxDepth(No node) {
+
+        return 0;
     }
 
 }
