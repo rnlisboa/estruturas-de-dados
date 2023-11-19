@@ -22,7 +22,7 @@ public class TesteABP {
         abp.emOrdem(raiz);
         System.out.println();
         System.out.println();
-      
+        
 
     }
 }

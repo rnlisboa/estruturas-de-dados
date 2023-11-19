@@ -167,12 +167,6 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
         return altura;
     }
 
-    private int alturaRec(No node){
-        if(node.isExternal()) return 0;
-        
-        return 0;
-    }
-
     @Override
     public int profundidade(No no) {
         if (no.equals(getRaiz()))
@@ -192,32 +186,33 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public Iterator<No> Nos() {
-        ArrayList<No> arrayNode = new ArrayList();
+        ArrayList<No> arrayNode = new ArrayList<No>();
         createNosList(root, arrayNode);
         return arrayNode.iterator();
     }
 
     private void createNosList(No node, ArrayList<No> arrayNode) {
         if (node.isInternal())
-            emOrdem(node.leftChild());
+            createNosList(node.leftChild(), arrayNode);
         arrayNode.add(node);
         if (node.isInternal()) {
-            emOrdem(node.rightChild());
+            createNosList(node.rightChild(), arrayNode);
         }
     }
 
     private void createElementsList(No node, ArrayList<Object> arrayElement) {
         if (node.isInternal())
-            emOrdem(node.leftChild());
+            createElementsList(node.leftChild(), arrayElement);
         arrayElement.add(node);
         if (node.isInternal()) {
-            emOrdem(node.rightChild());
+            createElementsList(node.rightChild(), arrayElement);
         }
     }
 
     @Override
     public Iterator<Object> elements() {
-        ArrayList<Object> arrayElement = new ArrayList();
+        ArrayList<Object> arrayElement = new ArrayList<Object>();
+        createElementsList(root, arrayElement);
         return arrayElement.iterator();
     }
 
@@ -231,9 +226,5 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
         return this.size == 0;
     }
 
-    public int getMaxDepth(No node) {
-
-        return 0;
-    }
 
 }
