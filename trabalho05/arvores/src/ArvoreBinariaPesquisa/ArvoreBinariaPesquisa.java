@@ -93,10 +93,13 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
     @Override
     public Object remover(Object key) {
         No toRemove = pesquisar(getRaiz(), key);
+        No toRemoveParent = toRemove.parent();
         Object toRemoveElement = toRemove.element();
-
+        
+        // para nó folha
         if(toRemove.isExternal()) {
-            toRemove = null;
+            if(toRemoveParent.hasLeftChild() && toRemoveParent.leftChild().element() == key) toRemoveParent.setLeftChild(null);
+            else toRemoveParent.setRightChild(null);
             return toRemoveElement;
         }
 
@@ -106,14 +109,19 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
             return toRemoveElement;
         }
 
-        No rightChild = toRemove.rightChild();
-        No node = toRemove;
-        while (rightChild.leftChild() != null) {
-            node = toRemove.leftChild();
-        }
-        toRemove.setElement(node.element());
-        node = null;
+        //encontrar o menor filho da subarvore à direita (sucessor)
+        No sucessor = findMinRightSubtree(toRemove.rightChild());
+        toRemove.setElement(sucessor.element());
+        toRemove.setRightChild(sucessor.rightChild());
         return toRemoveElement;
+    }
+
+    private No findMinRightSubtree(No node){
+        // se o filho esquerda for null, então node já é o menor filho da subarvore direita
+        while(node.leftChild() != null){
+            node = node.leftChild();
+        }
+        return node;
     }
 
     @Override
@@ -186,23 +194,10 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public void mostrar() {
-        System.out.println(scrollToShow(getRaiz()));
+        
     }
 
-    private No scrollToShow(No node) {
-        System.out.println(node.element());
-        if (node.isInternal()) {
-            if (node.hasLeftChild())
-                return scrollToShow(node.leftChild());
-            else if (node.hasRightChild())
-                return scrollToShow(node.rightChild());
-            else
-                return null;
-        } else {
-            return null;
-        }
-
-    }
+    
 
     @Override
     public Iterator<No> Nos() {
