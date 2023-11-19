@@ -10,15 +10,11 @@ import Node.No;
 public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
     private No root;
     private int size;
-    private int maxDepth;
     private Comparador comparador;
 
-    public ArvoreBinariaPesquisa(int key) {
-        No raiz = new No(key);
-        this.setRaiz(raiz);
-        this.size = 1;
+    public ArvoreBinariaPesquisa() {
+        
     }
-
 
     @Override
     public void setComparator(Comparador c) {
@@ -127,7 +123,6 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
         return node;
     }
 
-
     @Override
     public No getRaiz() {
         return this.root;
@@ -136,16 +131,17 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
     @Override
     public void setRaiz(No p) {
         this.root = p;
+        this.size++;
     }
 
     @Override
     public void emOrdem(No no) {
+        if (no == null)
+            return;
         if (no.isInternal()) {
             emOrdem(no.leftChild());
         }
-
-        if(profundidade(no) > this.maxDepth) this.maxDepth = profundidade(no);
-
+        System.out.println(no.element());
         if (no.isInternal()) {
             emOrdem(no.rightChild());
         }
@@ -163,8 +159,12 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public int altura(No no) {
-        int altura = this.maxDepth - profundidade(no);
-        return altura;
+        if (no == null)
+            return -1;
+        int alturaDireita = altura(no.rightChild());
+        int alturaEsquerda = altura(no.leftChild());
+
+        return 1 + Math.max(alturaDireita, alturaEsquerda);
     }
 
     @Override
@@ -225,6 +225,5 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
     public boolean isEmpty() {
         return this.size == 0;
     }
-
 
 }

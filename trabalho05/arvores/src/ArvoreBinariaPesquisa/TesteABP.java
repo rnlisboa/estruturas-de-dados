@@ -1,12 +1,12 @@
 package ArvoreBinariaPesquisa;
 
-import java.util.Iterator;
-
 import Node.No;
 
 public class TesteABP {
     public static void main(String[] args) {
-        ArvoreBinariaPesquisa abp = new ArvoreBinariaPesquisa(10);
+        ArvoreBinariaPesquisa abp = new ArvoreBinariaPesquisa();
+        No newRaiz = new No(10);
+        abp.setRaiz(newRaiz);
         abp.incluir(5);
         abp.incluir(15);
         abp.incluir(2);
@@ -22,7 +22,6 @@ public class TesteABP {
         abp.emOrdem(raiz);
         System.out.println();
         System.out.println();
-        
 
     }
 }
