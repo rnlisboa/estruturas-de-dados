@@ -13,7 +13,7 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
     private Comparador comparador;
 
     public ArvoreBinariaPesquisa() {
-        
+
     }
 
     @Override
@@ -176,12 +176,40 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public void mostrar() {
-        // passo o raiz
-        // mostro filho esquerdo e filho direito
-        // vou pro esquerdo e mostro o esquerdo e o direito e depois vou pro direito e
-        // faço o mesmo
-        // se o esquerdo do raiz for interno,
+        int h = altura(root);
+        int nLinhas = h + 1;
+        double nColunas = Math.pow(2, h);
 
+        Object[][] tabela = new Object[nLinhas][(int) nColunas];
+        preencheTabela(root, tabela, (int) nColunas);
+
+        for (int i = 0; i < nLinhas; i++) {
+            for (int j = 0; j < (int) nColunas; j++) {
+                if (tabela[i][j] == null)
+                    System.out.print(" ");
+                else
+                    System.out.print(" " + tabela[i][j] +" ");
+            }
+            System.out.println();
+        }
+    }
+
+    private void preencheTabela(No no, Object[][] tabela, int nColunas) {
+        if (no == null)
+            return;
+        if (no.isInternal()) {
+            preencheTabela(no.leftChild(), tabela, nColunas);
+        }
+        int coluna;
+        if(no.parent() != null)
+            coluna = ((int) no.parent().element() % nColunas);
+        else {
+            coluna = (int) no.element() % nColunas;
+        }
+        tabela[profundidade(no)][(int) no.element() % nColunas] = no.element();
+        if (no.isInternal()) {
+            preencheTabela(no.rightChild(), tabela, nColunas);
+        }
     }
 
     @Override

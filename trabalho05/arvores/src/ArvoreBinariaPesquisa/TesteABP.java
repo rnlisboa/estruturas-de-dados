@@ -19,9 +19,8 @@ public class TesteABP {
         abp.incluir(6);
         abp.incluir(1);
         No raiz = abp.getRaiz();
-        abp.emOrdem(raiz);
-        System.out.println();
-        System.out.println();
-
+    
+    
+        abp.mostrar();
     }
 }
