@@ -1,13 +1,45 @@
 package Node;
 
+import java.util.ArrayList;
+
+import java.util.Iterator;
+
 public class No {
     private No parent;
     private No leftChild;
     private No rightChild;
     private Object element;
+    private ArrayList<No> childs = new ArrayList<No>();
+    private int height;
+    private int pos;
+
+    public int height(){
+        return this.height;
+    }
+
+    public void setHeitght(int h){
+        this.height = h;
+    }
+
+    public void setChilds(){
+        childs.add(leftChild);
+        childs.add(rightChild);
+    }
+
+    public Iterator<No> childs(){
+        return childs.iterator();
+    }
 
     public No(Object element){
         this.element = element;
+    }
+
+    public void setPos(int pos){
+        this.pos = pos;
+    }
+
+    public int pos(){
+        return this.pos;
     }
 
     public No parent(){
@@ -28,6 +60,10 @@ public class No {
 
     public Object element(){
         return this.element;
+    }
+
+    public void setElement(Object key){
+        this.element = key;
     }
 
     public void setLeftChild(No no){
@@ -57,6 +93,6 @@ public class No {
     }
 
     public boolean isExternal(){
-        return !isExternal();
+        return !isInternal();
     }
 }
