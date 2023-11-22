@@ -102,9 +102,9 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
             return toRemoveElement;
         }
 
-        //nó com um filho
-        if(toRemove.hasRightChild()){
-            if(toRemove.rightChild().isExternal()){
+        // nó com um filho
+        if (toRemove.hasRightChild()) {
+            if (toRemove.rightChild().isExternal()) {
                 toRemove.setElement(toRemove.rightChild().element());
                 toRemove.setRightChild(null);
                 return toRemoveElement;
@@ -115,23 +115,17 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
             return toRemoveElement;
         }
 
-        // if (toRemove.rightChild().isExternal()) {
-        //     toRemove.setElement(toRemove.rightChild().element());
-        //     toRemove.setRightChild(null);
-        //     return toRemoveElement;
-        // }
-
         // encontrar o menor filho da subarvore à direita (sucessor)
         No sucessor = findMinRightSubtree(toRemove.rightChild());
         toRemove.setElement(sucessor.element());
-        if(sucessor.hasRightChild() && !sucessor.hasLeftChild()){
+        if (sucessor.hasRightChild() && !sucessor.hasLeftChild()) {
             toRemove.setRightChild(sucessor.rightChild());
             return toRemoveElement;
         }
         No rightChildSucessor = sucessor.rightChild();
         No parentSucessor = sucessor.parent();
         parentSucessor.setLeftChild(rightChildSucessor);
-        
+
         return toRemoveElement;
     }
 
@@ -161,7 +155,7 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
             return;
         }
 
-        if (no.isInternal()) 
+        if (no.isInternal())
             emOrdem(no.leftChild());
 
         System.out.print(no.element() + " pai de ");
@@ -189,11 +183,31 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public void preOrdem(No no) {
+        if (no != null) {
+            System.out.println(no.element());
+            no.setChilds();
+            Iterator<No> childs = no.childs();
+            while (childs.hasNext()) {
+                No child = childs.next();
+                preOrdem(child);
+            }
+        } else
+            System.out.println("null");
 
     }
 
     @Override
     public void posOrdem(No no) {
+        if (no != null) {
+            no.setChilds();
+            Iterator<No> childs = no.childs();
+            while (childs.hasNext()) {
+                No child = childs.next();
+                preOrdem(child);
+            }
+            System.out.println(no.element());
+        } else
+            System.out.println("null");
 
     }
 
@@ -213,12 +227,12 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
             return 0;
         return 1 + profundidade(no.parent());
     }
-
+    
     @Override
     public void mostrar() {
         int h = altura(root);
         int nLinhas = h + 1;
-        double nColunas = this.size() * 3;
+        double nColunas = 2 * Math.pow(2, h) + 1;
 
         Object[][] tabela = new Object[nLinhas][(int) nColunas];
         preencheTabela(root, tabela, (int) nColunas);
@@ -228,29 +242,50 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
                 if (tabela[i][j] == null)
                     System.out.print(" ");
                 else
-                    System.out.print(" " + tabela[i][j] +" ");
-              
+                    System.out.print(" " + tabela[i][j] + " ");
+
             }
             System.out.println();
         }
     }
 
     private void preencheTabela(No no, Object[][] tabela, int nColunas) {
-        if (no == null)
-            return;
-        if (no.isInternal()) {
-            preencheTabela(no.leftChild(), tabela, nColunas);
+        if (no != null) {
+            int coluna = coluna(no, nColunas, tabela);
+            tabela[profundidade(no)][coluna] = no.element();
+            no.setChilds();
+            Iterator<No> childs = no.childs();
+            while (childs.hasNext()) {
+                No child = childs.next();
+                preencheTabela(child, tabela, nColunas);
+            }
         }
-        int coluna;
-        if(no.parent() != null) {
-            coluna = (int)no.parent().element() % nColunas - 1;
-            if(tabela[profundidade(no)][coluna] != null) coluna += 1;
-        } else coluna = (int) no.element() % nColunas;
-        
-        tabela[profundidade(no)][coluna] = no.element();
-        if (no.isInternal()) {
-            preencheTabela(no.rightChild(), tabela, nColunas);
+    }
+
+    private int coluna(No no, int nColunas, Object[][] tabela) {
+        int coluna = 0;
+        if (no.equals(root)) {
+            coluna = (nColunas / 2) + 1;
+            no.setPos(coluna);
+            return coluna;
         }
+
+        if (no.parent().hasLeftChild() && no.element().equals(no.parent().leftChild().element())) {
+            int colunaParent = no.parent().pos();
+            coluna = colunaParent - 1;
+            no.setPos(coluna);
+            return coluna;
+        }
+
+        if (no.parent().hasRightChild() && no.element().equals(no.parent().rightChild().element())) {
+            int colunaParent = no.parent().pos();
+            coluna = colunaParent + 2;
+            if (tabela[profundidade(no)][coluna] != null)
+                coluna = coluna + 1;
+            no.setPos(coluna);
+            return coluna;
+        }
+        return coluna;
     }
 
     @Override

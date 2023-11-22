@@ -5,24 +5,20 @@ import Node.No;
 public class TesteABP {
     public static void main(String[] args) {
         ArvoreBinariaPesquisa abp = new ArvoreBinariaPesquisa();
-        No newRaiz = new No(15);
+        No newRaiz = new No(10);
         abp.setRaiz(newRaiz);
-        abp.incluir(6);
-        abp.incluir(45);
+        abp.incluir(5);
+        abp.incluir(15);
         abp.incluir(2);
-        abp.incluir(9);
-        abp.incluir(7);
-        abp.incluir(10);
         abp.incluir(8);
-        abp.incluir(1);
-        abp.incluir(11);
+        abp.incluir(22);
         abp.incluir(25);
+        abp.incluir(26);
         No raiz = abp.getRaiz();
         //System.out.println(abp.profundidade(abp.node));
-        abp.emOrdem(raiz);
-        System.out.println();
-        abp.remover(9);
-        abp.emOrdem(raiz);
-        
+        //abp.remover(8);
+        abp.mostrar();
+
+        //abp.preOrdem(raiz);
     }
 }
