@@ -10,12 +10,7 @@ import Node.No;
 public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
     private No root;
     private int size;
-    No node;
     private Comparador comparador;
-
-    public ArvoreBinariaPesquisa() {
-
-    }
 
     @Override
     public void setComparator(Comparador c) {
@@ -151,10 +146,9 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public void emOrdem(No no) {
-        if (no == null) {
+        if (no == null) 
             return;
-        }
-
+        
         if (no.isInternal())
             emOrdem(no.leftChild());
 

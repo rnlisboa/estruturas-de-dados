@@ -32,9 +32,9 @@ public interface IArvoreBinariaPesquisa {
 
 	void mostrar();
 
-	Iterator Nos();
+	Iterator<No> Nos();
 
-	Iterator elements();
+	Iterator<Object> elements();
 
 	int size();
 
