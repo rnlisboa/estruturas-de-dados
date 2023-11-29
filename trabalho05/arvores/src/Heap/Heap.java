@@ -5,7 +5,6 @@ import Node.No;
 
 public class Heap implements IHeap {
     private Object root;
-    private int size;
     private No lastNode;
 
     public Heap(Object r) {
@@ -21,11 +20,13 @@ public class Heap implements IHeap {
 
         if (lastNode.equals(root())) {
             No inserted = insertInLeft(lastNode, newNode);
+            upheap();
             return inserted;
         }
 
         if (nodeIsLeftChild(lastNode)) {
             No inserted = insertInRight(lastNode, newNode);
+            upheap();
             return inserted;
         }
 
@@ -33,13 +34,16 @@ public class Heap implements IHeap {
         if (granpa.equals(this.root) || nodeIsRightChild(granpa)) {
             No nextNodeToInsert = nextNodeToInsertInLeft(lastNode);
             No inserted = insertInLeft(nextNodeToInsert, newNode);
+            upheap();
             return inserted;
         } else {
             No nextNodeToInsert = nextNodeToInsertInRight(lastNode);
             No inserted = insertInLeft(nextNodeToInsert, newNode);
+            upheap();
             return inserted;
         }
 
+        
     }
 
     private No insertInLeft(No parent, No newNode) {
@@ -72,10 +76,15 @@ public class Heap implements IHeap {
             if (no.equals(root()) || nodeIsLeftChild(no)) {
                 if(no.equals(root())) 
                     return nextNodeToInsertInRight(no.rightChild());
+                if(no.leftChild().rightChild().equals(lastNode)) 
+                    return nextNodeToInsertInRight(no.rightChild());
                 if (no.rightChild() != null && !no.rightChild().equals(lastNode))
                     return nextNodeToInsertInRight(no.parent());
                 if(nodeIsRightChild(no.parent())) 
                     return nextNodeToInsertInRight(no.leftChild());
+                
+                if(no.leftChild() == null) return no;
+
                 return nextNodeToInsertInRight(no.rightChild());
             }
             if (no.rightChild().equals(lastNode))
@@ -86,8 +95,9 @@ public class Heap implements IHeap {
 
             if (no.leftChild() == null)
                 return no;
-
-            return nextNodeToInsertInRight(no.leftChild());
+            if(no.parent().equals(root())) return nextNodeToInsertInRight(no.leftChild());
+            
+            return nextNodeToInsertInRight(no.rightChild());
         }
         return null;
     }
@@ -117,8 +127,11 @@ public class Heap implements IHeap {
 
     @Override
     public void upheap() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'upheap'");
+        No node = lastNode;
+        while((int)node.element() > (int)node.parent().element()){
+            node = node.parent();
+        }
+        swapElements(node, node.parent());
     }
 
     @Override
