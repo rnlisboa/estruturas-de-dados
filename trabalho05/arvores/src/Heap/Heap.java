@@ -7,7 +7,8 @@ public class Heap implements IHeap {
     private Object root;
     private int size;
     private No lastNode;
-    public Heap(Object r){
+
+    public Heap(Object r) {
         this.root = r;
         No no = new No(r);
         this.lastNode = no;
@@ -18,45 +19,88 @@ public class Heap implements IHeap {
         No lastNode = this.lastNode;
         No newNode = new No(o);
 
-        if(lastNode.equals(root())){ 
-            lastNode.setLeftChild(newNode);
-            this.lastNode = newNode;
-            return newNode;
-        }
-        
-        
-        if(nodeIsLeftChild(lastNode)) {
-            lastNode.parent().setRightChild(newNode);
-            this.lastNode = newNode;
-            return newNode;
+        if (lastNode.equals(root())) {
+            No inserted = insertInLeft(lastNode, newNode);
+            return inserted;
         }
 
+        if (nodeIsLeftChild(lastNode)) {
+            No inserted = insertInRight(lastNode, newNode);
+            return inserted;
+        }
 
-        No nextNodeToInsert = nextNodeToInsert(lastNode);
+        No granpa = lastNode.parent().parent();
+        if (granpa.equals(this.root) || nodeIsRightChild(granpa)) {
+            No nextNodeToInsert = nextNodeToInsertInLeft(lastNode);
+            No inserted = insertInLeft(nextNodeToInsert, newNode);
+            return inserted;
+        } else {
+            No nextNodeToInsert = nextNodeToInsertInRight(lastNode);
+            No inserted = insertInLeft(nextNodeToInsert, newNode);
+            return inserted;
+        }
 
+    }
+
+    private No insertInLeft(No parent, No newNode) {
+        parent.setLeftChild(newNode);
+        this.lastNode = newNode;
         return newNode;
     }
 
-    private No nextNodeToInsert(No no){
-        
-        while (no.leftChild() != null) {
-            if(no.equals(root())) return nextNodeToInsert(no.leftChild());
-            
-            boolean nodeIsLeftChild = nodeIsLeftChild(lastNode);
-            if(nodeIsLeftChild) return nextNodeToInsert(no.leftChild());
-            
-            return nextNodeToInsert(no.parent());
-        }
-        return no;
+    private No insertInRight(No lastNode, No newNode) {
+        lastNode.parent().setRightChild(newNode);
+        this.lastNode = newNode;
+        return newNode;
     }
 
-    public boolean nodeIsLeftChild(No no){
-        if(no.element() == no.parent().leftChild().element()) return true;
+    private No nextNodeToInsertInLeft(No no) {
+        while (no != null) {
+            if (no.equals(root()) || nodeIsLeftChild(no)) {
+                if (no.leftChild() == null)
+                    return no;
+                return nextNodeToInsertInLeft(no.leftChild());
+            } else {
+                return nextNodeToInsertInLeft(no.parent());
+            }
+        }
+        return null;
+    }
+
+    private No nextNodeToInsertInRight(No no) {
+        while (no != null) {
+            if (no.equals(root()) || nodeIsLeftChild(no)) {
+                if(no.equals(root())) 
+                    return nextNodeToInsertInRight(no.rightChild());
+                if (no.rightChild() != null && !no.rightChild().equals(lastNode))
+                    return nextNodeToInsertInRight(no.parent());
+                if(nodeIsRightChild(no.parent())) 
+                    return nextNodeToInsertInRight(no.leftChild());
+                return nextNodeToInsertInRight(no.rightChild());
+            }
+            if (no.rightChild().equals(lastNode))
+                return nextNodeToInsertInRight(no.parent());
+
+            if (no.equals(lastNode))
+                return nextNodeToInsertInRight(no.parent());
+
+            if (no.leftChild() == null)
+                return no;
+
+            return nextNodeToInsertInRight(no.leftChild());
+        }
+        return null;
+    }
+
+    public boolean nodeIsLeftChild(No no) {
+        if (no.element() == no.parent().leftChild().element())
+            return true;
         return false;
     }
 
-    public boolean nodeIsRightChild(No no){
-        if(no.element() == no.parent().rightChild().element()) return true;
+    public boolean nodeIsRightChild(No no) {
+        if (no.element() == no.parent().rightChild().element())
+            return true;
         return false;
     }
 
@@ -64,16 +108,19 @@ public class Heap implements IHeap {
     public No root() {
         return this.root();
     }
+
     @Override
     public No remove() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'remove'");
     }
+
     @Override
     public void upheap() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'upheap'");
     }
+
     @Override
     public void swapElements(No a, No b) {
         Object elementA = a.element();
