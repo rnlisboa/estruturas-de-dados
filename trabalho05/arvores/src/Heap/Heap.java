@@ -121,8 +121,8 @@ public class Heap implements IHeap {
 
     @Override
     public No remove() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        //TODO
+        return null;
     }
 
     @Override
