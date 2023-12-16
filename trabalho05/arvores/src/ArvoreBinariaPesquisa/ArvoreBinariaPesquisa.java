@@ -3,7 +3,7 @@ package ArvoreBinariaPesquisa;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import Comparador.Comparador;
+import Comparator.Comparador;
 import Interfaces.IArvoreBinariaPesquisa;
 import Node.No;
 

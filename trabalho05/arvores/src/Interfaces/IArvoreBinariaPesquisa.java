@@ -2,7 +2,7 @@ package Interfaces;
 
 import java.util.Iterator;
 
-import Comparador.Comparador;
+import Comparator.Comparador;
 import Node.No;
 
 public interface IArvoreBinariaPesquisa {
