@@ -3,18 +3,18 @@ package SkipNode;
 import Item.Item;
 
 public class SkipNode {
-    private Item Item;
+    private Item item;
     private SkipNode prev;
     private SkipNode post;
     private SkipNode up;
     private SkipNode down;
 
     public SkipNode(Item item){
-        this.Item = item;
+        this.item = item;
     }
 
     public Item getItem(){
-        return this.Item;
+        return this.item;
     }
 
     public SkipNode getPrev() {
