@@ -1,10 +1,10 @@
 package Comparator;
 
-public class Comparador {
+public class Comparator {
     private Object a;
     private Object b;
     
-    public Comparador(Object a, Object b){
+    public Comparator(Object a, Object b){
         this.a = a;
         this.b = b;
     }

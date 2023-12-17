@@ -2,7 +2,7 @@ package SkipList;
 
 import java.util.Random;
 
-import Comparador.Comparador;
+import Comparator.Comparator;
 import Interface.ISkipList;
 import Item.Item;
 import SkipNode.SkipNode;
@@ -14,7 +14,7 @@ public class SkipList implements ISkipList {
     private SkipNode head;
     private SkipNode tail;
     private Random random;
-    private Comparador comparador;
+    private Comparator comparador;
 
     public SkipList() {
         SkipNode head = new SkipNode(new Item(this.MIN, null));
@@ -37,20 +37,28 @@ public class SkipList implements ISkipList {
                 this.insertIfEmpty(newNode);
             }
 
+            // encontrar a posição onde será inserido
             SkipNode currentNode = this.head;
             while (currentNode != this.tail) {
-                this.comparador = new Comparador(value, currentNode);
+                this.comparador = new Comparator(value, currentNode.getItem().value());
                 if (this.comparador.comparer() > 0)
                     break;
                 currentNode = currentNode.getPost();
             }
 
+            // inserir no inicio
             if (currentNode.getPost() == this.tail) {
                 insertAtTail(newNode);
             }
 
-            if (currentNode.getPrev() == this.head) {
+            // inserir no fim
+            else if (currentNode.getPrev() == this.head) {
                 insertAtHead(newNode);
+            }
+
+            else {
+                // next nó
+                insertInList(newNode, currentNode);
             }
         }
     }
@@ -74,6 +82,14 @@ public class SkipList implements ISkipList {
     private void insertIfEmpty(SkipNode sn) {
         this.head.setPost(sn);
         this.tail.setPrev(sn);
+    }
+
+    private void insertInList(SkipNode newNode, SkipNode currentNode) {
+        SkipNode postc = currentNode.getPost();
+        newNode.setPost(postc);
+        newNode.setPrev(currentNode);
+        postc.setPrev(newNode);
+        currentNode.setPost(newNode);
     }
 
     private int randomLevel() {

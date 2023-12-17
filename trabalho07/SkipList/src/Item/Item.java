@@ -1,8 +1,6 @@
 package Item;
 
-import Interfaces.IEntry;
-
-public class Item implements IEntry{
+public class Item{
     private Object key;
     private Object value;
 
@@ -10,12 +8,11 @@ public class Item implements IEntry{
         this.key = key;
         this.value = value;
     }
-    @Override
+
     public Object key() {
         return this.key;
     }
 
-    @Override
     public Object value() {
         return this.value;
     }
