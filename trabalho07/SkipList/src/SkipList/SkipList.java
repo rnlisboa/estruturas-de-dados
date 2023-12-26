@@ -109,22 +109,16 @@ public class SkipList implements ISkipList {
     @Override
     public Object search(Object key) {
         SkipNode currNode = this.lastInList;
-        while (currNode.getDown() != null) {
-            this.comparador = new Comparator(key, currNode.getItem().value());
-            if(this.comparador.comparer() == 0 && currNode.getDown() == null) return currNode;
-            if(this.comparador.comparer() == 0 && currNode.getDown() != null) currNode = currNode.getDown();
-
-            
-            if(this.comparador.comparer() > 0) currNode = currNode.getPost();
-            if(this.comparador.comparer() < 0) currNode = currNode.getPrev();
-        }
-        return 0;
+        SkipNode found = findNode(currNode, key);
+        return found;
     }
 
     private SkipNode findNode(SkipNode currNode, Object key){
         this.comparador = new Comparator(key, currNode.getItem().value());
         int comparer = this.comparador.comparer();
-        if(comparer == 0 && currNode.getDown() == null) return findNode(currNode, key);
+        if(comparer == 0) return currNode; 
+        if(comparer > 0) return findNode(currNode.getPost());
+        if(comparer < 0) return findNode(currNode.getPrev());
     }
 
     @Override
