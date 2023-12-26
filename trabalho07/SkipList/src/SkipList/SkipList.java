@@ -15,6 +15,7 @@ public class SkipList implements ISkipList {
     private SkipNode tail;
     private Random random;
     private Comparator comparador;
+    private SkipNode lastInList;
 
     public SkipList() {
         SkipNode head = new SkipNode(new Item(this.MIN, null));
@@ -69,6 +70,7 @@ public class SkipList implements ISkipList {
         sn.setPost(firstTail);
         sn.setPrev(this.head);
         firstTail.setPrev(sn);
+        this.lastInList = sn;
     }
 
     private void insertAtTail(SkipNode sn) {
@@ -77,11 +79,13 @@ public class SkipList implements ISkipList {
         sn.setPost(this.tail);
         sn.setPrev(lastTail);
         lastTail.setPost(sn);
+        this.lastInList = sn;
     }
 
     private void insertIfEmpty(SkipNode sn) {
         this.head.setPost(sn);
         this.tail.setPrev(sn);
+        this.lastInList = sn;
     }
 
     private void insertInList(SkipNode newNode, SkipNode currentNode) {
@@ -90,6 +94,7 @@ public class SkipList implements ISkipList {
         newNode.setPrev(currentNode);
         postc.setPrev(newNode);
         currentNode.setPost(newNode);
+        this.lastInList = newNode;
     }
 
     private int randomLevel() {
@@ -103,7 +108,23 @@ public class SkipList implements ISkipList {
 
     @Override
     public Object search(Object key) {
+        SkipNode currNode = this.lastInList;
+        while (currNode.getDown() != null) {
+            this.comparador = new Comparator(key, currNode.getItem().value());
+            if(this.comparador.comparer() == 0 && currNode.getDown() == null) return currNode;
+            if(this.comparador.comparer() == 0 && currNode.getDown() != null) currNode = currNode.getDown();
+
+            
+            if(this.comparador.comparer() > 0) currNode = currNode.getPost();
+            if(this.comparador.comparer() < 0) currNode = currNode.getPrev();
+        }
         return 0;
+    }
+
+    private SkipNode findNode(SkipNode currNode, Object key){
+        this.comparador = new Comparator(key, currNode.getItem().value());
+        int comparer = this.comparador.comparer();
+        if(comparer == 0 && currNode.getDown() == null) return findNode(currNode, key);
     }
 
     @Override
