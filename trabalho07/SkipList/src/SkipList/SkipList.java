@@ -117,8 +117,10 @@ public class SkipList implements ISkipList {
         this.comparador = new Comparator(key, currNode.getItem().value());
         int comparer = this.comparador.comparer();
         if(comparer == 0) return currNode; 
+        if(currNode.getPost() == null || currNode.getPrev() == null) return currNode.getDown() 
         if(comparer > 0) return findNode(currNode.getPost());
         if(comparer < 0) return findNode(currNode.getPrev());
+    
     }
 
     @Override
