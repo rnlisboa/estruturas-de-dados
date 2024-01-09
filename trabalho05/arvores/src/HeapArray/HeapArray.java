@@ -34,6 +34,8 @@ public class HeapArray {
             array[2 * lastPos + 1] = o;
             lastPos = 2 * lastPos + 1;
         }
+
+        upheap();
         return o;
     }
 
