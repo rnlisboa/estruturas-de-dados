@@ -62,27 +62,15 @@ public class HeapArray {
     }
 
     private void swapdown(int indice, No elm) {
-        if (elm != null) {
-            int leftChildIndex = indice * 2;
-            int rightChildIndex = indice * 2 + 1;
-    
-            // Verifica se o filho da esquerda não é nulo e se é menor que o elemento atual
-            if (leftChildIndex < lp && this.array[leftChildIndex] != null &&
-                    (int) this.array[leftChildIndex].element() < (int) elm.element()) {
-                No leftChild = this.array[leftChildIndex];
-                this.array[indice] = leftChild;
-                this.array[leftChildIndex] = elm;
-                swapdown(leftChildIndex, elm);
-            }
-            
-            // Verifica se o filho da direita não é nulo e se é menor que o elemento atual
-            else if (rightChildIndex < lp && this.array[rightChildIndex] != null &&
-                    (int) this.array[rightChildIndex].element() < (int) elm.element()) {
-                swapdown(rightChildIndex, elm);
-            }
+        if (elm != null && (int) elm.element() > (int) elm.leftChild().element()) {
+            No filho = this.array[indice*2];
+            this.array[indice] = filho;
+            this.array[indice*2] = elm;
+            swapdown(indice * 2, elm);
+        }else if(elm != null && (int) elm.element() > (int) elm.rightChild().element()){
+            swapdown(indice * 2 + 1, elm);
         }
     }
-    
 
     public No removeMin() {
         No no = array[1];
