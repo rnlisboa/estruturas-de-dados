@@ -57,18 +57,27 @@ public class HeapArray {
 
     private void downHeap() {
         int pos = 1;
-        No elm = array[pos];
-        swapdown(pos, elm);
-    }
+        No atual = array[pos];
+        while (atual != null) {
+            No filhoE = this.array[pos * 2];
+            No filhoD = this.array[pos * 2 + 1];
+            if (filhoD != null || filhoE != null) {
+                Object atualElm = atual.element();
+                if ((int) atualElm > (int) filhoE.element()) {
+                    this.array[pos] = filhoE;
+                    this.array[pos * 2] = atual;
+                    atual = this.array[pos * 2];
+                    pos = pos * 2;
+                } else if ((int) atualElm > (int) filhoD.element()) {
+                    this.array[pos] = filhoD;
+                    this.array[pos * 2 + 1] = atual;
+                    atual = this.array[pos * 2 + 1];
+                    pos = pos * 2 + 1;
+                }
+            } else {
+                break;
+            }
 
-    private void swapdown(int indice, No elm) {
-        if (elm != null && (int) elm.element() > (int) elm.leftChild().element()) {
-            No filho = this.array[indice*2];
-            this.array[indice] = filho;
-            this.array[indice*2] = elm;
-            swapdown(indice * 2, elm);
-        }else if(elm != null && (int) elm.element() > (int) elm.rightChild().element()){
-            swapdown(indice * 2 + 1, elm);
         }
     }
 

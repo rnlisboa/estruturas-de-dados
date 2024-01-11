@@ -15,9 +15,9 @@ public class Teste {
         hp.insert(25);
         hp.insert(14);
         hp.insert(12);
-        hp.insert(8);
-        hp.insert(2);
-        //hp.print();
+        hp.insert(11);
+        hp.insert(13);
+        hp.print();
         
         System.out.println(hp.removeMin().element());
         hp.print();
