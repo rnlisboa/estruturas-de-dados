@@ -3,138 +3,80 @@ package Heap;
 import Interfaces.IHeap;
 import Node.No;
 
-public class Heap implements IHeap {
-    private Object root;
+public class Heap {
+    private No root;
     private No lastNode;
+    private int indice = 0;
 
     public Heap(Object r) {
-        this.root = r;
-        No no = new No(r);
-        this.lastNode = no;
+        this.root = new No(r);
+        indice++;
+        this.lastNode = this.root;
     }
 
-    @Override
-    public No insert(Object o) {
-        No lastNode = this.lastNode;
-        No newNode = new No(o);
-
-        if (lastNode.equals(root())) {
-            No inserted = insertInLeft(lastNode, newNode);
-            upheap();
-            return inserted;
-        }
-
-        if (nodeIsLeftChild(lastNode)) {
-            No inserted = insertInRight(lastNode, newNode);
-            upheap();
-            return inserted;
-        }
-
-        No granpa = lastNode.parent().parent();
-        if (granpa.equals(this.root) || nodeIsRightChild(granpa)) {
-            No nextNodeToInsert = nextNodeToInsertInLeft(lastNode);
-            No inserted = insertInLeft(nextNodeToInsert, newNode);
-            upheap();
-            return inserted;
-        } else {
-            No nextNodeToInsert = nextNodeToInsertInRight(lastNode);
-            No inserted = insertInLeft(nextNodeToInsert, newNode);
-            upheap();
-            return inserted;
-        }
-
-        
-    }
-
-    private No insertInLeft(No parent, No newNode) {
-        parent.setLeftChild(newNode);
-        this.lastNode = newNode;
-        return newNode;
-    }
-
-    private No insertInRight(No lastNode, No newNode) {
-        lastNode.parent().setRightChild(newNode);
-        this.lastNode = newNode;
-        return newNode;
-    }
-
-    private No nextNodeToInsertInLeft(No no) {
-        while (no != null) {
-            if (no.equals(root()) || nodeIsLeftChild(no)) {
-                if (no.leftChild() == null)
-                    return no;
-                return nextNodeToInsertInLeft(no.leftChild());
-            } else {
-                return nextNodeToInsertInLeft(no.parent());
+    public No insert(No inserted, No lastNode) {
+        if (lastNode != root && lastNode.parent().rightChild() != null
+                && lastNode.parent() != lastNode.parent().parent().rightChild()) {
+            No atual = lastNode;
+            while (atual != null) {
+                if (atual == root) {
+                    atual = atual.rightChild();
+                    lastNode = atual;
+                } else if (atual == atual.parent().rightChild()) {
+                    atual = atual.leftChild();
+                    lastNode = atual;
+                } else if (atual.rightChild().leftChild() == null) {
+                    lastNode = atual;
+                    atual = atual.leftChild();
+                } else {
+                    atual = atual.parent();
+                    lastNode = atual;
+                }
             }
-        }
-        return null;
-    }
-
-    private No nextNodeToInsertInRight(No no) {
-        while (no != null) {
-            if (no.equals(root()) || nodeIsLeftChild(no)) {
-                if(no.equals(root())) 
-                    return nextNodeToInsertInRight(no.rightChild());
-                if(no.leftChild().rightChild().equals(lastNode)) 
-                    return nextNodeToInsertInRight(no.rightChild());
-                if (no.rightChild() != null && !no.rightChild().equals(lastNode))
-                    return nextNodeToInsertInRight(no.parent());
-                if(nodeIsRightChild(no.parent())) 
-                    return nextNodeToInsertInRight(no.leftChild());
-                
-                if(no.leftChild() == null) return no;
-
-                return nextNodeToInsertInRight(no.rightChild());
-            }
-            if (no.rightChild().equals(lastNode))
-                return nextNodeToInsertInRight(no.parent());
-
-            if (no.equals(lastNode))
-                return nextNodeToInsertInRight(no.parent());
-
-            if (no.leftChild() == null)
-                return no;
-            if(no.parent().equals(root())) return nextNodeToInsertInRight(no.leftChild());
             
-            return nextNodeToInsertInRight(no.rightChild());
+        } else if (lastNode != root && lastNode.parent().rightChild() != null
+                && lastNode.parent() == lastNode.parent().parent().rightChild()) {
+            No atual = lastNode;
+            while (atual != null) {
+                if (atual == root)
+                    atual = atual.leftChild();
+                else if (atual == atual.parent().leftChild())
+                    atual = atual.leftChild();
+                else
+                    atual = atual.parent();
+            }
+            lastNode = atual;
         }
-        return null;
+
+        if (lastNode.leftChild() == null) {
+            lastNode.setLeftChild(inserted);
+            inserted.setParent(lastNode);
+        } else if (lastNode.rightChild() == null) {
+            lastNode.setRightChild(inserted);
+            inserted.setParent(lastNode);
+            this.lastNode = lastNode.leftChild();
+        }
+
+        return inserted;
     }
 
-    public boolean nodeIsLeftChild(No no) {
-        if (no.element() == no.parent().leftChild().element())
-            return true;
-        return false;
-    }
-
-    public boolean nodeIsRightChild(No no) {
-        if (no.element() == no.parent().rightChild().element())
-            return true;
-        return false;
-    }
-
-    @Override
     public No root() {
         return this.root();
     }
 
-    @Override
     public No remove() {
-        //TODO
+        // TODO
         return null;
     }
 
-    @Override
     public void upheap() {
         No node = lastNode;
-        while((int)node.element() > (int)node.parent().element()){
+        while ((int) node.element() > (int) node.parent().element()) {
             node = node.parent();
         }
         swapElements(node, node.parent());
     }
 
-    @Override
     public void swapElements(No a, No b) {
         Object elementA = a.element();
         Object elementB = b.element();

@@ -32,10 +32,8 @@ public class Hash {
         // encontar o indice primo mais proximo de indiceHash
         int newPos = indiceHash;
         while (this.array[newPos] != null) {
-            boolean isPrime = ehPrimo(newPos++);
-            if (isPrime) {
-                newPos = (int) v % newPos;
-            }
+       
+                newPos = 7 - (indiceHash % 7);
         }
 
         return newPos;

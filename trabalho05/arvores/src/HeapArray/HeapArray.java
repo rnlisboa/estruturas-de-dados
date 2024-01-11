@@ -89,6 +89,8 @@ public class HeapArray {
         return no;
     }
 
+    
+    
     public void print() {
         for (int i = 1; i < this.z; i++) {
             if (this.array[i] != null)
