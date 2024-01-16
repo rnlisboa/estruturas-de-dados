@@ -3,24 +3,12 @@ package ArvoreBinariaPesquisa;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import Comparator.Comparador;
 import Interfaces.IArvoreBinariaPesquisa;
 import Node.No;
 
 public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
-    private No root;
+    public No root;
     private int size;
-    private Comparador comparador;
-
-    @Override
-    public void setComparator(Comparador c) {
-        this.comparador = c;
-    }
-
-    @Override
-    public Comparador getComparador() {
-        return this.comparador;
-    }
 
     @Override
     public No pesquisar(No node, Object key) {
@@ -323,5 +311,38 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
     public boolean isEmpty() {
         return this.size == 0;
     }
+
+    private int somar(No node){
+        if(root.equals(node)) return (int)node.element();
+        return (int)node.element() + (int)somar(node.parent());
+    }
+
+    public void inflar(No node){
+        if(node.hasLeftChild()){
+            inflar(node.leftChild());
+        } else{
+            No novo = new No(somar(node));
+            node.setLeftChild(novo);
+        }
+
+        if(node.hasLeftChild()){
+            inflar(node.rightChild());
+        } else{
+            No novo = new No(somar(node));
+            node.setRightChild(novo);
+        }
+    }
+
+    /* private ArvoreBinariaPesquisa une(No node, ArvoreBinariaPesquisa aba, ArvoreBinariaPesquisa abb){
+        if(node == null) return aba;
+        No inserted = abb.remover(abb.root);
+        aba.incluir(inserted);
+        return une(abb.root, aba, abb);
+    }
+
+    public ArvoreBinariaPesquisa unir(ArvoreBinariaPesquisa aba, ArvoreBinariaPesquisa abb){
+        ArvoreBinariaPesquisa abpu = une(abb.root, aba, abb);
+        return abpu;
+    } */
 
 }

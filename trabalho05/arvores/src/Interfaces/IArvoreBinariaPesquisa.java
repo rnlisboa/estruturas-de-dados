@@ -2,13 +2,10 @@ package Interfaces;
 
 import java.util.Iterator;
 
-import Comparator.Comparador;
 import Node.No;
 
 public interface IArvoreBinariaPesquisa {
-    void setComparator(Comparador c);
 
-	Comparador getComparador();
 
 	No pesquisar(No no, Object key);
 

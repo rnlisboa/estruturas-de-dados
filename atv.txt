@@ -1,0 +1,141 @@
+t1 - trabalho sobre pilha
+
+Projete uma classe que contenha duas pilhas, 
+uma “vermelha” e outra “preta” e suas operações são adaptações “coloridas” das operações 
+habituais sobre pilhas. Por exemplo, esta classe deve prover uma operação de push vermelha e 
+uma operação de push preta. Usando um ÚNICO ARRAY cuja a capacidade é limitada por um tamanho 
+N que é sempre maior do que os tamanhos somados das duas pilhas. A pilha “vermelha” pode começar 
+no início do array e a pilha “preta” pode começar no final do array. Sempre que o array (que contém 
+as duas pilhas) estiver cheio utilizar a estratégia de duplicação do tamanho do array.
+
+OBS.: Submeter individualmente um arquivo PDF com a solução. O seu código deve estar identado, 
+colorido (cores das principais IDES) e monoespaçado.
+
+----------------------------------------------------------------------------------------------------------
+t2 trabalho fila implementada com array
+
+Implemente o TAD Fila usando array. Utilize o conceito de fila circular visto nas nossas aulas. 
+Além disso, use a estratégia de duplicação do array sempre que o mesmo estiver cheio.
+
+Crie um único PDF com seu código resposta. O seu código deve conter a implementação completa (todas as classes  utilizadas) 
+de fila com array, incluindo uma classe teste.
+
+
+Esse trabalho pode ser realizado em grupo de até 5 alunos. Porém, cada aluno deve fazer sua 
+própria implementação e depois submetem uma só implementação acordada pelo grupo.
+
+----------------------------------------------------------------------------------------------------------
+t3 implentações fila
+
+Resolver as seguintes questões da lista Fila e Deque(Disponível no google sala de aula):
+Questão 03 (original)
+Questão 07 (alterada) - IMPLEMENTE EM JAVA/C# o TAD Fila, utilizando duas pilhas
+Questão 08 (alterada) - IMPLEMENTE EM JAVA/C# o TAD Pilha, utilizando duas filas
+Nova Questão -  IMPLEMENTE EM JAVA/C# o TAD Pilha utilizando uma Lista Simplesmente Encadeada.
+
+
+Crie um único PDF com seu código resposta. O seu código deve conter a implementação completa (todas as classes  utilizadas) 
+de fila com array, incluindo uma classe teste.
+
+
+Esse trabalho pode ser realizado em grupo de até 3 alunos. Porém, cada aluno deve fazer sua própria implementação e depois s
+ubmetem uma só implementação acordada pelo grupo.
+
+
+----------------------------------------------------------------------------------------------------------
+t4 impementação vetor
+
+Implemente o TAD Vetor utilizando array e Lista Duplamente Encadeada. Use Java ou C#.
+- Seu código deve ser totalmente funcional, incluindo uma classe para testes.
+
+----------------------------------------------------------------------------------------------------------
+t5 implementação lista
+
+Implemente o TAD Lista utilizando a estrutura de dados concreta 
+array e Lista Duplamente Encadeada
+
+. Use Java ou C#.
+- Seu código deve ser totalmente funcional, incluindo uma classe para testes.
+
+----------------------------------------------------------------------------------------------------------
+t6 implementação sequencia
+
+
+Implemente o TAD Sequencia utilizando a estrutura de dados concreta Lista Duplamente Encadeada. Use Java ou C#.
+
+- Seu código deve ser totalmente funcional, incluindo uma classe para testes.
+
+- Código identado, fonte monoespaçadas e fonte com cores das principais IDEs (Eclipse, NetBeans, etc).
+
+
+----------------------------------------------------------------------------------------------------------
+t7 implementação arvore generica
+
+Implementar os métodos que estão faltando na implementação da Árvore Genérica (ArvoresSimples.java - Disponível página da disciplina -> Árvore) em Java ou C#.
+- Seu código deve ser totalmente funcional, incluindo uma classe para testes.
+
+OBS.:CÓDIGO DEVE SER LEGÍVEL: IDENTADO, COM FONTES COM A MESMA
+LARGURA DE CARACTERES (MONOESPAÇADAS) E USAR PADRÕES DE CORES IGUAIS AS
+DAS PRINCIPAIS IDES (ECLIPSE, NETBEANS, ETC)
+OBS2.: Crie um único PDF com sua resposta
+
+----------------------------------------------------------------------------------------------------------
+t8 implementação fp/heap
+
+Implementar uma Fila de Prioridade usando um HEAP implementado através de um array para classe árvore e  implementada com objetos da classe Nó para árvore
+- implementar os métodos da Fila de Prioridade:
+- Insert, removeMin, size, isEmpty, e min. Métodos vistos em sala de aula
+
+OBS.: SÃO DUAS IMPLEMENTAÇÕES DISTINTAS (array e através de objetos da classe Nó)
+OBS.: O Código deve ser identado, com fontes monoespaçadas e com a coloração das principais IDES (Eclipse, NEtBeans, etc).
+
+
+----------------------------------------------------------------------------------------------------------
+t9 implementação arvore binaria Pesquisa
+
+Implementar uma Árvore Binária de Pesquisa em Java ou C#.
+- Seu código deve ser totalmente funcional e com todos os métodos vistos em sala de aula, incluíndo uma classe para testes. Seu projeto deve apresentar sua árvore na tela mostrando a hierarquia da árvore (Dica: Crie um método mostrar). 
+
+OBS.:CÓDIGO DEVE SER LEGÍVEL: IDENTADO, COM FONTES COM A MESMA
+LARGURA DE CARACTERES (MONOESPAÇADAS) E USAR PADRÕES DE CORES IGUAIS AS
+DAS PRINCIPAIS IDES (ECLIPSE, NETBEANS, ETC)
+OBS2.: Crie um único PDF com sua resposta
+
+
+Veja exemplo abaixo:
+Exemplo de árvore Binária de Pesquisa.
+
+A árvore abaixo foi resultado de várias inserções e/ou remoções.
+         10
+      5            15
+2         8               22
+
+Continuando a inserir e/ou remover
+Inserir 25
+
+                   10
+      5                      15
+2          8                        22
+                                                25
+remover 5
+
+                    10
+          8                  15
+2                                     22
+                                               25
+
+
+----------------------------------------------------------------------------------------------------------
+t9 Implementar uma tabela hash em Java ou C#.
+
+
+- Seu código deve ser totalmente funcional e com todos os métodos vistos em sala de aula, 
+incluíndo uma classe para testes. Seu projeto deve tratar as colisões por endereçamento 
+com as técnicas: Linear probing e hashduplo. Caso a sua tabela hash atinja o limite de 
+eficiência (utilize o fator de carga - calcule o alfa - para verificar o limite) sua implementação 
+deve fazer um Rehash para um array com o dobro do tamanho).
+
+----------------------------------------------------------------------------------------------------------
+t9 implementar skiplist
+
+Implementar um SKIPLIST com todos métodos vistos em sala de aula.

@@ -17,6 +17,7 @@ public class TesteABP {
         No raiz = abp.getRaiz();
         //System.out.println(abp.profundidade(abp.node));
         //abp.remover(8);
+        abp.inflar(raiz);
         abp.mostrar();
 
         //abp.preOrdem(raiz);
