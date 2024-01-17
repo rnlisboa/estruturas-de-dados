@@ -34,11 +34,7 @@ class Program{
 
         public void IncreaseSize(){
             size*=4;
-            int[] novafila = new int[size];
-            int index; 
-            for(index = 0; index <= tail - 1; index++){
-                novafila[index] = fila[index];
-            }
+            
             fila = novafila;
         }
         
