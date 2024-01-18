@@ -1,4 +1,4 @@
-package interfaces;
+package Interfaces;
 
 public interface IVetor {
     public Object elementAtRank(int r);

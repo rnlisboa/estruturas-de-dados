@@ -1,4 +1,4 @@
-package listImplements.ListaEncadeada;
+package LinkedList;
 
 import Exceptions.EListaVazia;
 import Exceptions.ENotFoundInList;

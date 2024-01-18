@@ -64,21 +64,18 @@ public class VetorEncadeado implements IVetor {
         return size;
     }
 
-    public void insertBefore(int r, Object o) {
+    public void insertBefore(Node actualAtRank, Object o) {
         Node node = new Node();
         node.setValue(o);
-        Node actualAtRank = elementAtRank(r);
         node.setNext(actualAtRank);
         node.setPrev(actualAtRank.getPrev());
         actualAtRank.getPrev().setNext(node);
         actualAtRank.setPrev(node);
-        
     }
 
-    public void insertAfter(int r, Object o) {
+    public void insertAfter(Node actualAtRank, Object o) {
         Node node = new Node();
         node.setValue(o);
-        Node actualAtRank = elementAtRank(r);
         node.setNext(actualAtRank.getNext());
         node.setPrev(actualAtRank);
         actualAtRank.getNext().setPrev(node);
