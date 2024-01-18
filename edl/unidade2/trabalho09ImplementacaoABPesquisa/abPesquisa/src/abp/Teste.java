@@ -1,8 +1,8 @@
-package ArvoreBinariaPesquisa;
+package abp;
 
 import Node.No;
 
-public class TesteABP {
+public class Teste {
     public static void main(String[] args) {
         ArvoreBinariaPesquisa abp = new ArvoreBinariaPesquisa();
         No newRaiz = new No(10);
@@ -14,6 +14,10 @@ public class TesteABP {
         abp.incluir(22);
         abp.incluir(25);
         abp.incluir(26);
+        abp.incluir(35);
+        abp.incluir(21);
+        abp.incluir(7);
+        abp.incluir(3);
         abp.mostrar();
 
         //abp.preOrdem(raiz);

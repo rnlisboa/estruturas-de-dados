@@ -1,4 +1,4 @@
-package ArvoreBinariaPesquisa;
+package abp;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -12,7 +12,7 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public No pesquisar(No node, Object key) {
-        if (node.isExternal())
+        if (isExternal(node))
             return node;
         if ((int) key < (int) node.element()) {
             return pesquisar(node.leftChild(), key);
@@ -31,7 +31,7 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
     private No includeAtPlace(Object key, No node) {
         No newNode = new No(key);
 
-        if (node.isInternal()) {
+        if (isInternal(node)) {
             if ((int) key < (int) node.element()) {
                 if (node.hasLeftChild())
                     return includeAtPlace(key, node.leftChild());
@@ -134,9 +134,9 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public void emOrdem(No no) {
-        if (no == null) 
+        if (no == null)
             return;
-        
+
         if (no.isInternal())
             emOrdem(no.leftChild());
 
@@ -209,65 +209,40 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
             return 0;
         return 1 + profundidade(no.parent());
     }
+
+    public static int getcol(int h) {
+        if (h == 1)
+            return 1;
+        return getcol(h - 1) + getcol(h - 1) + 1;
+    }
+
+    public static void printTree(int[][] M, No node, int col, int row, int height) {
+        if (node == null)
+            return;
+        // Verificar se a posição da matriz está dentro dos limites
+        if (row < M.length && col < M[row].length) {
+            M[row][col] = (int) node.element();
+            printTree(M, node.leftChild(), col - (int) Math.pow(2, height - 2), row + 1, height - 1);
+            printTree(M, node.rightChild(), col + (int) Math.pow(2, height - 2), row + 1, height - 1);
+        }
+    }
     
+
     @Override
     public void mostrar() {
         int h = altura(root);
-        int nLinhas = h + 1;
-        double nColunas = 2 * Math.pow(2, h) + 1;
-
-        Object[][] tabela = new Object[nLinhas][(int) nColunas];
-        preencheTabela(root, tabela, (int) nColunas);
-
-        for (int i = 0; i < nLinhas; i++) {
-            for (int j = 0; j < (int) nColunas; j++) {
-                if (tabela[i][j] == null)
+        int col = getcol(h);
+        int[][] M = new int[h][col];
+        printTree(M, root, col / 2, 0, h);
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < col; j++) {
+                if (M[i][j] == 0)
                     System.out.print(" ");
                 else
-                    System.out.print(" " + tabela[i][j] + " ");
-
+                    System.out.print(M[i][j] + " ");
             }
             System.out.println();
         }
-    }
-
-    private void preencheTabela(No no, Object[][] tabela, int nColunas) {
-        if (no != null) {
-            int coluna = coluna(no, nColunas, tabela);
-            tabela[profundidade(no)][coluna] = no.element();
-            no.setChilds();
-            Iterator<No> childs = no.childs();
-            while (childs.hasNext()) {
-                No child = childs.next();
-                preencheTabela(child, tabela, nColunas);
-            }
-        }
-    }
-
-    private int coluna(No no, int nColunas, Object[][] tabela) {
-        int coluna = 0;
-        if (no.equals(root)) {
-            coluna = (nColunas / 2) + 1;
-            no.setPos(coluna);
-            return coluna;
-        }
-
-        if (no.parent().hasLeftChild() && no.element().equals(no.parent().leftChild().element())) {
-            int colunaParent = no.parent().pos();
-            coluna = colunaParent - 1;
-            no.setPos(coluna);
-            return coluna;
-        }
-
-        if (no.parent().hasRightChild() && no.element().equals(no.parent().rightChild().element())) {
-            int colunaParent = no.parent().pos();
-            coluna = colunaParent + 2;
-            if (tabela[profundidade(no)][coluna] != null)
-                coluna = coluna + 1;
-            no.setPos(coluna);
-            return coluna;
-        }
-        return coluna;
     }
 
     @Override
@@ -278,19 +253,19 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
     }
 
     private void createNosList(No node, ArrayList<No> arrayNode) {
-        if (node.isInternal())
+        if (isInternal(node))
             createNosList(node.leftChild(), arrayNode);
         arrayNode.add(node);
-        if (node.isInternal()) {
+        if (isInternal(node)) {
             createNosList(node.rightChild(), arrayNode);
         }
     }
 
     private void createElementsList(No node, ArrayList<Object> arrayElement) {
-        if (node.isInternal())
+        if (isInternal(node))
             createElementsList(node.leftChild(), arrayElement);
         arrayElement.add(node);
-        if (node.isInternal()) {
+        if (isInternal(node)) {
             createElementsList(node.rightChild(), arrayElement);
         }
     }
@@ -310,6 +285,20 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
     @Override
     public boolean isEmpty() {
         return this.size == 0;
+    }
+
+    public boolean isInternal(No node) {
+        boolean hasLeftChild = node.hasLeftChild();
+        boolean hasRightChild = node.hasRightChild();
+        boolean isInternal = hasLeftChild || hasRightChild;
+        return isInternal;
+    }
+
+    public boolean isExternal(No node) {
+        boolean hasLeftChild = node.hasLeftChild();
+        boolean hasRightChild = node.hasRightChild();
+        boolean isInternal = !hasLeftChild && !hasRightChild;
+        return isInternal;
     }
 
 }
