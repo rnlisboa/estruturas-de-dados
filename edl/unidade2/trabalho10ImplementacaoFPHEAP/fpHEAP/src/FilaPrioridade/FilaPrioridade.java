@@ -6,8 +6,8 @@ import Item.Item;
 import NodeFP.Node;
 
 public class FilaPrioridade implements IFilaPrioridade {
-    private Node head;
-    private Node tail;
+    private Node head = new Node(null);
+    private Node tail = new Node(null);;
     private Comparador comp;
     private int size;
 
@@ -22,9 +22,16 @@ public class FilaPrioridade implements IFilaPrioridade {
         Item item = new Item(key, value);
         Node node = new Node(item);
         if (this.head.getNext().equals(this.tail)) {
-            setAtributes(node, tail, head);
+            this.head.setNext(node);
+            node.setPrev(this.head);
+            this.tail.setPrev(node);
+            node.setNext(this.tail);
         } else {
-            setAtributes(node, tail.getPrev(), head.getNext());
+            Node prevFim = this.tail.getPrev();
+            node.setNext(this.tail);
+            node.setPrev(prevFim);
+            prevFim.setNext(node);
+            this.tail.setPrev(node);
         }
 
         this.size++;
@@ -32,8 +39,8 @@ public class FilaPrioridade implements IFilaPrioridade {
 
     private Node setAtributes(Node node, Node next, Node prev) {
         prev.setNext(node);
-        next.setPrev(node);
         node.setPrev(prev);
+        next.setPrev(node);
         node.setNext(next);
         return node;
     }
@@ -45,9 +52,9 @@ public class FilaPrioridade implements IFilaPrioridade {
         while (!atual.equals(this.tail)) {
             this.comp = new Comparador(atual, atual.getNext());
             int comparado = this.comp.comparer();
-            if(comparado > 0){
+            if (comparado > 0) {
                 min = atual;
-            } else if (comparado == 0){
+            } else if (comparado == 0) {
                 min = atual;
             } else {
                 min = atual.getNext();
@@ -64,11 +71,11 @@ public class FilaPrioridade implements IFilaPrioridade {
         Node min = this.head.getNext();
         Node atual = this.head.getNext();
         while (!atual.equals(this.tail)) {
-            this.comp = new Comparador(atual, atual.getNext());
+            this.comp = new Comparador(atual.getValue().key(), atual.getNext().getValue().key());
             int comparado = this.comp.comparer();
-            if(comparado > 0){
+            if (comparado > 0) {
                 min = atual;
-            } else if (comparado == 0){
+            } else if (comparado == 0) {
                 min = atual;
             } else {
                 min = atual.getNext();
@@ -88,14 +95,14 @@ public class FilaPrioridade implements IFilaPrioridade {
         return this.size == 0;
     }
 
-    public void print(){
-        System.out.print("{ ");
+    public void print() {
+        System.out.print("[ ");
         Node atual = this.head.getNext();
         while (!atual.equals(this.tail)) {
-            System.out.print(atual.getValue().value() + " ");
+            System.out.print("{ " + atual.getValue().key() + ": " + atual.getValue().value() + " } ");
             atual = atual.getNext();
         }
-        System.out.print("}");
+        System.out.print("]");
     }
 
 }

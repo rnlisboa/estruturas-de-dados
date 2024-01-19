@@ -8,7 +8,7 @@ public class Teste {
         fp.insert(2, "C");
         fp.insert(25, "D");
         fp.insert(16, "E");
-
+        System.out.println(fp.min());
         fp.print();
     }
 
