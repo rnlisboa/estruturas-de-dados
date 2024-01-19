@@ -24,50 +24,46 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public No incluir(Object key) {
-        No no = includeAtPlace(key, getRaiz());
-        return no;
-    }
-
-    private No includeAtPlace(Object key, No node) {
-        No newNode = new No(key);
-
-        if (isInternal(node)) {
-            if ((int) key < (int) node.element()) {
-                if (node.hasLeftChild())
-                    return includeAtPlace(key, node.leftChild());
-                else {
-                    node.setLeftChild(newNode);
-                    newNode.setParent(node);
-                    this.size++;
-                    return newNode;
-                }
-            } else if ((int) key > (int) node.element()) {
-                if (node.hasRightChild()) {
-                    return includeAtPlace(key, node.rightChild());
+        No novoNo = new No(key);
+        No atual = getRaiz();
+        while (atual != null) {
+            if (isInternal(atual)) {
+                if ((int) key < (int) atual.element()) {
+                    if (atual.hasLeftChild()) {
+                        atual = atual.leftChild();
+                    } else {
+                        atual.setLeftChild(novoNo);
+                        novoNo.setParent(atual);
+                        return novoNo;
+                    }
+                } else if ((int) key > (int) atual.element()) {
+                    if (atual.hasRightChild()) {
+                        atual = atual.rightChild();
+                    } else {
+                        atual.setRightChild(novoNo);
+                        novoNo.setParent(atual);
+                        return novoNo;
+                    }
                 } else {
-                    node.setRightChild(newNode);
-                    newNode.setParent(node);
-                    this.size++;
-                    return newNode;
+                    return novoNo;
                 }
             } else {
-                return newNode;
-            }
-        } else {
-            if ((int) key < (int) node.element()) {
-                node.setLeftChild(newNode);
-                newNode.setParent(node);
-                this.size++;
-                return newNode;
-            } else if ((int) key > (int) node.element()) {
-                node.setRightChild(newNode);
-                newNode.setParent(node);
-                this.size++;
-                return newNode;
-            } else {
-                return newNode;
+                if ((int) key < (int) atual.element()) {
+                    atual.setLeftChild(novoNo);
+                    novoNo.setParent(atual);
+                    this.size++;
+                    return novoNo;
+                } else if ((int) key > (int) atual.element()) {
+                    atual.setRightChild(novoNo);
+                    novoNo.setParent(atual);
+                    this.size++;
+                    return novoNo;
+                } else {
+                    return novoNo;
+                }
             }
         }
+        return novoNo;
     }
 
     @Override
@@ -165,32 +161,20 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public void preOrdem(No no) {
-        if (no != null) {
-            System.out.println(no.element());
-            no.setChilds();
-            Iterator<No> childs = no.childs();
-            while (childs.hasNext()) {
-                No child = childs.next();
-                preOrdem(child);
-            }
-        } else
-            System.out.println("null");
-
+       if(no != null){
+        System.out.println(no.element());
+        preOrdem(no.leftChild());
+        preOrdem(no.rightChild());
+       }
     }
 
     @Override
     public void posOrdem(No no) {
-        if (no != null) {
-            no.setChilds();
-            Iterator<No> childs = no.childs();
-            while (childs.hasNext()) {
-                No child = childs.next();
-                preOrdem(child);
-            }
+        if(no != null){
+            preOrdem(no.leftChild());
+            preOrdem(no.rightChild());
             System.out.println(no.element());
-        } else
-            System.out.println("null");
-
+           }
     }
 
     @Override
@@ -210,23 +194,22 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
         return 1 + profundidade(no.parent());
     }
 
-    public static int getcol(int h) {
+    public int getcol(int h) {
         if (h == 1)
             return 1;
         return getcol(h - 1) + getcol(h - 1) + 1;
     }
 
-    public static void printTree(int[][] M, No node, int col, int row, int height) {
+    public void printTree(int[][] M, No node, int col, int row, int height) {
         if (node == null)
             return;
-        // Verificar se a posição da matriz está dentro dos limites
+
         if (row < M.length && col < M[row].length) {
             M[row][col] = (int) node.element();
             printTree(M, node.leftChild(), col - (int) Math.pow(2, height - 2), row + 1, height - 1);
             printTree(M, node.rightChild(), col + (int) Math.pow(2, height - 2), row + 1, height - 1);
         }
     }
-    
 
     @Override
     public void mostrar() {

@@ -3,7 +3,7 @@ package Sequencia;
 import Exceptions.EListaVazia;
 import Exceptions.ENotFoundInList;
 import Node.Node;
-import interfaces.ISequencia;
+import Interfaces.ISequencia;
 
 public class Sequencia implements ISequencia{
     private Node inicio = new Node();

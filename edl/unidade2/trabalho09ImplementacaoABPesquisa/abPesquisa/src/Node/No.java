@@ -1,9 +1,5 @@
 package Node;
 
-import java.util.ArrayList;
-
-import java.util.Iterator;
-
 public class No {
     private No parent;
     private No leftChild;
