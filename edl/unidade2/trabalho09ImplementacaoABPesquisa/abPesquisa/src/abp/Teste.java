@@ -22,10 +22,5 @@ public class Teste {
         abp.incluir(24);
         abp.incluir(28);
         abp.mostrar();
-        System.out.println("---------------------");
-        //abp.remover(15);
-        //abp.mostrar();
-        abp.posOrdem(newRaiz);
-        //abp.preOrdem(raiz);
     }
 }

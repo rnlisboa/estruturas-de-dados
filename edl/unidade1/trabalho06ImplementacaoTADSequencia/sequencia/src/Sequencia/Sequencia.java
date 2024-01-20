@@ -2,8 +2,8 @@ package Sequencia;
 
 import Exceptions.EListaVazia;
 import Exceptions.ENotFoundInList;
-import Node.Node;
 import Interfaces.ISequencia;
+import NodeS.Node;
 
 public class Sequencia implements ISequencia{
     private Node inicio = new Node();

@@ -18,8 +18,7 @@ public class FilaPrioridade implements IFilaPrioridade {
     }
 
     @Override
-    public void insert(Object key, Object value) {
-        Item item = new Item(key, value);
+    public void insert(Item item) {
         Node node = new Node(item);
         if (this.head.getNext().equals(this.tail)) {
             this.head.setNext(node);
@@ -37,52 +36,29 @@ public class FilaPrioridade implements IFilaPrioridade {
         this.size++;
     }
 
-    private Node setAtributes(Node node, Node next, Node prev) {
-        prev.setNext(node);
-        node.setPrev(prev);
-        next.setPrev(node);
-        node.setNext(next);
-        return node;
-    }
+   
 
     @Override
-    public Item removeMin() {
-        Node min = this.head.getNext();
-        Node atual = this.head.getNext();
-        while (!atual.equals(this.tail)) {
-            this.comp = new Comparador(atual, atual.getNext());
-            int comparado = this.comp.comparer();
-            if (comparado > 0) {
-                min = atual;
-            } else if (comparado == 0) {
-                min = atual;
-            } else {
-                min = atual.getNext();
-            }
-            atual = atual.getNext();
-        }
-        setAtributes(min.getNext(), min.getNext(), min.getPrev());
+    public void removeMin() {
+        Node min = this.min();
+        Node proxMin = min.getNext();
+        Node prevMin = min.getPrev();
+        proxMin.setPrev(prevMin);
+        prevMin.setNext(min.getNext());
         this.size--;
-        return min.getValue();
     }
 
     @Override
-    public Item min() {
+    public Node min() {
         Node min = this.head.getNext();
         Node atual = this.head.getNext();
-        while (!atual.equals(this.tail)) {
-            this.comp = new Comparador(atual.getValue().key(), atual.getNext().getValue().key());
+        while(!atual.getNext().equals(this.tail)){
+            this.comp = new Comparador(atual.getNext().getValue().key(), min.getValue().key());
             int comparado = this.comp.comparer();
-            if (comparado > 0) {
-                min = atual;
-            } else if (comparado == 0) {
-                min = atual;
-            } else {
-                min = atual.getNext();
-            }
+            if(comparado < 0) min = atual;
             atual = atual.getNext();
         }
-        return min.getValue();
+        return min;
     }
 
     @Override
@@ -103,6 +79,8 @@ public class FilaPrioridade implements IFilaPrioridade {
             atual = atual.getNext();
         }
         System.out.print("]");
+        System.out.println();
     }
+
 
 }

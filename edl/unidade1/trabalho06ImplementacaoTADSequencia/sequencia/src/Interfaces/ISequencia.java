@@ -1,6 +1,6 @@
 package Interfaces;
 
-import Node.Node;
+import NodeS.Node;
 
 public interface ISequencia {  
     public int size();  
@@ -19,7 +19,7 @@ public interface ISequencia {
     public Object removeAtRank(int r);
     public void insertFirst(Object o);
     public void insertLast(Object o);
-    public void insertAfter(Object n, Object o);
-    public void insertBefore(Object n, Object o);
-    public Object remove(Object o);
+    public void insertAfter(Node node, Object o);
+    public void insertBefore(Node node, Object o);
+    public Object remove(Node o);
 }

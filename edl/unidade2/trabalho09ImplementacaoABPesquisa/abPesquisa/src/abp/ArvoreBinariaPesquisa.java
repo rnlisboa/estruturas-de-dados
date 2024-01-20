@@ -73,7 +73,7 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
         Object toRemoveElement = toRemove.element();
 
         // para nó folha
-        if (toRemove.isExternal()) {
+        if (isExternal(toRemove)) {
             if (toRemoveParent.hasLeftChild() && toRemoveParent.leftChild().element() == key)
                 toRemoveParent.setLeftChild(null);
             else
@@ -83,7 +83,7 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
         // nó com um filho
         if (toRemove.hasRightChild()) {
-            if (toRemove.rightChild().isExternal()) {
+            if (isExternal(toRemove.rightChild())) {
                 toRemove.setElement(toRemove.rightChild().element());
                 toRemove.setRightChild(null);
                 return toRemoveElement;
@@ -133,7 +133,7 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
         if (no == null)
             return;
 
-        if (no.isInternal())
+        if (isInternal(no))
             emOrdem(no.leftChild());
 
         System.out.print(no.element() + " pai de ");
@@ -154,7 +154,7 @@ public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
         System.out.println();
 
-        if (no.isInternal()) {
+        if (isInternal(no)) {
             emOrdem(no.rightChild());
         }
     }
