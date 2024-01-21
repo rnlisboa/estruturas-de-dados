@@ -4,7 +4,7 @@ import Node.No;
 
 public class Teste {
     public static void main(String[] args) {
-        ArvoreBinariaPesquisa abp = new ArvoreBinariaPesquisa();
+        ArvBinPesquisa abp = new ArvBinPesquisa();
         No newRaiz = new No(10);
         abp.setRaiz(newRaiz);
         abp.incluir(5);

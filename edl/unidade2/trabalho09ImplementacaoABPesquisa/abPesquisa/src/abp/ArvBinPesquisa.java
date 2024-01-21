@@ -6,7 +6,7 @@ import java.util.Iterator;
 import Interfaces.IArvoreBinariaPesquisa;
 import Node.No;
 
-public class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
+public class ArvBinPesquisa implements IArvoreBinariaPesquisa {
     public No root;
     private int size;
 

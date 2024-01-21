@@ -14,7 +14,7 @@ public class Teste {
         System.out.println(fp.min().getValue().key());
         fp.removeMin();
         fp.print();
-        System.out.println(fp.min().getValue().key());
+        //System.out.println(fp.min().getValue().key());
     }
 
 }

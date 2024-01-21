@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import Node.No;
 
-public interface IArvoreBinariaPesquisa {
+public interface IArvBinPesquisa {
 
 
 	No pesquisar(No no, Object key);
