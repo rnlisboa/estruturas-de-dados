@@ -32,9 +32,8 @@ public class HeapNode {
     }
 
     private Node findLastNode(Node node, Node newNode) {
-        if (!node.equals(root)) {
-            System.out.println(node.element().key());
-            findRec(node.parent());
+        if (!node.equals(root) && node.equals(node.parent().rightChild())) {
+            node = findRec(node);
         }
         if (node.hasLeftChild() && !node.hasRightChild()) {
             node.setRightChild(newNode);
@@ -43,21 +42,22 @@ public class HeapNode {
         } else if (!node.hasLeftChild()) {
             node.setLeftChild(newNode);
             newNode.setParent(node);
+            this.lastNode = node;
         }
         return node;
     }
 
     private Node findRec(Node node) {
-
-        if (node == root || node == node.parent().leftChild()) {
+        if (node.equals(root) || node.equals(node.parent().leftChild())) {
             if (node.hasLeftChild()) {
+                if(node.equals(root)){}
                 return findRec(node.leftChild());
+            } else {
+                return node;
             }
         } else {
             return findRec(node.parent());
         }
-
-        return node;
     }
 
     private void heapUp(Node node) {
