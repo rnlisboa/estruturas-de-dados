@@ -14,6 +14,7 @@ public class HeapNode {
         Node novo = new Node(item);
         this.root = novo;
         this.lastNode = this.root;
+        this.size++;
     }
 
     public Node root() {
@@ -26,38 +27,43 @@ public class HeapNode {
 
     public void insert(Item item) {
         Node newNode = new Node(item);
-        findLastNode(this.lastNode, newNode);
-        heapUp(this.root);
-        size++;
+        Node parent = findParentLastNode(this.lastNode);
+        if (parent.hasLeftChild() && !parent.hasRightChild()) {
+            parent.setRightChild(newNode);
+        } else if (!parent.hasLeftChild()) {
+            parent.setLeftChild(newNode);
+        }
+
+        newNode.setParent(parent);
+        this.lastNode = newNode;
+        this.size++;
+
+        // heapUp(this.root);
     }
 
-    private Node findLastNode(Node node, Node newNode) {
-        if (!node.equals(root) && node.equals(node.parent().rightChild())) {
-            node = findRec(node);
-        }
-        if (node.hasLeftChild() && !node.hasRightChild()) {
-            node.setRightChild(newNode);
-            newNode.setParent(node);
-            this.lastNode = newNode;
-        } else if (!node.hasLeftChild()) {
-            node.setLeftChild(newNode);
-            newNode.setParent(node);
-            this.lastNode = node;
-        }
-        return node;
-    }
+    private Node findParentLastNode(Node lastNode) {
+        Node atual = lastNode;
 
-    private Node findRec(Node node) {
-        if (node.equals(root) || node.equals(node.parent().leftChild())) {
-            if (node.hasLeftChild()) {
-                if(node.equals(root)){}
-                return findRec(node.leftChild());
+        while (atual != root) {
+            boolean isLeftChild = atual.equals(atual.parent().leftChild());
+            if (isLeftChild) {
+                boolean parentRightChildIsNotNull = atual.parent().rightChild() != null;
+                if (parentRightChildIsNotNull) {
+                    atual = atual.parent().rightChild();
+                    break;
+                } else {
+                    return atual.parent();
+                }
             } else {
-                return node;
+                atual = atual.parent();
             }
-        } else {
-            return findRec(node.parent());
         }
+
+        while (atual.hasLeftChild()) {
+            atual = atual.leftChild();
+        }
+
+        return atual;
     }
 
     private void heapUp(Node node) {
@@ -92,27 +98,35 @@ public class HeapNode {
 
         return 1 + Math.max(alturaDireita, alturaEsquerda);
     }
-
+    
     public void emOrdem(Node node) {
-        if (node == root) {
-            System.out.println(node.element().key() + " pai na esquerda de " + node.leftChild().element().key()
-                    + " e na direita de " + node.rightChild().element().key());
-        } else {
-            if (node.hasLeftChild() && node.hasRightChild()) {
-                System.out.println(node.element().key() + "  pai na esquerda de " + node.leftChild().element().key()
-                        + " e na direita de "
-                        + node.rightChild().element().key());
-            } else if (node.hasLeftChild() && !node.hasRightChild()) {
-                System.out.println(node.element().key() + "  pai na esquerda de " + node.leftChild().element().key());
-            } else if (!node.hasLeftChild() && node.hasRightChild()) {
-                System.out.println(node.element().key() + " filho de " + node.parent().element().key()
-                        + " e pai na direita de " + node.rightChild().element().key());
+        if (node != null) {
+            if (isInternal(node)) {
+              emOrdem(node.leftChild());
+            }
+            if (node == root) {
+                System.out.println(node.element().key() + " pai na esquerda de " + node.leftChild().element().key()
+                        + " e na direita de " + node.rightChild().element().key());
+            } else {
+                if (node.hasLeftChild() && node.hasRightChild()) {
+                    System.out.println(node.element().key() + "  pai na esquerda de " + node.leftChild().element().key()
+                            + " e na direita de "
+                            + node.rightChild().element().key());
+                } else if (node.hasLeftChild() && !node.hasRightChild()) {
+                    System.out.println(node.element().key() + "  pai na esquerda de " + node.leftChild().element().key());
+                } else if (!node.hasLeftChild() && node.hasRightChild()) {
+                    System.out.println(node.element().key() + " filho de " + node.parent().element().key()
+                            + " e pai na direita de " + node.rightChild().element().key());
+                } else if (!node.hasLeftChild() && !node.hasRightChild()) {
+                    System.out.println(node.element().key() + " filho de " + node.parent().element().key()
+                            + " e sem filhos");
+                }
+            }
+            if(isInternal(node)){
+                emOrdem(node.rightChild());
             }
         }
-        if (node != null) {
-            if (isInternal(node))
-                emOrdem(node.leftChild());
-        }
+        
 
     }
 
