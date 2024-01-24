@@ -38,7 +38,7 @@ public class HeapNode {
         this.lastNode = newNode;
         this.size++;
 
-        // heapUp(this.root);
+        upHeap(this.lastNode);
     }
 
     private Node findParentLastNode(Node lastNode) {
@@ -66,18 +66,20 @@ public class HeapNode {
         return atual;
     }
 
-    private void heapUp(Node node) {
-        if (node != root) {
-            this.comp = new Comparador(node.element().key(), node.parent().element().key());
-            int comparado = this.comp.comparer();
-            while (node.parent() != null && comparado > 0) {
-                swap(node, node.parent());
-                node = node.parent();
-                this.comp = new Comparador(node.element().key(), node.parent().element().key());
-                comparado = this.comp.comparer();
-            }
-        }
+    private void upHeap(Node node) {
+        Node atual = node;
+        while (!atual.equals(this.root)) {
+            Object atualKeyParent = atual.parent().element().key();
+            Object atualKey = atual.element().key();
 
+            this.comp = new Comparador(atualKey, atualKeyParent);
+            int comparado = this.comp.comparer();
+            if (comparado < 0) {
+                swap(atual, atual.parent());
+            }
+
+            atual = atual.parent();
+        }
     }
 
     private void swap(Node node1, Node node2) {
@@ -98,11 +100,11 @@ public class HeapNode {
 
         return 1 + Math.max(alturaDireita, alturaEsquerda);
     }
-    
+
     public void emOrdem(Node node) {
         if (node != null) {
             if (isInternal(node)) {
-              emOrdem(node.leftChild());
+                emOrdem(node.leftChild());
             }
             if (node == root) {
                 System.out.println(node.element().key() + " pai na esquerda de " + node.leftChild().element().key()
@@ -113,7 +115,8 @@ public class HeapNode {
                             + " e na direita de "
                             + node.rightChild().element().key());
                 } else if (node.hasLeftChild() && !node.hasRightChild()) {
-                    System.out.println(node.element().key() + "  pai na esquerda de " + node.leftChild().element().key());
+                    System.out
+                            .println(node.element().key() + "  pai na esquerda de " + node.leftChild().element().key());
                 } else if (!node.hasLeftChild() && node.hasRightChild()) {
                     System.out.println(node.element().key() + " filho de " + node.parent().element().key()
                             + " e pai na direita de " + node.rightChild().element().key());
@@ -122,11 +125,10 @@ public class HeapNode {
                             + " e sem filhos");
                 }
             }
-            if(isInternal(node)){
+            if (isInternal(node)) {
                 emOrdem(node.rightChild());
             }
         }
-        
 
     }
 
@@ -155,10 +157,11 @@ public class HeapNode {
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < col; j++) {
                 if (M[i][j] == null)
-                    System.out.print(" ");
+                    System.out.print("      ");
                 else
                     System.out.print(M[i][j] + " ");
             }
+            System.out.println();
             System.out.println();
         }
     }
@@ -170,8 +173,49 @@ public class HeapNode {
         return isInternal;
     }
 
-    public Node removeMin() {
-        Node min = this.root;
+    private void downHeap(Node node) {
+        Node atual = node;
+        while (atual != null) {
+
+            if (atual.hasLeftChild()) {
+                Object atualFilhoEsquerdoKey = atual.leftChild().element().key();
+                Object atualFilhoDireitoKey = atual.rightChild().element().key();
+                Object atualKey = atual.rightChild().element().key();
+
+                this.comp = new Comparador(atualKey, atualFilhoEsquerdoKey);
+                int compE = this.comp.comparer();
+
+                if (compE > 0) {
+                    swap(atual, atual.leftChild());
+                    atual = atual.leftChild();
+                } else if (atual.hasRightChild()) {
+                    this.comp = new Comparador(atualKey, atualFilhoDireitoKey);
+                    int compD = this.comp.comparer();
+                    if (compD > 0) {
+                        swap(atual, atual.rightChild());
+                        atual = atual.rightChild();
+                    }
+                } else {
+                    break;
+                }
+
+            } else {
+                break;
+            }
+
+        }
+    }
+
+    public Item removeMin() {
+        Item min = this.root.element();
+        Node parentLastNode = this.lastNode.parent();
+        if (parentLastNode.leftChild().equals(this.lastNode)) {
+            parentLastNode.setLeftChild(null);
+        } else {
+            parentLastNode.setRightChild(null);
+        }
+        this.root.setValue(this.lastNode.element());
+        downHeap(this.root);
         return min;
     }
 }
