@@ -17,8 +17,11 @@ public class TesteHeapNode {
         hNode.insert(new Item(12, "H"));
         hNode.insert(new Item(11, "S"));
         hNode.insert(new Item(13, "W"));
-        hNode.removeMin();
-        hNode.emOrdem(hNode.root());
-        //hNode.mostrar();
+        //hNode.emOrdem(hNode.root());
+        hNode.mostrar();
+        System.out.println(hNode.removeMin().key());
+        hNode.mostrar();
+
+        System.out.println(hNode.getLastNode().parent().element().key());
     }
 }

@@ -180,7 +180,7 @@ public class HeapNode {
             if (atual.hasLeftChild()) {
                 Object atualFilhoEsquerdoKey = atual.leftChild().element().key();
                 Object atualFilhoDireitoKey = atual.rightChild().element().key();
-                Object atualKey = atual.rightChild().element().key();
+                Object atualKey = atual.element().key();
 
                 this.comp = new Comparador(atualKey, atualFilhoEsquerdoKey);
                 int compE = this.comp.comparer();
@@ -217,5 +217,21 @@ public class HeapNode {
         this.root.setValue(this.lastNode.element());
         downHeap(this.root);
         return min;
+    }
+
+    public Node getLastNode(){
+        return this.lastNode;
+    }
+
+    private void atualizarUltimoNo(Node lastNode){
+        Node atual = lastNode;
+        while(atual != root){
+            boolean isrightChild = atual.equals(atual.parent().rightChild());
+            if(isrightChild){
+                atual = atual.parent().leftChild();
+            } else {
+                atual = atual.parent();
+            }
+        }
     }
 }
