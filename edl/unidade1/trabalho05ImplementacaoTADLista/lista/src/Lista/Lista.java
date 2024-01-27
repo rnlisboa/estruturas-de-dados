@@ -1,8 +1,8 @@
-package listImplements.Lista;
+package Lista;
 
 import Exceptions.EListaVazia;
 import Exceptions.ENotFoundInList;
-import interfaces.ILista;
+import Interfaces.ILista;
 
 public class Lista implements ILista {
     private int capacity = 2;
@@ -69,58 +69,37 @@ public class Lista implements ILista {
         int indexA = indexOf(q);
         if(indexA == -1) throw new ENotFoundInList("Elemento não consta na lista");
         
-        int indexN = 0;       
-        for(int i = 0; i < arraySize; i++){
-            if(lista[i].equals(n)){
-                indexN = i;
-                break;
-            }
-        }
-        int indexQ = 0;
-        for(int i = 0; i < arraySize; i++){
-            if(lista[i].equals(q)){
-                indexQ = i;
-                break;
-            }
-        }
-
-        lista[indexN] = q;
-        lista[indexQ] = n;
+        lista[index] = q;
+        lista[indexA] = n;
     }
     
     @Override
     public void insertBefore(Object n, Object o) {
-        int index = indexOf(n);
-        if(index == -1) throw new ENotFoundInList("Elemento não consta na lista");
         int size = size();
         if(size == lista.length - 1) increaseList();
-        for(int i = 0; i < arraySize; i++){
-            if(lista[i] == n){
-                for(int j = arraySize - 1; j >= i; j--){
-                    lista[j + 1] = lista[j];
-                }
-                lista[i] = o;
-                break;
-            }
+        int index = arraySize - 1;
+        Object atual = lista[index];
+        while(atual != n){
+            lista[index + 1] = lista[index];
+            atual = lista[index--];
         }
+        index++;
+        lista[index] = o;
         arraySize++;
     }
     
     @Override
     public void insertAfter(Object n, Object o) {
-        int index = indexOf(n);
-        if(index == -1) throw new ENotFoundInList("Elemento não consta na lista");
         int size = size();
         if(size == lista.length - 1) increaseList();
-        for(int i = 0; i < arraySize; i++){
-            if(lista[i] == n){
-                for(int j = arraySize - 1; j > i; j--){
-                    lista[j + 1] = lista[j];
-                }
-                lista[i + 1] = o;
-                break;
-            }
+        int index = arraySize - 1;
+        while(index != -1){
+            if(lista[index-1] == n) break;
+            lista[index + 1] = lista[index];
+            index--;
         }
+        index++;
+        lista[index] = o;
         arraySize++;
     }
     

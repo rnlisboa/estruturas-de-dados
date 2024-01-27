@@ -1,4 +1,4 @@
-package interfaces;
+package Interfaces;
 
 public interface ILista {
     public Object first();

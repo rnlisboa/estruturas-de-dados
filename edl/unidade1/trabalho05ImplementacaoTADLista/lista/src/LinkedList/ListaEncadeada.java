@@ -3,7 +3,7 @@ package LinkedList;
 import Exceptions.EListaVazia;
 import Exceptions.ENotFoundInList;
 import Node.Node;
-import interfaces.IListaEncadeada;
+import Interfaces.IListaEncadeada;
 
 public class ListaEncadeada implements IListaEncadeada {
     Node inicio = new Node();

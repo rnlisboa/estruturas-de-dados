@@ -1,4 +1,4 @@
-package interfaces;
+package Interfaces;
 
 public interface IListaEncadeada {
     public Object first();
