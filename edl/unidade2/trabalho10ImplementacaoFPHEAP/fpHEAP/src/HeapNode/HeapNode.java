@@ -9,22 +9,22 @@ public class HeapNode {
     private Node lastNode;
     private Comparador comp;
     private int size;
-
+    
     public HeapNode(Item item) {
         Node novo = new Node(item);
         this.root = novo;
         this.lastNode = this.root;
         this.size++;
     }
-
+    
     public Node root() {
         return this.root;
     }
-
-    public Node lastNode() {
-        return lastNode;
+    
+    
+    public Node getLastNode(){
+        return this.lastNode;
     }
-
     public void insert(Item item) {
         Node newNode = new Node(item);
         Node parent = findParentLastNode(this.lastNode);
@@ -82,6 +82,86 @@ public class HeapNode {
         }
     }
 
+    public Item removeMin() {
+        Item min = this.root.element();
+        if(this.lastNode.equals(root)){
+            this.root = null;
+            return min;
+        }
+
+        Node parentLastNode = this.lastNode.parent();
+        boolean lastNodeIsLeftChild = parentLastNode.leftChild().equals(this.lastNode);
+        if (lastNodeIsLeftChild) {
+            parentLastNode.setLeftChild(null);
+        } else {
+            parentLastNode.setRightChild(null);
+        }
+        this.root.setValue(this.lastNode.element());
+        downHeap(this.root);
+        atualizarUltimoNo(this.lastNode);
+        return min;
+    }
+
+    private void downHeap(Node node) {
+        Node atual = node;
+        System.out.println("Em downHeap: " + node.element().key());
+        while (atual != null) {
+
+            if (atual.hasLeftChild()) {
+                Object atualFilhoEsquerdoKey = atual.leftChild().element().key();
+                Object atualKey = atual.element().key();
+                
+                this.comp = new Comparador(atualKey, atualFilhoEsquerdoKey);
+                int compE = this.comp.comparer();
+                
+                if (compE > 0) {
+                    swap(atual, atual.leftChild());
+                    atual = atual.leftChild();
+                } else if (atual.hasRightChild()) {
+                    Object atualFilhoDireitoKey = atual.rightChild().element().key();
+                    this.comp = new Comparador(atualKey, atualFilhoDireitoKey);
+                    int compD = this.comp.comparer();
+                    if (compD > 0) {
+                        swap(atual, atual.rightChild());
+                        atual = atual.rightChild();
+                    }
+                } else {
+                    break;
+                }
+
+            } else {
+                break;
+            }
+
+        }
+    }
+
+    
+    
+
+    private void atualizarUltimoNo(Node lastNode){
+        Node atual = lastNode;
+        while (atual != root) {
+            boolean isRightChild = atual.equals(atual.parent().rightChild());
+            if (isRightChild) {
+                boolean parentRightChildIsNotNull = atual.parent().leftChild() != null;
+                if (parentRightChildIsNotNull) {
+                    atual = atual.parent().leftChild();
+                    break;
+                } else {
+                    atual = atual.parent();
+                }
+            } else {
+                atual = atual.parent();
+            }
+        }
+
+        while (atual.hasRightChild()) {
+            atual = atual.rightChild();
+        }
+
+        this.lastNode = atual; 
+    }
     private void swap(Node node1, Node node2) {
         Item temp = node1.element();
         node1.setValue(node2.element());
@@ -150,18 +230,18 @@ public class HeapNode {
     }
 
     public void mostrar() {
-        int h = altura(root);
+        int h = (int)Math.pow(2, altura(root)) - 1;
         int col = getcol(h);
         String[][] M = new String[h][col];
         printTree(M, root, col / 2, 0, h);
         for (int i = 0; i < h; i++) {
+            System.out.println();
             for (int j = 0; j < col; j++) {
                 if (M[i][j] == null)
-                    System.out.print("      ");
+                    System.out.print(" ");
                 else
-                    System.out.print(M[i][j] + " ");
+                    System.out.print(M[i][j] + "");
             }
-            System.out.println();
             System.out.println();
         }
     }
@@ -171,67 +251,5 @@ public class HeapNode {
         boolean hasRightChild = node.hasRightChild();
         boolean isInternal = hasLeftChild || hasRightChild;
         return isInternal;
-    }
-
-    private void downHeap(Node node) {
-        Node atual = node;
-        while (atual != null) {
-
-            if (atual.hasLeftChild()) {
-                Object atualFilhoEsquerdoKey = atual.leftChild().element().key();
-                Object atualFilhoDireitoKey = atual.rightChild().element().key();
-                Object atualKey = atual.element().key();
-
-                this.comp = new Comparador(atualKey, atualFilhoEsquerdoKey);
-                int compE = this.comp.comparer();
-
-                if (compE > 0) {
-                    swap(atual, atual.leftChild());
-                    atual = atual.leftChild();
-                } else if (atual.hasRightChild()) {
-                    this.comp = new Comparador(atualKey, atualFilhoDireitoKey);
-                    int compD = this.comp.comparer();
-                    if (compD > 0) {
-                        swap(atual, atual.rightChild());
-                        atual = atual.rightChild();
-                    }
-                } else {
-                    break;
-                }
-
-            } else {
-                break;
-            }
-
-        }
-    }
-
-    public Item removeMin() {
-        Item min = this.root.element();
-        Node parentLastNode = this.lastNode.parent();
-        if (parentLastNode.leftChild().equals(this.lastNode)) {
-            parentLastNode.setLeftChild(null);
-        } else {
-            parentLastNode.setRightChild(null);
-        }
-        this.root.setValue(this.lastNode.element());
-        downHeap(this.root);
-        return min;
-    }
-
-    public Node getLastNode(){
-        return this.lastNode;
-    }
-
-    private void atualizarUltimoNo(Node lastNode){
-        Node atual = lastNode;
-        while(atual != root){
-            boolean isrightChild = atual.equals(atual.parent().rightChild());
-            if(isrightChild){
-                atual = atual.parent().leftChild();
-            } else {
-                atual = atual.parent();
-            }
-        }
     }
 }

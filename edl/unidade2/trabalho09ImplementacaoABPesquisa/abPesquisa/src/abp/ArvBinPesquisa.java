@@ -3,10 +3,10 @@ package abp;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import Interfaces.IArvoreBinariaPesquisa;
+import Interfaces.IArvBinPesquisa;
 import Node.No;
 
-public class ArvBinPesquisa implements IArvoreBinariaPesquisa {
+public class ArvBinPesquisa implements IArvBinPesquisa {
     public No root;
     private int size;
 

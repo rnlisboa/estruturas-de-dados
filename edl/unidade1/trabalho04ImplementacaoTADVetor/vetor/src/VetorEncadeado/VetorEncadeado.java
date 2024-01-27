@@ -1,7 +1,7 @@
 package VetorEncadeado;
 
 import Node.Node;
-import interfaces.IVetor;
+import Interfaces.IVetor;
 
 public class VetorEncadeado implements IVetor {
     private Node inicio = new Node();
