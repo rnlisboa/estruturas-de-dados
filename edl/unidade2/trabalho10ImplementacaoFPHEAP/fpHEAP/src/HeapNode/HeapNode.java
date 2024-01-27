@@ -104,7 +104,6 @@ public class HeapNode {
 
     private void downHeap(Node node) {
         Node atual = node;
-        System.out.println("Em downHeap: " + node.element().key());
         while (isInternal(atual)) {
             Object atualKey = atual.element().key();
             Object letftKey = atual.leftChild().element().key();
@@ -119,9 +118,7 @@ public class HeapNode {
                 int compED = this.comp.comparer();
     
                 if(compED >= 0){
-                    //chave esqueda é maior
                     if(compAD >= 0){
-                        //chave atual é maior que esquerda
                         swap(atual, atual.rightChild());
                         atual = atual.rightChild();
                     } 
