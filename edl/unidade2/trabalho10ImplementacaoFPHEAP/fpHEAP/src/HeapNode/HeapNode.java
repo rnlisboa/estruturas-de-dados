@@ -9,22 +9,22 @@ public class HeapNode {
     private Node lastNode;
     private Comparador comp;
     private int size;
-    
+
     public HeapNode(Item item) {
         Node novo = new Node(item);
         this.root = novo;
         this.lastNode = this.root;
         this.size++;
     }
-    
+
     public Node root() {
         return this.root;
     }
-    
-    
-    public Node getLastNode(){
+
+    public Node getLastNode() {
         return this.lastNode;
     }
+
     public void insert(Item item) {
         Node newNode = new Node(item);
         Node parent = findParentLastNode(this.lastNode);
@@ -84,7 +84,7 @@ public class HeapNode {
 
     public Item removeMin() {
         Item min = this.root.element();
-        if(this.lastNode.equals(root)){
+        if (this.lastNode.equals(root)) {
             this.root = null;
             return min;
         }
@@ -105,41 +105,44 @@ public class HeapNode {
     private void downHeap(Node node) {
         Node atual = node;
         System.out.println("Em downHeap: " + node.element().key());
-        while (atual != null) {
-
-            if (atual.hasLeftChild()) {
-                Object atualFilhoEsquerdoKey = atual.leftChild().element().key();
-                Object atualKey = atual.element().key();
-                
-                this.comp = new Comparador(atualKey, atualFilhoEsquerdoKey);
-                int compE = this.comp.comparer();
-                
-                if (compE > 0) {
-                    swap(atual, atual.leftChild());
-                    atual = atual.leftChild();
-                } else if (atual.hasRightChild()) {
-                    Object atualFilhoDireitoKey = atual.rightChild().element().key();
-                    this.comp = new Comparador(atualKey, atualFilhoDireitoKey);
-                    int compD = this.comp.comparer();
-                    if (compD > 0) {
+        while (isInternal(atual)) {
+            Object atualKey = atual.element().key();
+            Object letftKey = atual.leftChild().element().key();
+            this.comp = new Comparador(atualKey, letftKey);
+            int compAE = this.comp.comparer();
+            
+            if(atual.hasRightChild()){
+                Object rightKey = atual.rightChild().element().key();
+                this.comp = new Comparador(atualKey, rightKey);
+                int compAD = this.comp.comparer();
+                this.comp = new Comparador(letftKey, rightKey);
+                int compED = this.comp.comparer();
+    
+                if(compED >= 0){
+                    //chave esqueda é maior
+                    if(compAD >= 0){
+                        //chave atual é maior que esquerda
                         swap(atual, atual.rightChild());
                         atual = atual.rightChild();
-                    }
+                    } 
                 } else {
-                    break;
+                    if(compAE >= 0){
+                        swap(atual, atual.leftChild());
+                        atual = atual.leftChild();
+                    }
                 }
-
             } else {
-                break;
+                if(compAE >= 0){
+                    swap(atual, atual.leftChild());
+                    atual = atual.leftChild();
+                }
             }
-
+            
+            
         }
     }
 
-    
-    
-
-    private void atualizarUltimoNo(Node lastNode){
+    private void atualizarUltimoNo(Node lastNode) {
         Node atual = lastNode;
         while (atual != root) {
             boolean isRightChild = atual.equals(atual.parent().rightChild());
@@ -160,8 +163,9 @@ public class HeapNode {
             atual = atual.rightChild();
         }
 
-        this.lastNode = atual; 
+        this.lastNode = atual;
     }
+
     private void swap(Node node1, Node node2) {
         Item temp = node1.element();
         node1.setValue(node2.element());
@@ -230,7 +234,7 @@ public class HeapNode {
     }
 
     public void mostrar() {
-        int h = (int)Math.pow(2, altura(root)) - 1;
+        int h = (int) Math.pow(2, altura(root)) - 1;
         int col = getcol(h);
         String[][] M = new String[h][col];
         printTree(M, root, col / 2, 0, h);
