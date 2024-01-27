@@ -28,51 +28,35 @@ public class ListaEncadeada implements IListaEncadeada {
     }
 
     @Override
-    public Object before(Object p) {
+    public Object before(Node foundedNode) {
         if(isEmpty()) throw new EListaVazia("Lista vazia");
-        Node foundedNode = findNode(p);
-        if (foundedNode == null)
-            throw new ENotFoundInList("Não encontrado");
         Node prevToFoundedNode = foundedNode.getPrev();
         return prevToFoundedNode.getValue();
     }
 
     @Override
-    public Object after(Object p) {
+    public Object after(Node foundedNode) {
         if(isEmpty()) throw new EListaVazia("Lista vazia");
-        Node foundedNode = findNode(p);
-        if (foundedNode == null)
-            throw new ENotFoundInList("Não encontrado");
         Node nextToFoundedNode = foundedNode.getNext();
         return nextToFoundedNode.getValue();
     }
 
     @Override
-    public void replaceElement(Object n, Object o) {
-        Node foundedNodeN = findNode(n);
-        if (foundedNodeN== null)
-            throw new ENotFoundInList("Não encontrado");
+    public void replaceElement(Node foundedNodeN, Object o) {
         foundedNodeN.setValue(o);
     }
 
     @Override
-    public void swapElements(Object n, Object q) {
-        Node foundedNodeN = findNode(n);
-        if (foundedNodeN== null)
-            throw new ENotFoundInList("Não encontrado");
-        Node foundedNodeQ = findNode(q);
-        if (foundedNodeQ== null)
-            throw new ENotFoundInList("Não encontrado");
+    public void swapElements(Node foundedNodeN, Node foundedNodeQ) {
         Object valueOfN = foundedNodeN.getValue();
-        Object valueOfQ = foundedNodeN.getValue();
-
+        Object valueOfQ = foundedNodeQ.getValue();
         foundedNodeN.setValue(valueOfQ);
         foundedNodeQ.setValue(valueOfN);
     }
 
     @Override
-    public void insertBefore(Object n, Object o) {
-        Node foundedNode = findNode(n);
+    public void insertBefore(Node foundedNode, Object o) {
+        if(isEmpty()) throw new EListaVazia("Lista vazia");
         if (foundedNode== null)
             throw new ENotFoundInList("Não encontrado");
         Node prevFoundedNode = foundedNode.getPrev();
@@ -85,12 +69,12 @@ public class ListaEncadeada implements IListaEncadeada {
     }
 
     @Override
-    public void insertAfter(Object n, Object o) {
-        Node foundedNode = findNode(n);
+    public void insertAfter(Node foundedNode, Object o) {
+        if(isEmpty()) throw new EListaVazia("Lista vazia");
         if (foundedNode== null)
             throw new ENotFoundInList("Não encontrado");
         Node proxFoundedNode = foundedNode.getNext();
-        if (proxFoundedNode== null)
+        if (proxFoundedNode == null)
             throw new ENotFoundInList("Não encontrado");
         Node newNode = new Node();
         newNode.setValue(o);
@@ -143,9 +127,8 @@ public class ListaEncadeada implements IListaEncadeada {
     }
 
     @Override
-    public Object remove(Object n) {
+    public Object remove(Node foundedNode) {
         if(isEmpty()) throw new EListaVazia("Lista vazia");
-        Node foundedNode = findNode(n);
         if (foundedNode== null)
             throw new ENotFoundInList("Não encontrado");
         Node prevToFoundedNode = foundedNode.getPrev();

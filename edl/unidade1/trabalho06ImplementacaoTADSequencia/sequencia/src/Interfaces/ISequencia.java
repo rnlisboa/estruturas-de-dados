@@ -9,10 +9,10 @@ public interface ISequencia {
     public int rankOf(Node n);
     public Object first();
     public Object last();
-    public Object before(Object p);
-    public Object after(Object p);
-    public void replaceElement(Object n, Object o);
-    public void swapElements(Object n, Object q);
+    public Object before(Node foundedNode);
+    public Object after(Node foundedNode);
+    public void replaceElement(Node n, Object q);
+    public void swapElements(Node n, Node q);
     public Node elementAtRank(int r);
     public Object replaceAtRank(int r, Object o);
     public void insertAtRank(int r, Object o);

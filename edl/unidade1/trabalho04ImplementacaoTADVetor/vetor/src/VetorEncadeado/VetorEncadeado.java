@@ -64,53 +64,6 @@ public class VetorEncadeado implements IVetor {
         return size;
     }
 
-    public void insertBefore(Node actualAtRank, Object o) {
-        Node node = new Node();
-        node.setValue(o);
-        node.setNext(actualAtRank);
-        node.setPrev(actualAtRank.getPrev());
-        actualAtRank.getPrev().setNext(node);
-        actualAtRank.setPrev(node);
-    }
-
-    public void insertAfter(Node actualAtRank, Object o) {
-        Node node = new Node();
-        node.setValue(o);
-        node.setNext(actualAtRank.getNext());
-        node.setPrev(actualAtRank);
-        actualAtRank.getNext().setPrev(node);
-        actualAtRank.setNext(node);
-    }
-
-    public void insertFirst(Object o) {
-        Node node = new Node();
-        node.setValue(o);
-        Node nextInicio = inicio.getNext();
-        node.setNext(nextInicio);
-        inicio.setNext(node);
-        node.setPrev(inicio);
-        nextInicio.setPrev(node);
-    }
-
-    public void insertLast(Object o) {
-        Node node = new Node();
-        node.setValue(o);
-        if (inicio.getNext() == fim) {
-            inicio.setNext(node);
-            node.setPrev(inicio);
-            node.setNext(fim);
-            fim.setPrev(node);
-        }else{
-            Node prevFim = fim.getPrev();
-            System.out.println(prevFim.getValue());
-            node.setNext(fim);
-            node.setPrev(prevFim);
-            prevFim.setNext(node);
-            fim.setPrev(node);
-        }
-        
-    }
-
     public void print() {
         Node atual = inicio.getNext();
 
