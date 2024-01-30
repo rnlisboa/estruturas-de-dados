@@ -1,7 +1,5 @@
 package HeapNode;
-
 import Item.Item;
-
 public class TesteHeapNode {
     public static void main(String[] args) {
         HeapNode hNode = new HeapNode(new Item(4, "C"));
