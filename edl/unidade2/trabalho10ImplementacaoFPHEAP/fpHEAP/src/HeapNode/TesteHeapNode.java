@@ -16,13 +16,19 @@ public class TesteHeapNode {
         hNode.insert(new Item(14, "E"));
         hNode.mostrar();
         System.out.println("Removido: " + hNode.removeMin().key());
-
+        
         hNode.mostrar();
+        //hNode.emOrdem(hNode.root());
         System.out.println("Ultimo nó agora é " + hNode.getLastNode().element().key());
-        System.out.println(hNode.root().element().key());
         System.out.println("Removido: " + hNode.removeMin().key());
-
+        
         hNode.mostrar();
+        //hNode.emOrdem(hNode.root());
+        System.out.println("Ultimo nó agora é " + hNode.getLastNode().element().key());
+        hNode.insert(new Item(94,"V"));
+        hNode.mostrar();
+        //hNode.emOrdem(hNode.root());
+        System.out.println("Ultimo nó agora é " + hNode.getLastNode().element().key());
         //System.out.println(hNode.getLastNode().element().key());
     }
 }

@@ -92,13 +92,17 @@ public class HeapNode {
         Node parentLastNode = this.lastNode.parent();
         boolean lastNodeIsLeftChild = parentLastNode.leftChild().equals(this.lastNode);
         if (lastNodeIsLeftChild) {
+            this.root.setValue(this.lastNode.element());
+            downHeap(this.root);
+            atualizarUltimoNo(this.lastNode);
             parentLastNode.setLeftChild(null);
         } else {
+            this.root.setValue(this.lastNode.element());
+            downHeap(this.root);
+            atualizarUltimoNo(this.lastNode);
             parentLastNode.setRightChild(null);
         }
-        this.root.setValue(this.lastNode.element());
-        downHeap(this.root);
-        atualizarUltimoNo(this.lastNode);
+
         return min;
     }
 
@@ -109,40 +113,41 @@ public class HeapNode {
             Object letftKey = atual.leftChild().element().key();
             this.comp = new Comparador(atualKey, letftKey);
             int compAE = this.comp.comparer();
-            
-            if(atual.hasRightChild()){
+
+            if (atual.hasRightChild()) {
                 Object rightKey = atual.rightChild().element().key();
                 this.comp = new Comparador(atualKey, rightKey);
                 int compAD = this.comp.comparer();
                 this.comp = new Comparador(letftKey, rightKey);
                 int compED = this.comp.comparer();
-    
-                if(compED >= 0){
-                    if(compAD >= 0){
+
+                if (compED >= 0) {
+                    if (compAD >= 0) {
                         swap(atual, atual.rightChild());
                         atual = atual.rightChild();
-                    } 
+                    }
                 } else {
-                    if(compAE >= 0){
+                    if (compAE >= 0) {
                         swap(atual, atual.leftChild());
                         atual = atual.leftChild();
                     }
                 }
             } else {
-                if(compAE >= 0){
+                if (compAE >= 0) {
                     swap(atual, atual.leftChild());
                     atual = atual.leftChild();
                 }
             }
-            
-            
+
         }
     }
 
     private void atualizarUltimoNo(Node lastNode) {
         Node atual = lastNode;
         while (atual != root) {
-            boolean isRightChild = atual.equals(atual.parent().rightChild());
+            Node parent = atual.parent();
+            Node parentRightChild = parent.rightChild();
+            boolean isRightChild = atual.equals(parentRightChild);
             if (isRightChild) {
                 boolean parentRightChildIsNotNull = atual.parent().leftChild() != null;
                 if (parentRightChildIsNotNull) {
