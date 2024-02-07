@@ -1,4 +1,6 @@
-package Item;
+package ItemAVl;
+
+import InterfacesAVL.IEntry;
 
 public class Item implements IEntry{
     private Object key;
@@ -19,4 +21,3 @@ public class Item implements IEntry{
     }
     
 }
-

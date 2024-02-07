@@ -39,7 +39,6 @@ public class HashTable implements IHashTable {
     }
 
     private int doubleHash(int indiceHash, Object k) {
-        // encontrar o índice primo mais próximo de indiceHash
         int num = 1;
         while (this.array[indiceHash] != null) {
             indiceHash = (indiceHash + num * hash(k)) % this.capacidade;
@@ -81,7 +80,7 @@ public class HashTable implements IHashTable {
             if (c == null) {
                 return "NO_SUCH_KEY";
             } else if (c.key().equals(k)) {
-                this.array[indiceHash] = null;
+                this.array[indiceHash] = new Item(null, null);
                 return c.value();
             } else {
                 indiceHash = (indiceHash + 1) % this.capacidade;
