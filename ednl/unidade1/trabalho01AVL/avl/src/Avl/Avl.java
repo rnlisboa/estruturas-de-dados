@@ -22,18 +22,26 @@ public class Avl extends AbpTree implements IAVL {
     
     @Override
     public boolean isBalanced(NodeABP node) {
-        return false;
+        int bf = this.altura(node.leftChild()) - this.altura(node.rightChild());
+        return (-1 <= bf) && (bf <= 1);
     }
 
     @Override
     public void rebalance(NodeABP node) {
- 
+        NodeABP atual = node;
+        while(!atual.equals(this.root)){
+            atual = atual.parent();
+            if(!isBalanced(atual)){
+                NodeABP xPos = tallerChild(tallerChild(atual));
+               
+            }
+        }
     }
 
     @Override
     public NodeABP tallerChild(NodeABP node) {
-        NodeABP n = new NodeABP(null);
-        return n;
+        if(this.altura(node.leftChild()) >= this.altura(node.rightChild())) return node.leftChild();
+        else return node.rightChild();
     }
     
 }
