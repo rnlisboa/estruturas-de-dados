@@ -20,4 +20,8 @@ public class Item implements IEntry{
         return this.value;
     }
     
+    public String toString(){
+        return this.key().toString();
+    }
+
 }

@@ -7,11 +7,11 @@ import InterfacesAVL.IAbp;
 import ItemAVl.Item;
 import NodeABP.NodeABP;
 
-public class AbpTree implements IAbp{
+public class AbpTree implements IAbp {
     public NodeABP root;
     private int size;
 
-    public AbpTree (Item item){
+    public AbpTree(Item item) {
         NodeABP n = new NodeABP(item);
         this.root = n;
         this.size++;
@@ -23,7 +23,7 @@ public class AbpTree implements IAbp{
             return node;
         if ((int) key < (int) node.element().key()) {
             return pesquisar(node.leftChild(), key);
-        } else if (key == node.element())
+        } else if (key == node.element().key())
             return node;
         else
             return pesquisar(node.rightChild(), key);
@@ -162,28 +162,60 @@ public class AbpTree implements IAbp{
 
     @Override
     public void preOrdem(NodeABP no) {
-       if(no != null){
-        System.out.println(no.element().key());
-        preOrdem(no.leftChild());
-        preOrdem(no.rightChild());
-       }
+        if (no != null) {
+            System.out.println(no.element().key());
+            preOrdem(no.leftChild());
+            preOrdem(no.rightChild());
+        }
     }
 
     @Override
     public void posOrdem(NodeABP no) {
-        if(no != null){
+        if (no != null) {
             preOrdem(no.leftChild());
             preOrdem(no.rightChild());
             System.out.println(no.element().key());
-           }
+        }
     }
 
     @Override
     public int altura(NodeABP no) {
-        if (no == null)
+        NodeABP atual = no;
+        if (atual == null)
             return -1;
-        int alturaDireita = altura(no.rightChild());
-        int alturaEsquerda = altura(no.leftChild());
+        if (isExternal(atual)) {
+            if (atual.parent().hasRightChild()) {
+                boolean nodeIsRightChild = atual.parent().rightChild().equals(atual);
+                if (nodeIsRightChild) {
+                    boolean parentNodehasLeftChild = no.parent().hasLeftChild();
+                    if (parentNodehasLeftChild) {
+                        boolean parentNodeLeftChildIsInternal = isInternal(atual.parent().leftChild());
+                        if (parentNodeLeftChildIsInternal) {
+                            atual = atual.parent().leftChild();
+                        }
+                    }
+                }
+
+            } 
+            if(isExternal(atual)){
+                if(atual.parent().hasLeftChild()){
+                    if (atual.parent().leftChild().equals(atual)) {
+                        boolean parentNodehasRightChild = no.parent().hasRightChild();
+                        if (parentNodehasRightChild) {
+                            boolean parentNodeRightChildIsInternal = isInternal(atual.parent().rightChild());
+                            if (parentNodeRightChildIsInternal) {
+                                atual = atual.parent().rightChild();
+                            }
+                        }
+                    }
+                }
+                
+            }
+            
+        }
+
+        int alturaDireita = altura(atual.rightChild());
+        int alturaEsquerda = altura(atual.leftChild());
 
         return 1 + Math.max(alturaDireita, alturaEsquerda);
     }
@@ -287,5 +319,4 @@ public class AbpTree implements IAbp{
         return isInternal;
     }
 
-    
 }
