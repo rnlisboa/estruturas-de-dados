@@ -17,6 +17,10 @@ public class AbpTree implements IAbp {
         this.size++;
     }
 
+    public NodeABP root(){
+        return this.root;
+    }
+
     @Override
     public NodeABP pesquisar(NodeABP node, Object key) {
         if (isExternal(node))
@@ -178,6 +182,11 @@ public class AbpTree implements IAbp {
         }
     }
 
+    public int alturaNode(NodeABP node){
+        int altura = altura(this.root) - profundidade(node);
+        return altura;
+    }
+
     @Override
     public int altura(NodeABP no) {
         NodeABP atual = no;
@@ -185,33 +194,16 @@ public class AbpTree implements IAbp {
             return -1;
         if (isExternal(atual)) {
             if (atual.parent().hasRightChild()) {
-                boolean nodeIsRightChild = atual.parent().rightChild().equals(atual);
-                if (nodeIsRightChild) {
-                    boolean parentNodehasLeftChild = no.parent().hasLeftChild();
-                    if (parentNodehasLeftChild) {
-                        boolean parentNodeLeftChildIsInternal = isInternal(atual.parent().leftChild());
-                        if (parentNodeLeftChildIsInternal) {
-                            atual = atual.parent().leftChild();
-                        }
-                    }
+                if (atual.parent().rightChild().equals(atual)) {
+                    if (atual.parent().hasLeftChild())
+                        atual = atual.parent().leftChild();
                 }
-
-            } 
-            if(isExternal(atual)){
-                if(atual.parent().hasLeftChild()){
-                    if (atual.parent().leftChild().equals(atual)) {
-                        boolean parentNodehasRightChild = no.parent().hasRightChild();
-                        if (parentNodehasRightChild) {
-                            boolean parentNodeRightChildIsInternal = isInternal(atual.parent().rightChild());
-                            if (parentNodeRightChildIsInternal) {
-                                atual = atual.parent().rightChild();
-                            }
-                        }
-                    }
+            } else if (atual.parent().hasLeftChild()) {
+                if (atual.parent().leftChild().equals(atual)) {
+                    if (atual.parent().hasRightChild())
+                        atual = atual.parent().rightChild();
                 }
-                
             }
-            
         }
 
         int alturaDireita = altura(atual.rightChild());
@@ -317,6 +309,19 @@ public class AbpTree implements IAbp {
         boolean hasRightChild = node.hasRightChild();
         boolean isInternal = !hasLeftChild && !hasRightChild;
         return isInternal;
+    }
+
+    public Object largerst(int n){
+        NodeABP atual = this.root();
+        int c = 0;
+        while(c <= n){
+            if(atual.hasRightChild()){
+                atual = atual.rightChild();
+                c++;
+            }else break;
+        }
+        
+        return atual.element().key();
     }
 
 }

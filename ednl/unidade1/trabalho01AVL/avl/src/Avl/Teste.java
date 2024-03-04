@@ -14,9 +14,10 @@ public class Teste {
         avl.incluir(new Item(48, null));
         avl.incluir(new Item(62, null));
         NodeABP novo = avl.incluir(new Item(54, null));
-        //avl.showIsBalanced(novo);
+        avl.showIsBalanced(novo);
         NodeABP f = avl.pesquisar(avl.getRaiz(), 17);
-        System.out.println(avl.altura(f));
         avl.mostrar();
+
+        System.out.println(avl.largerst(4));
     }
 }

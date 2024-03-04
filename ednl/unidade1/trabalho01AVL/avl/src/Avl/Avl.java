@@ -16,18 +16,25 @@ public class Avl extends AbpTree implements IAVL {
         int h = this.altura(novo);
         novo.setHeitgh(h);
 
-        if (!isBalanced(novo))
-            rebalance(novo);
+        rebalance(novo);
         return novo;
     }
 
-    public void showIsBalanced(NodeABP n){
-        //System.out.println(n.element().toString() + " " + isBalanced(n));
-        System.out.println(n.element().toString() + " " + this.altura(n));
-        if(n.equals(this.root)){
-            return;
-        };
-        showIsBalanced(n.parent());
+    @Override
+    public void rebalance(NodeABP node) {
+        NodeABP atual = node;
+        NodeABP pai = atual.parent();
+        NodeABP avo = pai.parent();
+        while (!atual.equals(this.root())) {
+            if (!isBalanced(atual)) {
+                if (isLeftPending(avo) && pai.leftChild().equals(atual))
+                    doubleRotateRight(atual);
+            } else {
+                atual = pai;
+            }
+
+        }
+
     }
 
     @Override
@@ -37,15 +44,47 @@ public class Avl extends AbpTree implements IAVL {
     }
 
     @Override
-    public void rebalance(NodeABP node) {
-        NodeABP atual = node;
-        while (!atual.equals(this.root)) {
-            atual = atual.parent();
-            if (!isBalanced(atual)) {
-                NodeABP xPos = tallerChild(tallerChild(atual));
+    public boolean isRightPending(NodeABP node) {
+        return this.altura(node.leftChild()) - this.altura(node.rightChild()) == -1;
+    }
 
-            }
+    @Override
+    public boolean isLeftPending(NodeABP node) {
+        return this.altura(node.leftChild()) - this.altura(node.rightChild()) == 1;
+    }
+
+    @Override
+    public void rotateRight(NodeABP node) {
+        NodeABP pai = node.parent();
+        NodeABP avo = pai.parent();
+        pai.setRightChild(avo);
+    }
+
+    @Override
+    public void rotateleft(NodeABP node) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'rotateleft'");
+    }
+
+    @Override
+    public void doubleRotateRight(NodeABP node) {
+    
+    }
+
+    @Override
+    public void doubleRotateleft(NodeABP node) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'doubleRotateleft'");
+    }
+
+    public void showIsBalanced(NodeABP n) {
+        System.out.println(n.element().toString() + " " + isBalanced(n));
+        // System.out.println(n.element().toString() + " " + this.altura(n));
+        if (n.equals(this.root)) {
+            return;
         }
+        ;
+        showIsBalanced(n.parent());
     }
 
     @Override
