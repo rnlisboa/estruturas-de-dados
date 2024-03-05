@@ -74,7 +74,6 @@ public class Pilha implements IPilha {
             Object o = aux.pop();
             this.push(o);
         }
-        
     }
     
 }
