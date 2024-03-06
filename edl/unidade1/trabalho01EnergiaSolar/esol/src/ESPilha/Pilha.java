@@ -13,7 +13,7 @@ public class Pilha implements IPilha {
     }
 
     public void increase(){
-        if(this.size == this.t){
+        if(this.size == this.t+1){
             int nc = 2*this.capacity;
             Object[] np = new Object[nc];
             for(int i=0; i<= this.t; i++){
@@ -54,6 +54,7 @@ public class Pilha implements IPilha {
         increase();
         t++;
         this.p[t] = o;
+        size++;
         return o;
     }
 
@@ -68,7 +69,7 @@ public class Pilha implements IPilha {
     }
     
     private boolean isFourth(){
-        boolean f = size() / this.capacity * 100 == 25;
+        boolean f = size() == this.capacity * 0.25;
         return f;
     }
 

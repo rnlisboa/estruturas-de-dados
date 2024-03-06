@@ -1,6 +1,5 @@
 package Deque;
 
-import FilaAux.EFilaVazia;
 
 public class Deque implements IDeque {
     private Node head;
