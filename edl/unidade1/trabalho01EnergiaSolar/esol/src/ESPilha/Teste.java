@@ -1,46 +1,54 @@
 package ESPilha;
 
-public class Powerlines {
+import java.util.Vector;
+
+public class Teste {
     public static void main(String[] args) throws Exception {
-        Object[] l = {3, 6, 2, 7, 5};
+        Vector<Integer> l = new Vector<Integer>();
+        l.add(3);
+        l.add(6);
+        l.add(2);
+        l.add(7);
+        l.add(5);
+
         powerlines(l);
     }
 
-    public static void powerlines(Object[] l){
+    public static void powerlines(Vector<Integer> l){
         int index = 0;
         int loop = 0;
         while(true){
-            Object atual = l[index];
+            Object atual = l.get(index);
             Object atualEsquerda;
-            
+
             if(index-1 < 0) atualEsquerda = atual;
-            else atualEsquerda = l[index-1];
+            else atualEsquerda = l.get(index-1);
 
             boolean atualIsTaller = isTaller(atual, atualEsquerda);
             if(atualIsTaller){
                 Pilha p = criaNovaPilha();
                 p.push(atual);
                 int nindex = index + 1;
-                l[index] = null;
-                while(nindex < l.length){
-                    Object natual = l[nindex];
-                    Object natualEsquerda = l[nindex - 1];
+                l.remove(index);
+                while(nindex < l.size()){
+                    Object natual = l.get(nindex);
+                    Object natualEsquerda = l.get(nindex - 1);
                     boolean natualIsTaller = isTaller(natual, natualEsquerda);
                     if(natualIsTaller){
                         p.push(natual);
-                        l[nindex] = null;
+                        l.remove(nindex);
                     }
                     index = nindex;
                     nindex++;
                 }
             }
             index++;
-            if(index == l.length){
+            if(index == l.size()){
                 loop++;
                 index = 0;
             }
 
-            if(loop == l.length-1) break;
+            if(loop == l.size()-1) break;
         }
     }
 
@@ -53,5 +61,4 @@ public class Powerlines {
         Pilha pilha = new Pilha(1);
         return pilha;
     }
-    
 }
