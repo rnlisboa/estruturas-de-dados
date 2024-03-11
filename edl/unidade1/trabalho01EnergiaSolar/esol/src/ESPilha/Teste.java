@@ -17,6 +17,7 @@ public class Teste {
     public static void powerlines(Vector<Integer> l){
         int index = 0;
         int loop = 0;
+        Vector<Pilha> pilhas = new Vector<Pilha>();
         while(true){
             Object atual = l.get(index);
             Object atualEsquerda;
@@ -26,7 +27,7 @@ public class Teste {
 
             boolean atualIsTaller = isTaller(atual, atualEsquerda);
             if(atualIsTaller){
-                Pilha p = criaNovaPilha();
+                Pilha p = new Pilha(1);
                 p.push(atual);
                 int nindex = index + 1;
                 l.remove(index);
@@ -41,6 +42,7 @@ public class Teste {
                     index = nindex;
                     nindex++;
                 }
+                pilhas.add(p);
             }
             index++;
             if(index == l.size()){
@@ -55,10 +57,5 @@ public class Teste {
     public static boolean isTaller(Object a, Object b){
         if(b == null || a == null) return false;
         return (int)a > (int)b;
-    }
-
-    public static Pilha criaNovaPilha(){
-        Pilha pilha = new Pilha(1);
-        return pilha;
     }
 }
