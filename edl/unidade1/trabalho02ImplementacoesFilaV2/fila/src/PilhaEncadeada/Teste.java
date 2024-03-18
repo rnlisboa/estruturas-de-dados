@@ -13,5 +13,6 @@ public class Teste {
         System.out.println(p);
         p.pop();
         System.out.println(p);
+        System.out.println(p.top());
     }
 }

@@ -30,6 +30,10 @@ public class Fila {
         return first.getValue();
     }
 
+    public Object first() {
+        return this.inicio.getValue();
+    }
+
     public boolean isEmpty() {
         return this.inicio == null;
     }

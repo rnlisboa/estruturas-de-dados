@@ -11,5 +11,6 @@ public class Teste {
         System.out.println(f);
         f.dequeue();
         System.out.println(f);
+        System.out.println(f.first());
     }
 }
