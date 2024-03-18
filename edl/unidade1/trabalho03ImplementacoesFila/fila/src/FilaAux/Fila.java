@@ -12,6 +12,13 @@ public class Fila {
         this.lista = new Object[c];
     }
 
+    public void ed(){
+        System.out.print( head );
+        System.out.print(" ");
+        System.out.print( tail );
+        System.out.println();
+    }
+
     public void incrementSizeList() {
         int newCapacity = capacity * 2;
         Object[] novaLista = new Object[newCapacity];
@@ -35,12 +42,15 @@ public class Fila {
         lista[tail] = v;
         tail = (tail + 1) % lista.length;
         size++;
+
     }
 
     public Object dequeue() throws EFilaVazia {
         if (isEmpty()) throw new EFilaVazia("Fila vazia.");
         Object n = lista[head];
         head++;
+        size--;
+
         return n;
     }
 
@@ -61,7 +71,7 @@ public class Fila {
     }
 
     public void printList() {
-        for (int i = 0; i <= lista.length - 1; i++) {
+        for (int i = 0; i < size; i++) {
             System.out.print(lista[i] + ", ");
         }
         System.out.println();

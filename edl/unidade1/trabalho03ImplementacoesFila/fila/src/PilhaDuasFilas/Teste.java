@@ -10,9 +10,12 @@ public class Teste {
         pDuasFilas.push(50);
 
         pDuasFilas.print();
-
-        System.out.println(pDuasFilas.top());
-
+        
+        System.out.println(pDuasFilas.pop());
+        System.out.println(pDuasFilas.pop());
         pDuasFilas.print();
+
+
+        
     }
 }

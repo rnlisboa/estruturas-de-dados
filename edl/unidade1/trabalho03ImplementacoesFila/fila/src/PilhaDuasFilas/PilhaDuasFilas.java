@@ -22,12 +22,18 @@ public class PilhaDuasFilas {
             f2.enqueue(removedF1);
         } 
 
-        Object removed = removedF1;
+        System.out.println(f1.isEmpty());
+
+
+        Object top = removedF1;
         for(int i = f2.size(); i > 0; i--){
             Object removedF2 = f2.dequeue();
+            f1.ed();
             f1.enqueue(removedF2);
         }
-        return removed;
+
+        f1.dequeue();
+        return top;
     }
 
     public Object top(){
@@ -38,6 +44,7 @@ public class PilhaDuasFilas {
         } 
 
         Object top = removedF1;
+        System.out.println(f1.isEmpty());
         for(int i = f2.size(); i > 0; i--){
             Object removedF2 = f2.dequeue();
             f1.enqueue(removedF2);

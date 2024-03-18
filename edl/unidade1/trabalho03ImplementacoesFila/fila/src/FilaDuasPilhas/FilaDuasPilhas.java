@@ -40,8 +40,6 @@ public class FilaDuasPilhas {
         }
         
         Object first = p2.top();
-        
-        p2.pop();
 
         for(int i = p2.size(); i > 0; i--){
             Object add = p2.pop();
