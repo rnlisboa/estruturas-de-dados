@@ -104,7 +104,7 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
         No rightChildSucessor = sucessor.rightChild();
         No parentSucessor = sucessor.parent();
         parentSucessor.setLeftChild(rightChildSucessor);
-
+        
         return toRemoveElement;
     }
 
@@ -194,38 +194,35 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
         return 1 + profundidade(no.parent());
     }
 
-    public int getcol(int h) {
-        if (h == 1)
-            return 1;
-        return getcol(h - 1) + getcol(h - 1) + 1;
-    }
-
-    public void printTree(int[][] M, No node, int col, int row, int height) {
-        if (node == null)
-            return;
-
-        if (row < M.length && col < M[row].length) {
-            M[row][col] = (int) node.element();
-            printTree(M, node.leftChild(), col - (int) Math.pow(2, height - 2), row + 1, height - 1);
-            printTree(M, node.rightChild(), col + (int) Math.pow(2, height - 2), row + 1, height - 1);
+    private int emOrdemMatriz(Object[][] matriz, No no, int i){
+        if(no.hasLeftChild()){
+            i = emOrdemMatriz(matriz, no.leftChild(), i);
         }
+        i++;
+        matriz[profundidade(no)][i] = no.element();
+        //System.out.println(no.element() + " " + profundidade(no) + " " + i);
+        if(no.hasRightChild()){
+            i = emOrdemMatriz(matriz, no.rightChild(), i);
+        }
+
+        return i;
     }
 
     @Override
-    public void mostrar() {
-        int h = altura(root);
-        int col = getcol(h);
-        int[][] M = new int[h][col];
-        printTree(M, root, col / 2, 0, h);
-        for (int i = 0; i < h; i++) {
-            for (int j = 0; j < col; j++) {
-                if (M[i][j] == 0)
+    public void mostrar(){
+        int qtdLinhas = altura(root) + 1;
+        int qtdColunas = (int)Math.pow(2, qtdLinhas);
+        Object[][] matriz = new Object[qtdLinhas][qtdColunas];
+        this.emOrdemMatriz(matriz, root, 0);
+        for (int i = 0; i < qtdLinhas; i++) {
+            for (int j = 0; j < qtdColunas; j++) {
+                if (matriz[i][j] == null)
                     System.out.print(" ");
                 else
-                    System.out.print(M[i][j] + " ");
+                    System.out.print(matriz[i][j]);
             }
             System.out.println();
-        }
+        } 
     }
 
     @Override
