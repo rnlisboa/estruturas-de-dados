@@ -97,13 +97,8 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
         // encontrar o menor filho da subarvore à direita (sucessor)
         No sucessor = findMinRightSubtree(toRemove.rightChild());
         toRemove.setElement(sucessor.element());
-        if (sucessor.hasRightChild() && !sucessor.hasLeftChild()) {
-            toRemove.setRightChild(sucessor.rightChild());
-            return toRemoveElement;
-        }
-        No rightChildSucessor = sucessor.rightChild();
         No parentSucessor = sucessor.parent();
-        parentSucessor.setLeftChild(rightChildSucessor);
+        parentSucessor.setLeftChild(null);
         
         return toRemoveElement;
     }
