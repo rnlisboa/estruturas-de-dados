@@ -17,8 +17,8 @@ public class Teste {
         abp.incluir(13);
         abp.incluir(12);
         abp.incluir(14);
-        abp.remover(10);
-        
+        abp.remover(15);
+        System.out.println(abp.pesquisar(newRaiz, 14).element());
         abp.mostrar();
     }
 }

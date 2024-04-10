@@ -218,38 +218,39 @@ public class HeapNode {
 
     }
 
-    public int getcol(int h) {
-        if (h == 1)
-            return 1;
-        return getcol(h - 1) + getcol(h - 1) + 1;
+    public int profundidade(Node no) {
+        if (no.equals(this.root))
+            return 0;
+        return 1 + profundidade(no.parent());
     }
 
-    public void printTree(String[][] M, Node node, int col, int row, int height) {
-        if (node == null)
-            return;
-
-        if (row < M.length && col < M[row].length) {
-            M[row][col] = "(" + node.element().key() + "," + node.element().value() + ")";
-            printTree(M, node.leftChild(), col - (int) Math.pow(2, height - 2), row + 1, height - 1);
-            printTree(M, node.rightChild(), col + (int) Math.pow(2, height - 2), row + 1, height - 1);
+    private int emOrdemMatriz(Node[][] matriz, Node no, int i){
+        if(no.hasLeftChild()){
+            i = emOrdemMatriz(matriz, no.leftChild(), i);
         }
+        i++;
+        matriz[profundidade(no)][i] = no;
+        if(no.hasRightChild()){
+            i = emOrdemMatriz(matriz, no.rightChild(), i);
+        }
+
+        return i;
     }
 
-    public void mostrar() {
-        int h = (int) Math.pow(2, altura(root)) - 1;
-        int col = getcol(h);
-        String[][] M = new String[h][col];
-        printTree(M, root, col / 2, 0, h);
-        for (int i = 0; i < h; i++) {
-            System.out.println();
-            for (int j = 0; j < col; j++) {
-                if (M[i][j] == null)
-                    System.out.print(" ");
+    public void mostrar(){
+        int qtdLinhas = altura(root) + 1;
+        int qtdColunas = (int)Math.pow(2, qtdLinhas);
+        Node[][] matriz = new Node[qtdLinhas][qtdColunas];
+        this.emOrdemMatriz(matriz, root, 0);
+        for (int i = 0; i < qtdLinhas; i++) {
+            for (int j = 0; j < qtdColunas; j++) {
+                if (matriz[i][j] == null)
+                    System.out.print("    ");
                 else
-                    System.out.print(M[i][j] + "");
+                    System.out.print("(" + matriz[i][j].element().key() + ", " + matriz[i][j].element().value() + ")");
             }
             System.out.println();
-        }
+        } 
     }
 
     public boolean isInternal(Node node) {
