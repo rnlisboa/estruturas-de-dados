@@ -33,7 +33,6 @@ public class Vetor implements IVetor {
         
         int size = size();
         if(size == lista.length - 1) increaseList();
-        System.out.println(arraySize);
         for (int i = arraySize; i >= r; i--) {
             lista[i + 1] = lista[i];
         }

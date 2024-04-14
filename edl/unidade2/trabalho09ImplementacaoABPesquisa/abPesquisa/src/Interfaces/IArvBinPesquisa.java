@@ -5,8 +5,6 @@ import java.util.Iterator;
 import Node.No;
 
 public interface IArvBinPesquisa {
-
-
 	No pesquisar(No no, Object key);
 
 	No incluir(Object key);

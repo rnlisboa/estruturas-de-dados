@@ -26,6 +26,10 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
     public No incluir(Object key) {
         No novoNo = new No(key);
         No atual = getRaiz();
+        //se a arvore estiver vazia
+        if(atual == null){
+            this.setRaiz(novoNo);
+        }
         while (atual != null) {
             if (isInternal(atual)) {
                 if ((int) key < (int) atual.element()) {
@@ -34,6 +38,7 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
                     } else {
                         atual.setLeftChild(novoNo);
                         novoNo.setParent(atual);
+                        this.size++;
                         return novoNo;
                     }
                 } else if ((int) key > (int) atual.element()) {
@@ -42,6 +47,7 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
                     } else {
                         atual.setRightChild(novoNo);
                         novoNo.setParent(atual);
+                        this.size++;
                         return novoNo;
                     }
                 } else {
@@ -74,6 +80,10 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
 
         // para nó folha
         if (isExternal(toRemove)) {
+            if(toRemove.equals(this.getRaiz())) {
+                this.root = null;
+                return toRemoveElement;
+            }
             if (toRemoveParent.hasLeftChild() && toRemoveParent.leftChild().element() == key)
                 toRemoveParent.setLeftChild(null);
             else
@@ -98,7 +108,13 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
         No sucessor = findMinRightSubtree(toRemove.rightChild());
         toRemove.setElement(sucessor.element());
         No parentSucessor = sucessor.parent();
-        parentSucessor.setLeftChild(null);
+        //sucessor eh filho imediato direito
+        if(parentSucessor.rightChild().equals(sucessor)){
+            parentSucessor.setRightChild(sucessor.rightChild());
+            sucessor.rightChild().setParent(parentSucessor);
+        } else {
+            parentSucessor.setLeftChild(null);
+        }
         
         return toRemoveElement;
     }
@@ -195,7 +211,6 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
         }
         i++;
         matriz[profundidade(no)][i] = no.element();
-        //System.out.println(no.element() + " " + profundidade(no) + " " + i);
         if(no.hasRightChild()){
             i = emOrdemMatriz(matriz, no.rightChild(), i);
         }
@@ -259,7 +274,7 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
 
     @Override
     public boolean isEmpty() {
-        return this.size == 0;
+        return this.root == null;
     }
 
     public boolean isInternal(No node) {
