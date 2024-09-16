@@ -1,12 +1,9 @@
 package TabelaHash;
 
-import Comparador.Comparador;
-
 public class TabelaHash {
     private Item[] array;
     private int size;
     private int capacity;
-    private Comparador comparador;
 
     public TabelaHash() {
         this.array = new Item[13];
