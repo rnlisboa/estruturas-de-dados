@@ -1,4 +1,4 @@
-package InterfacesAVL;
+package Interfaces;
 
 public interface IEntry {
     public Object key();
