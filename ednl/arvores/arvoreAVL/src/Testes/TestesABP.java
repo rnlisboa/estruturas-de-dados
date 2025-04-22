@@ -23,7 +23,9 @@ public class TestesABP {
             // abp.incluirAVL(14);
             // abp.incluirAVL(20);
             // int[] elements = { 32, 35, 31, 33, 36, 38 };
-            int[] elements = { 1, 2, 3, 4, 5, 6 };
+            // int[] elements = { 1, 2, 3, 4, 5, 6 };
+            int[] elements = { 50, 20, 70, 10, 30, 5, 2 };
+            // int[] elements = { 6, 5, 4, 3, 2, 1 };
             // int[] elements = { 6, 8, 9 };
 
             for (int i : elements) {
@@ -32,6 +34,7 @@ public class TestesABP {
                 System.out.println("/////////////////////////////////////////////////////////////////");
             }
 
+            abp.emOrdem(abp.getRaiz());
             // System.out.println("---------------------------------------------------------------------------");
 
             // abp.rotacaoSimplesEsquerda(abp.getRaiz());

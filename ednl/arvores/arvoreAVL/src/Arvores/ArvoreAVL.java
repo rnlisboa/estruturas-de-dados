@@ -94,7 +94,25 @@ public class ArvoreAVL extends ArvBinPesquisa {
 
     public void rotacaoSimplesDireita(No current) {
         // SE O SINAL DO FILHO ESQUERDA É IGUAL AO DO NÓ DESBALANCEADO, R. SIMPLES DIR
+        this.atualizaFbDireita(current);
+        No leftChild = current.leftChild();
 
+        current.setLeftChild(leftChild.rightChild());
+        if (leftChild.hasRightChild()) {
+            leftChild.rightChild().setParent(current);
+            current.setLeftChild(leftChild.rightChild());
+        }
+
+        if (!current.equals(this.getRaiz())) {
+            current.parent().setLeftChild(leftChild);
+            leftChild.setParent(current.parent());
+        }
+        leftChild.setRightChild(current);
+        current.setParent(leftChild);
+
+        if (current.equals(this.getRaiz())) {
+            this.setRaiz(leftChild);
+        }
     }
 
     public void rotacaoDuplaDireita(No current) {
@@ -107,8 +125,9 @@ public class ArvoreAVL extends ArvBinPesquisa {
         No rightChild = current.rightChild();
         current.setRightChild(rightChild.leftChild());
 
-        if (rightChild.leftChild() != null) {
+        if (rightChild.hasLeftChild()) {
             rightChild.leftChild().setParent(current);
+            current.setRightChild(rightChild.rightChild());
         }
 
         if (!current.equals(this.getRaiz())) {
@@ -161,5 +180,13 @@ public class ArvoreAVL extends ArvBinPesquisa {
         int fb_a_novo = current.rightChild().getFb() + 1 - Math.max(fb_b_novo, 0);
         current.atualizaFb(fb_b_novo);
         current.rightChild().atualizaFb(fb_a_novo);
+    }
+
+    public void atualizaFbDireita(No current) {
+        int fb_b_novo = current.getFb() - 1 - Math.max(current.leftChild().getFb(), 0);
+        int fb_a_novo = current.leftChild().getFb() - 1 + Math.min(fb_b_novo, 0);
+
+        current.atualizaFb(fb_b_novo);
+        current.leftChild().atualizaFb(fb_a_novo);
     }
 }
