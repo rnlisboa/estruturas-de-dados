@@ -25,50 +25,38 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
     @Override
     public No incluir(Object key) {
         No novoNo = new No(key);
-        No atual = getRaiz();
-        // se a arvore estiver vazia
-        if (atual == null) {
-            this.setRaiz(novoNo);
+
+        if (this.getRaiz() == null) {
+            this.root = novoNo;
+            this.size++;
+            return novoNo;
         }
-        while (atual != null) {
-            if (isInternal(atual)) {
-                if ((int) key < (int) atual.element()) {
-                    if (atual.hasLeftChild()) {
-                        atual = atual.leftChild();
-                    } else {
-                        atual.setLeftChild(novoNo);
-                        novoNo.setParent(atual);
-                        this.size++;
-                        return novoNo;
-                    }
-                } else if ((int) key > (int) atual.element()) {
-                    if (atual.hasRightChild()) {
-                        atual = atual.rightChild();
-                    } else {
-                        atual.setRightChild(novoNo);
-                        novoNo.setParent(atual);
-                        this.size++;
-                        return novoNo;
-                    }
+
+        No current = this.getRaiz();
+
+        while (current != null) {
+            if ((int) key > (int) current.element()) {
+                if (current.hasRightChild()) {
+                    current = current.rightChild();
                 } else {
+                    current.setRightChild(novoNo);
+                    novoNo.setParent(current);
+                    this.size++;
                     return novoNo;
                 }
-            } else {
-                if ((int) key < (int) atual.element()) {
-                    atual.setLeftChild(novoNo);
-                    novoNo.setParent(atual);
+            } else if ((int) key < (int) current.element()) {
+                if (current.hasLeftChild()) {
+                    current = current.leftChild();
                     this.size++;
-                    return novoNo;
-                } else if ((int) key > (int) atual.element()) {
-                    atual.setRightChild(novoNo);
-                    novoNo.setParent(atual);
-                    this.size++;
-                    return novoNo;
                 } else {
+                    current.setLeftChild(novoNo);
+                    novoNo.setParent(current);
+                    this.size++;
                     return novoNo;
                 }
             }
         }
+
         return novoNo;
     }
 

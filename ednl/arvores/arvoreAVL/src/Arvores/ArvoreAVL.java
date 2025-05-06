@@ -5,61 +5,37 @@ import Node.No;
 public class ArvoreAVL extends ArvBinPesquisa {
 
     public No incluirAVL(Object key) {
-        No novoNo = new No(key);
-
-        if (this.getRaiz() == null) {
-            this.root = novoNo;
-            return novoNo;
-        }
-
-        No current = this.getRaiz();
-
-        while (current != null) {
-            if ((int) key > (int) current.element()) {
-                if (current.hasRightChild()) {
-                    current = current.rightChild();
-                } else {
-                    current.setRightChild(novoNo);
-                    novoNo.setParent(current);
-                    this.atualizaFb(current, -1);
-                    return novoNo;
-                }
-            } else if ((int) key < (int) current.element()) {
-                if (current.hasLeftChild()) {
-                    current = current.leftChild();
-                } else {
-                    current.setLeftChild(novoNo);
-                    novoNo.setParent(current);
-                    this.atualizaFb(current, 1);
-                    return novoNo;
-                }
-            }
-        }
-
-        return novoNo;
+        No novo = this.incluir(key);
+        this.atualizaFB(novo);
+        return novo;
     }
 
-    public void atualizaFb(No current, int somador) {
-        while (true) {
-            current.setFb(somador);
+    public void atualizaFB(No novo) {
+        int incremento = this.isRightChild(novo) ? -1 : 1;
+        No current = novo.parent();
+        boolean deveParar = false;
+
+        while(!deveParar && current != null) {        
+            current.incrementaFb(incremento);    
             if (current.getFb() < -1 || current.getFb() > 1) {
                 this.rebalanceamento(current);
             }
 
-            if (current.equals(this.getRaiz()) || current.getFb() == 0) {
-                break;
-            }
-            // Vai subir pela esquerda?! Então, atualize o sinal do somador para positivo!
-            if (current.parent().leftChild() == current) {
-                somador = 1;
-            } else {
-                // Se não, vai subir pela direita! Então, atualize o sinal do somador para
-                // negativo!
-                somador = -1;
+            if(current.equals(this.getRaiz()) || current.getFb() == 0) {
+                deveParar = true;
             }
 
+            incremento = this.isRightChild(current) ? -1 : 1;
             current = current.parent();
         }
+    }
+
+    public boolean isRightChild(No no) {
+        if(no.equals(this.getRaiz())){
+            return false;
+        }
+
+        return (int)no.parent().element() < (int)no.element();
     }
 
     public void rebalanceamento(No current) {
@@ -92,87 +68,66 @@ public class ArvoreAVL extends ArvBinPesquisa {
 
     }
 
-    public void rotacaoSimplesDireita(No current) {
-        // SE O SINAL DO FILHO ESQUERDA É IGUAL AO DO NÓ DESBALANCEADO, R. SIMPLES DIR
-        this.atualizaFbDireita(current);
-        No leftChild = current.leftChild();
+    public void rotacaoSimplesEsquerda(No current) {
+        this.atualizaFbEsquerda(current);
+        No novoPai = current.rightChild();
 
-        current.setLeftChild(leftChild.rightChild());
-        if (leftChild.hasRightChild()) {
-            leftChild.rightChild().setParent(current);
-            current.setLeftChild(leftChild.rightChild());
+        current.setRightChild(novoPai.leftChild());
+        if (novoPai.hasLeftChild()) {
+            novoPai.leftChild().setParent(current);
         }
 
         if (!current.equals(this.getRaiz())) {
-            current.parent().setLeftChild(leftChild);
-            leftChild.setParent(current.parent());
+            if(this.isRightChild(current)) {
+                current.parent().setRightChild(novoPai);
+            } else {
+                current.parent().setLeftChild(novoPai);
+            }
+            novoPai.setParent(current.parent());
         }
-        leftChild.setRightChild(current);
-        current.setParent(leftChild);
+
+        novoPai.setLeftChild(current);
+        current.setParent(novoPai);
 
         if (current.equals(this.getRaiz())) {
-            this.setRaiz(leftChild);
+            this.setRaiz(novoPai);
+        }
+    }
+
+    public void rotacaoSimplesDireita(No current) {
+        // SE O SINAL DO FILHO ESQUERDA É IGUAL AO DO NÓ DESBALANCEADO, R. SIMPLES DIR
+        this.atualizaFbDireita(current);
+        No novoPai = current.leftChild();
+
+        current.setLeftChild(novoPai.rightChild());
+        if (novoPai.hasRightChild()) {
+            novoPai.rightChild().setParent(current);
+        }
+
+        if (!current.equals(this.getRaiz())) {
+            if(this.isRightChild(current)) {
+                current.parent().setRightChild(novoPai);;
+            } else {
+                current.parent().setLeftChild(novoPai);
+            }
+            novoPai.setParent(current.parent());
+        }
+        novoPai.setRightChild(current);
+        current.setParent(novoPai);
+
+        if (current.equals(this.getRaiz())) {
+            this.setRaiz(novoPai);
         }
     }
 
     public void rotacaoDuplaDireita(No current) {
-
-    }
-
-    public void rotacaoSimplesEsquerda(No current) {
-        this.atualizaFbEsquerda(current);
-
-        No rightChild = current.rightChild();
-        current.setRightChild(rightChild.leftChild());
-
-        if (rightChild.hasLeftChild()) {
-            rightChild.leftChild().setParent(current);
-            current.setRightChild(rightChild.rightChild());
-        }
-
-        if (!current.equals(this.getRaiz())) {
-            current.parent().setRightChild(rightChild);
-            rightChild.setParent(current.parent());
-        }
-
-        rightChild.setLeftChild(current);
-        current.setParent(rightChild);
-
-        if (current.equals(this.getRaiz())) {
-            this.setRaiz(rightChild);
-        }
-
+        this.rotacaoSimplesEsquerda(current.leftChild());
+        this.rotacaoSimplesDireita(current);
     }
 
     public void rotacaoDuplaEsquerda(No current) {
-
-    }
-
-    public void atualizaFb2(No no, int v) {
-        No current = no;
-        current.setFb(v);
-
-        if (current.parent() == null) {
-            return;
-        } else if (v == -1) {
-            if (current.getFb() == 0) {
-                return;
-            }
-
-            if (current.parent().leftChild() == current)
-                v = 1;
-
-            this.atualizaFb(current.parent(), v);
-        } else if (v == 1) {
-            if (current.getFb() == 0) {
-                return;
-            }
-
-            if (current.parent().rightChild() == current)
-                v = -1;
-
-            this.atualizaFb(current.parent(), v);
-        }
+        this.rotacaoSimplesDireita(current.rightChild());
+        this.rotacaoSimplesEsquerda(current);
     }
 
     public void atualizaFbEsquerda(No current) {

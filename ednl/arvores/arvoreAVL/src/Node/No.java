@@ -55,7 +55,7 @@ public class No {
         return this.parent != null;
     }
 
-    public void setFb(int v) {
+    public void incrementaFb(int v) {
         this.fb = this.fb + v;
     }
 
