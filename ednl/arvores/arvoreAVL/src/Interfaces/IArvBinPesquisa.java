@@ -9,7 +9,7 @@ public interface IArvBinPesquisa {
 
 	No incluir(Object key);
 
-	Object remover(Object key);
+	No remover(Object key);
 
 	No getRaiz();
 

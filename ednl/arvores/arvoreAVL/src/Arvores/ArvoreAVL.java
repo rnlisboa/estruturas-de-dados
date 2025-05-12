@@ -6,14 +6,28 @@ public class ArvoreAVL extends ArvBinPesquisa {
 
     public No incluirAVL(Object key) {
         No novo = this.incluir(key);
-        this.atualizaFB(novo);
+        this.atualizaFB(novo, 1);
         return novo;
     }
 
-    public void atualizaFB(No novo) {
-        int incremento = this.isRightChild(novo) ? -1 : 1;
+    public No removerAVL(Object key) {
+        No noRemovido = this.remover(key);
+        System.out.println(noRemovido.element());
+        this.atualizaFB(noRemovido, -1);
+        return noRemovido;
+    }
+
+    public void atualizaFB(No novo, int controle) {
+        int incremento;
         No current = novo.parent();
         boolean deveParar = false;
+
+        // verificar se for remoção, inverte incremento
+        if(controle == 1) {
+            incremento = this.isRightChild(novo) ? -1 : 1; 
+        } else {
+            incremento = (int)novo.parent().element() > (int)novo.element() ? -1 : 1;
+        }
 
         while(!deveParar && current != null) {        
             current.incrementaFb(incremento);    
@@ -21,11 +35,25 @@ public class ArvoreAVL extends ArvBinPesquisa {
                 this.rebalanceamento(current);
             }
 
-            if(current.equals(this.getRaiz()) || current.getFb() == 0) {
-                deveParar = true;
+            if(current.equals(this.getRaiz())) {
+                break;
             }
 
-            incremento = this.isRightChild(current) ? -1 : 1;
+            if (controle == 1) {
+                if (current.getFb() == 0) {
+                    deveParar = true;
+                }
+            } else {
+                if (current.getFb() != 0) {
+                    deveParar = true;
+                }
+            }
+
+            if(controle == 1) {
+                incremento = this.isRightChild(current) ? -1 : 1; 
+            } else {
+                incremento = (int)current.parent().element() > (int)current.element() ? -1 : 1;
+            }
             current = current.parent();
         }
     }

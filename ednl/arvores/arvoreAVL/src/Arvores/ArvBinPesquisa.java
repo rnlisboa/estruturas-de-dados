@@ -12,14 +12,20 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
 
     @Override
     public No pesquisar(No node, Object key) {
-        if (isExternal(node))
+        
+        if(node == null) {
+            return new No("NO_SUCH_KEY");
+        }
+
+        if(node.element().equals(key)) {
             return node;
-        if ((int) key < (int) node.element()) {
-            return pesquisar(node.leftChild(), key);
-        } else if (key == node.element())
-            return node;
-        else
+        }
+
+        if ((int) key > (int) node.element()) {
             return pesquisar(node.rightChild(), key);
+        } else {
+            return pesquisar(node.leftChild(), key);
+        }
     }
 
     @Override
@@ -61,50 +67,47 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
     }
 
     @Override
-    public Object remover(Object key) {
+    public No remover(Object key) {
         No toRemove = pesquisar(getRaiz(), key);
         No toRemoveParent = toRemove.parent();
-        Object toRemoveElement = toRemove.element();
 
         // para nó folha
         if (isExternal(toRemove)) {
             if (toRemove.equals(this.getRaiz())) {
                 this.root = null;
-                return toRemoveElement;
+                return toRemove;
             }
             if (toRemoveParent.hasLeftChild() && toRemoveParent.leftChild().element() == key)
                 toRemoveParent.setLeftChild(null);
             else
                 toRemoveParent.setRightChild(null);
-            return toRemoveElement;
+            return toRemove;
         }
 
         // nó com um filho
-        if (toRemove.hasRightChild()) {
-            if (isExternal(toRemove.rightChild())) {
-                toRemove.setElement(toRemove.rightChild().element());
-                toRemove.setRightChild(null);
-                return toRemoveElement;
+        if(toRemove.leftChild() == null || toRemove.rightChild() == null) {
+            if (toRemove.hasRightChild()) {
+                if (isExternal(toRemove.rightChild())) {
+                    toRemove.setElement(toRemove.rightChild().element());
+                    toRemove.setRightChild(null);
+                    return toRemove;
+                }
+            } else {
+                toRemove.setElement(toRemove.leftChild().element());
+                toRemove.setLeftChild(toRemove.leftChild().leftChild());
+                return toRemove;
             }
-        } else {
-            toRemove.setElement(toRemove.leftChild().element());
-            toRemove.setLeftChild(toRemove.leftChild().leftChild());
-            return toRemoveElement;
         }
 
-        // encontrar o menor filho da subarvore à direita (sucessor)
         No sucessor = findMinRightSubtree(toRemove.rightChild());
-        toRemove.setElement(sucessor.element());
-        No parentSucessor = sucessor.parent();
-        // sucessor eh filho imediato direito
-        if (parentSucessor.rightChild().equals(sucessor)) {
-            parentSucessor.setRightChild(sucessor.rightChild());
-            sucessor.rightChild().setParent(parentSucessor);
-        } else {
-            parentSucessor.setLeftChild(null);
-        }
 
-        return toRemoveElement;
+        toRemove.setElement(sucessor.element());
+        if(sucessor.parent().element() != toRemove.element()) {
+            sucessor.parent().setLeftChild(null);
+        } else {
+            sucessor.parent().setRightChild(null);
+        }
+        return sucessor;
     }
 
     private No findMinRightSubtree(No node) {
@@ -269,17 +272,11 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
     }
 
     public boolean isInternal(No node) {
-        boolean hasLeftChild = node.hasLeftChild();
-        boolean hasRightChild = node.hasRightChild();
-        boolean isInternal = hasLeftChild || hasRightChild;
-        return isInternal;
+        return node.leftChild() != null || node.rightChild() != null;
     }
 
     public boolean isExternal(No node) {
-        boolean hasLeftChild = node.hasLeftChild();
-        boolean hasRightChild = node.hasRightChild();
-        boolean isInternal = !hasLeftChild && !hasRightChild;
-        return isInternal;
+        return !this.isInternal(node);
     }
 
 }
