@@ -229,6 +229,25 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
         }
     }
 
+    public void mostrarRN() {
+        if (this.getRaiz() == null)
+            return;
+
+        int qtdLinhas = altura(root) + 1;
+        int qtdColunas = (int) Math.pow(2, qtdLinhas);
+        No[][] matriz = new No[qtdLinhas][qtdColunas];
+        this.emOrdemMatriz(matriz, root, 0);
+        for (int i = 0; i < qtdLinhas; i++) {
+            for (int j = 0; j < qtdColunas; j++) {
+                if (matriz[i][j] == null)
+                    System.out.print("         ");
+                else
+                    System.out.print(matriz[i][j].element() + "[" + matriz[i][j].getCor() + "]");
+            }
+            System.out.println();
+        }
+    }
+
     @Override
     public Iterator<No> Nos() {
         ArrayList<No> arrayNode = new ArrayList<No>();

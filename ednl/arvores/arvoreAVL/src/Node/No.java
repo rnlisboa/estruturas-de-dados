@@ -1,11 +1,14 @@
 package Node;
 
+import Cores.Cores;
+
 public class No {
     private No parent;
     private No leftChild;
     private No rightChild;
     private Object element;
     private int fb = 0;
+    private String cor;
 
     public No(Object element) {
         this.element = element;
@@ -65,5 +68,13 @@ public class No {
 
     public int getFb() {
         return fb;
+    }
+
+    public String getCor() {
+        return this.cor;
+    }
+
+    public void setCor(String cor){
+        this.cor = cor;
     }
 }

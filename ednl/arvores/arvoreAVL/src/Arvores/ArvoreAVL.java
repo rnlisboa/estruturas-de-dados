@@ -33,6 +33,7 @@ public class ArvoreAVL extends ArvBinPesquisa {
             current.incrementaFb(incremento);    
             if (current.getFb() < -1 || current.getFb() > 1) {
                 this.rebalanceamento(current);
+                if (controle == -1) current = current.parent();
             }
 
             if(current.equals(this.getRaiz())) {
