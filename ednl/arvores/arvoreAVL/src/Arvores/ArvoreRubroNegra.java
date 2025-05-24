@@ -7,8 +7,6 @@ public class ArvoreRubroNegra extends ArvBinPesquisa {
     public No insert(Object key) {
         No v = this.incluir(key);
         this.colorir(v);
-        this.mostrarRN();
-        System.out.println("--------------------");
         return v;
     }
 
@@ -27,15 +25,31 @@ public class ArvoreRubroNegra extends ArvBinPesquisa {
             return;
         }
         
-        // caso 2
-        this.insercaoCasoDois(v);
+
+        No t = w.parent(); // avô do novo nó
+        No u = new No(null);
+        u.setCor(Cores.NEGRO);
+        if(t.hasRightChild()){
+            u = t.rightChild().equals(w) ? t.leftChild() : t.rightChild(); // tio do novo nó
+        }
+        
+        if (u == null) {
+            u = new No(null);
+            u.setCor(Cores.NEGRO);
+        }
+        // caso 2 
+        if (w.getCor().equals(Cores.RUBRO) && u.getCor().equals(Cores.RUBRO) && t.getCor().equals(Cores.NEGRO)) {
+            this.insercaoCasoDois(v, w, u, t);
+        }
 
         // caso 3
-        this.insercaoCasoTres(v);
+        if (w.getCor().equals(Cores.RUBRO) && u.getCor().equals(Cores.NEGRO)) {
+            this.insercaoCasoTres(v, w, u, t);
+        }
     }
 
 
-    private void insercaoCasoDois(No v) {
+    private void insercaoCasoDois(No v, No w, No u, No t) {
         if (v.equals(this.getRaiz())) {
             if (v.getCor().equals(Cores.RUBRO)) {
                 v.setCor(Cores.NEGRO);
@@ -44,75 +58,105 @@ public class ArvoreRubroNegra extends ArvBinPesquisa {
 
             return;
         }
-
-        No w = v.parent(); // pai do novo nó
-
-
-        No t = w.parent(); // avô do novo nó
-
-        No u = t.rightChild().equals(w) ? t.leftChild() : t.rightChild(); // tio do novo nó
         
-        if (u.getCor().equals(Cores.RUBRO)) {
+        if(!t.equals(this.getRaiz())) {
             t.setCor(Cores.RUBRO);
-            u.setCor(Cores.NEGRO);
-            w.setCor(Cores.NEGRO);
         }
-
-        if (t.getCor().equals(Cores.RUBRO)) {
+        
+        u.setCor(Cores.NEGRO);
+        w.setCor(Cores.NEGRO);
+        if (t.parent() != null && t.parent().getCor().equals(Cores.RUBRO)) {
             v = t;
-            insercaoCasoDois(v);
+       
+            this.colorir(v);
         }
     }
 
 
-    private void insercaoCasoTres(No v) {
-        No w = v.parent(); // pai do novo nó
-        No t = w.parent(); // avô do novo nó
-        No u = t.rightChild().equals(w) ? t.leftChild() : t.rightChild(); // tio do nó
-        
-        if(w.getCor().equals(Cores.RUBRO) && u.getCor().equals(Cores.NEGRO)) {
-
-            // caso 3a)
+    private void insercaoCasoTres(No v, No w, No u, No t) {    
+        // caso 3a)
+        if (w.hasLeftChild() && t.hasLeftChild()) {
             if(w.leftChild().equals(v) && t.leftChild().equals(w)) {
-                this.rotacaoEsquerdaSimples(w);
-            }
-            
-            // caso 3b)
-            if(w.rightChild().equals(v) && t.rightChild().equals(w)) {
                 this.rotacaoDireitaSimples(w);
             }
-
-            // caso 3c)
+        }
+        
+        
+        // caso 3b)
+        if (w.hasRightChild() && t.hasRightChild()) {
+            if(w.rightChild().equals(v) && t.rightChild().equals(w)) {
+                this.rotacaoEsquerdaSimples(w);
+            }
+        }
+        
+            
+        // caso 3c)
+        if (w.hasLeftChild() && t.hasRightChild()) {
             if(w.leftChild().equals(v) && t.rightChild().equals(w)) {
                 this.rotacaoEsquerdaDupla(w);
             }
-
-            // caso 3d)
+        }
+        
+                
+        // caso 3d)
+        if (w.hasRightChild() && t.hasLeftChild()) {
             if(w.rightChild().equals(v) && t.leftChild().equals(w)) {
                 this.rotacaoDireitaDupla(w);
             }
         }
+        
     }
 
 
     private void rotacaoDireitaSimples (No w) {
         No t = w.parent();
-        w.setCor(Cores.NEGRO);
+        // Atualiza o filho esquerdo de t para ser o filho direito de w
+    t.setLeftChild(w.rightChild());
+    if (w.hasRightChild()) {
+        w.rightChild().setParent(t);
+    }
+
+    // Atualiza o pai de w para ser o pai de t
+    w.setParent(t.parent());
+    if (t.parent() == null) {
+        // t era a raiz
+        this.setRaiz(w);
+    } else if (t.parent().leftChild() == t) {
+        t.parent().setLeftChild(w);
+    } else {
+        t.parent().setRightChild(w);
+    }
 
         w.setRightChild(t);
-        w.setParent(t.parent());
         t.setParent(w);
+
         t.setCor(Cores.RUBRO);
+        w.setCor(Cores.NEGRO);
     }
 
     private void rotacaoEsquerdaSimples (No w) {
         No t = w.parent();
-        w.setCor(Cores.NEGRO);
-        
-        w.setLeftChild(t);
-        w.setParent(t.parent());
+        if (t.equals(this.getRaiz())) {
+            this.setRaiz(w);
+        } else {
+            w.setParent(t.parent());
+            if (t.parent().leftChild().equals(t)) {
+                t.parent().setLeftChild(w);
+            } else {
+                t.parent().setRightChild(w);
+            }
+        }
+
+        t.setRightChild(w.leftChild());
+        if (w.hasLeftChild()) {
+            w.leftChild().setParent(t);
+        }
         t.setParent(w);
         t.setCor(Cores.RUBRO);
+        w.setLeftChild(t);
+
+        w.setCor(Cores.NEGRO);
+        
     }
 
     private void rotacaoDireitaDupla (No w) {

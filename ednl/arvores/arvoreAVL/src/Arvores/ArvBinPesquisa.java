@@ -40,7 +40,7 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
 
         No current = this.getRaiz();
 
-        while (current != null) {
+        while (current.element() != null) {
             if ((int) key > (int) current.element()) {
                 if (current.hasRightChild()) {
                     current = current.rightChild();
@@ -230,6 +230,10 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
     }
 
     public void mostrarRN() {
+        final String RESET = "\u001B[0m";
+        final String VERMELHO = "\u001B[31m";
+
+
         if (this.getRaiz() == null)
             return;
 
@@ -239,11 +243,18 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
         this.emOrdemMatriz(matriz, root, 0);
         for (int i = 0; i < qtdLinhas; i++) {
             for (int j = 0; j < qtdColunas; j++) {
-                if (matriz[i][j] == null)
-                    System.out.print("         ");
-                else
-                    System.out.print(matriz[i][j].element() + "[" + matriz[i][j].getCor() + "]");
+                if (matriz[i][j] == null) {
+                System.out.print("         ");
+            } else {
+                String cor = matriz[i][j].getCor();
+                String texto = matriz[i][j].element() + "[" + cor + "]";
+                if ("RUBRO".equals(cor)) {
+                    System.out.print(VERMELHO + texto + RESET);
+                } else {
+                    System.out.print(texto);
+                }
             }
+        }
             System.out.println();
         }
     }
