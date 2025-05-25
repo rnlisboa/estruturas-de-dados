@@ -110,6 +110,24 @@ public class ArvBinPesquisa implements IArvBinPesquisa {
         return sucessor;
     }
 
+    public No getSucessor(No no) {
+        if(isExternal(no)) {
+            return null;
+        } else if(no.leftChild() == null || no.rightChild() == null) {
+            if(no.hasRightChild()) {
+                return no.rightChild();
+            } 
+            
+            if(no.hasLeftChild()){
+                return no.leftChild();
+            }
+        } else {
+            return this.findMinRightSubtree(no);
+        }
+
+        return null;
+    }
+
     private No findMinRightSubtree(No node) {
         // se o filho esquerda for null, então node já é o menor filho da subarvore
         // direita
